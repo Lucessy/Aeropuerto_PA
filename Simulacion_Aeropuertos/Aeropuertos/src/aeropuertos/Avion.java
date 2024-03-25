@@ -29,15 +29,6 @@ public class Avion extends Thread{
         letra2 = (char)('A'+num2);
         
         stringNumId = String.format("%04d", num+1);
-        /*if (numId<10){
-            stringNumId = "000"+numId;
-        }else if (numId<100){
-            stringNumId = "00"+numId;
-        }else if (numId<1000){
-            stringNumId = "0"+numId;
-        }else{
-            stringNumId = ""+numId;
-        }*/
         id = ""+letra1+letra2+"-"+stringNumId;
         System.out.print(id+"\n");
         return id;

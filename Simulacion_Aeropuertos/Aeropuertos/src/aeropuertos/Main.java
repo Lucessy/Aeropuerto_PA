@@ -4,6 +4,7 @@
  */
 package aeropuertos;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  *
@@ -18,6 +19,7 @@ public class Main {
         GeneradorHilo hiloAviones = new GeneradorHilo(true);
         GeneradorHilo hiloAutobuses = new GeneradorHilo(false);
         Random random = new Random();
+        AtomicInteger capacidadAeropuerto = new AtomicInteger(0);
         
         hiloAviones.start();
         hiloAutobuses.start();
