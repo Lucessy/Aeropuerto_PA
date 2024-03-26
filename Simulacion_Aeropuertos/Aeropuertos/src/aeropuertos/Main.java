@@ -16,25 +16,15 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        GeneradorHilo hiloAviones = new GeneradorHilo(true);
-        GeneradorHilo hiloAutobuses = new GeneradorHilo(false);
+        Aeropuerto madrid = new Aeropuerto();
+        Aeropuerto barcelona = new Aeropuerto();
+        HiloAux hiloAviones = new HiloAux(true,madrid, barcelona);
+        HiloAux hiloAutobuses = new HiloAux(false,madrid,barcelona);
         Random random = new Random();
         AtomicInteger capacidadAeropuerto = new AtomicInteger(0);
         
         hiloAviones.start();
         hiloAutobuses.start();
-        /*int miliseg;
         
-        //Hilo que 
-        do{
-            hilo.start();
-            miliseg = 1000+random.nextInt(2000);
-            try{
-                Thread.sleep(miliseg);
-            }catch (InterruptedException e){
-                System.err.println("El sleep fue interrumpido");
-            }
-            hilo.interrupt();
-        }while(hilo.isAlive());*/
     }
 }

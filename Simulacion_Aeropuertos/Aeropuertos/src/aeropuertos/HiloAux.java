@@ -9,11 +9,11 @@ import java.util.Random;
  *
  * @author sandr
  */
-public class GeneradorHilo extends Thread {
+public class HiloAux extends Thread {
     private boolean esAvion;
     Random random = new Random();
     
-    public GeneradorHilo(boolean avion){
+    public HiloAux(boolean avion){
         this.esAvion = avion;
     }
     @Override
