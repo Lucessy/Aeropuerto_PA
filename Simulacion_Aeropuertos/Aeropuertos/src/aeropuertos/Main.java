@@ -25,6 +25,10 @@ public class Main {
         
         hiloAviones.start();
         hiloAutobuses.start();
+        System.out.print("aviones madrid"+ madrid.getAviones().toString());
+        System.out.print("aviones barcelona"+ barcelona.getAviones().toString());
+        System.out.print("Buses madrid"+madrid.getBuses().toString());
+        System.out.print("Buses barcelona"+barcelona.getBuses().toString());
         
     }
 }

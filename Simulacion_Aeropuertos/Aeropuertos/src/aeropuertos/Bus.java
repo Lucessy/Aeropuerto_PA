@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Bus extends Thread{
     private int capacidad;
-    private String id, stringNumId;
+    private String id;
     private Random random = new Random();
     private AtomicInteger capacidadAeropuerto;
     
@@ -22,22 +22,27 @@ public class Bus extends Thread{
             conducir();
             llegadaAeropuerto(this.capacidad);
             vueltaAeropuerto();
+            conducir();
+            this.capacidad = 0;        //Se vuelve a poner la capacidad a 0 del bus para simular que se han bajado todos los pasajeros
         }
     }
     
     //Constructor
-    public Bus(int id){
+    public Bus(String id){
         this.capacidad=0;
-        this.id = generarId(id);
+        this.id = id;
     }
     
     //Gnerar el id del bus con formato B-XXXX 
-    public String generarId(int num){
+    /*public String generarId(int num){
         stringNumId = String.format("%04d", num+1);
         id = "B-"+stringNumId;
         System.out.print(id+"\n");
+        if (num%2==0){
+            
+        }
         return id;
-    }
+    }*/ //He pasado este método a la clase HiloAux para poder almacenar los buses en los aeropuertos (borrar)
     
     //Recoger de 0-50 pasajeros durante 2-5 segundos
     public void llegadaCiudad(){
@@ -65,7 +70,6 @@ public class Bus extends Thread{
         for(int i=0;i<pasajeros;i++){
             capacidadAeropuerto.incrementAndGet();
         }
-        //Falta que se suban los pasajeros al autobus
     }
     
    //Se esperan de 2-5 segundos y se cogen los pasajeros que se piden o los que haya disponibles si son menos.

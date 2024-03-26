@@ -11,10 +11,17 @@ import java.util.Random;
  */
 public class HiloAux extends Thread {
     private boolean esAvion;
+    private Aeropuerto madrid;
+    private Aeropuerto barcelona;
+    private String stringNumId, id;
+    private int num1,num2;
+    private char letra1,letra2;
     Random random = new Random();
     
-    public HiloAux(boolean avion){
+    public HiloAux(boolean avion, Aeropuerto madrid, Aeropuerto barcelona){
         this.esAvion = avion;
+        this.madrid = madrid;
+        this.barcelona = barcelona;
     }
     @Override
     public void run(){
@@ -29,7 +36,19 @@ public class HiloAux extends Thread {
     public void generarAviones(){
         int milisegAvion = 1000+random.nextInt(2000);
         for (int i=0;i<8000;i++){
-            Avion avion = new Avion(i);
+            num1 = random.nextInt(26);
+            num2 = random.nextInt(26);
+            letra1 = (char)('A'+num1);
+            letra2 = (char)('A'+num2);
+
+            stringNumId = String.format("%04d", i+1);
+            id = ""+letra1+letra2+"-"+stringNumId;
+            if((i+1)%2==0){             //Añade en el array de aviones de la clase aeropuerto los id que son pares en la instancia de madrid y los que son 
+                madrid.añadirAvion(stringNumId);   //impares en la instancia de barcelona
+            }else{
+                barcelona.añadirAvion(stringNumId);
+            }
+            Avion avion = new Avion(id);
             avion.start();
             try {
             Thread.sleep(milisegAvion);
@@ -43,7 +62,14 @@ public class HiloAux extends Thread {
     public void generarBuses(){
         int milisegBus = 500+random.nextInt(500);
         for (int i=0; i<4000;i++){
-            Bus bus = new Bus(i);
+            stringNumId = String.format("%04d", i+1);   //Añade 0's si es necesario para el formato XXXX
+            id = "B-"+stringNumId;
+            if((i+1)%2==0){             //Añade en el array de buses de la clase aeropuerto los id que son pares en la instancia de madrid y los que son 
+                madrid.añadirBus(stringNumId);   //impares en la instancia de barcelona
+            }else{
+                barcelona.añadirBus(stringNumId);
+            }
+            Bus bus = new Bus(id);
             bus.start();
             try {
                 Thread.sleep(milisegBus);
