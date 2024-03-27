@@ -5,6 +5,8 @@
 package aeropuertos;
 
 import java.util.ArrayList;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  *
@@ -13,13 +15,27 @@ import java.util.ArrayList;
 public class Aeropuerto {
     private ArrayList<String> aviones = new ArrayList<>();
     private ArrayList<String> buses = new ArrayList<>();
+    private Lock cerrojo = new ReentrantLock();
     
     
     public void añadirBus(String id){
-        buses.add(id);
+        cerrojo.lock();
+        try{
+            buses.add(id);
+            System.out.print("BUSES"+buses.toString()+"\n");
+        }finally{
+            cerrojo.unlock();
+        }
+        
     }
     public void añadirAvion(String id){
-        aviones.add(id);
+        cerrojo.lock();
+        try{
+            aviones.add(id);
+            System.out.print("AVIONES"+aviones.toString()+"\n");
+        }finally{
+            cerrojo.unlock();
+        }
     }
 
     public ArrayList<String> getAviones() {
@@ -28,6 +44,11 @@ public class Aeropuerto {
 
     public ArrayList<String> getBuses() {
         return buses;
+    }
+
+    @Override
+    public String toString() {
+        return "Aeropuerto{" + "aviones=" + aviones + ", buses=" + buses + '}';
     }
     
     

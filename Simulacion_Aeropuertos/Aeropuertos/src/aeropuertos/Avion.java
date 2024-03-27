@@ -4,6 +4,7 @@
  */
 package aeropuertos;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  *
@@ -12,15 +13,17 @@ import java.util.Random;
 public class Avion extends Thread{
     private int capacidad;
     private String id;
+    private AtomicInteger capacidadAeropuerto;
     private Random random = new Random();
     private int num1, num2;
     private char letra1, letra2;
     private String stringNumId;
 
     //Constructor
-    public Avion(String id){
+    public Avion(String id, AtomicInteger capacidadAeropuerto){
         this.capacidad=0;
         this.id=id;
+        this.capacidadAeropuerto = capacidadAeropuerto;
     }
     
     /*public void run(){

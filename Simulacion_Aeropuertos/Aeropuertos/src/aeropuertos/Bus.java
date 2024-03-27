@@ -28,9 +28,10 @@ public class Bus extends Thread{
     }
     
     //Constructor
-    public Bus(String id){
+    public Bus(String id, AtomicInteger capacidadAeropuerto){
         this.capacidad=0;
         this.id = id;
+        this.capacidadAeropuerto = capacidadAeropuerto;
     }
     
     //Gnerar el id del bus con formato B-XXXX 

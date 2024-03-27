@@ -4,6 +4,7 @@
  */
 package aeropuertos;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  *
@@ -11,6 +12,7 @@ import java.util.Random;
  */
 public class HiloAux extends Thread {
     private boolean esAvion;
+    private AtomicInteger capacidadAeropuerto;
     private Aeropuerto madrid;
     private Aeropuerto barcelona;
     private String stringNumId, id;
@@ -18,10 +20,11 @@ public class HiloAux extends Thread {
     private char letra1,letra2;
     Random random = new Random();
     
-    public HiloAux(boolean avion, Aeropuerto madrid, Aeropuerto barcelona){
+    public HiloAux(boolean avion, Aeropuerto madrid, Aeropuerto barcelona, AtomicInteger capacidadAeropuerto){
         this.esAvion = avion;
         this.madrid = madrid;
         this.barcelona = barcelona;
+        this.capacidadAeropuerto = capacidadAeropuerto;
     }
     @Override
     public void run(){
@@ -48,7 +51,7 @@ public class HiloAux extends Thread {
             }else{
                 barcelona.añadirAvion(stringNumId);
             }
-            Avion avion = new Avion(id);
+            Avion avion = new Avion(id, capacidadAeropuerto);
             avion.start();
             try {
             Thread.sleep(milisegAvion);
@@ -69,7 +72,7 @@ public class HiloAux extends Thread {
             }else{
                 barcelona.añadirBus(stringNumId);
             }
-            Bus bus = new Bus(id);
+            Bus bus = new Bus(id, capacidadAeropuerto);
             bus.start();
             try {
                 Thread.sleep(milisegBus);
