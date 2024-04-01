@@ -4,7 +4,6 @@
  */
 package aeropuertos;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  *
@@ -16,11 +15,12 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        AtomicInteger capacidadAeropuerto = new AtomicInteger(0);
-        Aeropuerto madrid = new Aeropuerto();
-        Aeropuerto barcelona = new Aeropuerto();
-        HiloAux hiloAviones = new HiloAux(true,madrid, barcelona, capacidadAeropuerto);
-        HiloAux hiloAutobuses = new HiloAux(false,madrid,barcelona, capacidadAeropuerto);
+        
+        Aeropuerto madrid = new Aeropuerto("Madrid",0);
+        Aeropuerto barcelona = new Aeropuerto("Barcelona",0);
+        
+        HiloAux hiloAviones = new HiloAux(true,madrid, barcelona);
+        HiloAux hiloAutobuses = new HiloAux(false,madrid,barcelona);
         Random random = new Random();
         
         

@@ -14,12 +14,13 @@ public class Avion extends Thread{
     private int capacidad;
     private String id;
     private AtomicInteger capacidadAeropuerto;
+    private Aeropuerto aeropuerto;
 
     //Constructor
-    public Avion(String id, AtomicInteger capacidadAeropuerto){
+    public Avion(String id, Aeropuerto aeropuerto){
         this.capacidad=0;
         this.id=id;
-        this.capacidadAeropuerto = capacidadAeropuerto;
+        this.aeropuerto = aeropuerto;
     }
     
     /*public void run(){

@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class HiloAux extends Thread {
     private boolean esAvion;
-    private AtomicInteger capacidadAeropuerto;
+    //private AtomicInteger capacidadAeropuerto;
     private Aeropuerto madrid;
     private Aeropuerto barcelona;
     private String stringNumId, id;
@@ -20,11 +20,11 @@ public class HiloAux extends Thread {
     private char letra1,letra2;
     Random random = new Random();
     
-    public HiloAux(boolean avion, Aeropuerto madrid, Aeropuerto barcelona, AtomicInteger capacidadAeropuerto){
+    public HiloAux(boolean avion, Aeropuerto madrid, Aeropuerto barcelona){
         this.esAvion = avion;
         this.madrid = madrid;
         this.barcelona = barcelona;
-        this.capacidadAeropuerto = capacidadAeropuerto;
+        //this.capacidadAeropuerto = capacidadAeropuerto;
     }
     @Override
     public void run(){
@@ -48,11 +48,13 @@ public class HiloAux extends Thread {
             id = ""+letra1+letra2+"-"+stringNumId;
             if((i+1)%2==0){             //Añade en el array de aviones de la clase aeropuerto los id que son pares en la instancia de madrid y los que son 
                 madrid.añadirAvion(stringNumId);   //impares en la instancia de barcelona
+                Avion avion = new Avion(id, madrid);
+                avion.start();
             }else{
                 barcelona.añadirAvion(stringNumId);
+                Avion avion = new Avion(id, barcelona);
+                avion.start();
             }
-            Avion avion = new Avion(id, capacidadAeropuerto);
-            avion.start();
             try {
             Thread.sleep(milisegAvion);
             } catch (InterruptedException e) {
@@ -69,11 +71,13 @@ public class HiloAux extends Thread {
             id = "B-"+stringNumId;
             if((i+1)%2==0){             //Añade en el array de buses de la clase aeropuerto los id que son pares en la instancia de madrid y los que son 
                 madrid.añadirBus(stringNumId);   //impares en la instancia de barcelona
+                Bus bus = new Bus(id, madrid.getPasajerosAeropuerto());
+                bus.start();
             }else{
                 barcelona.añadirBus(stringNumId);
-            }
-            Bus bus = new Bus(id, capacidadAeropuerto);
-            bus.start();
+                Bus bus = new Bus(id, barcelona.getPasajerosAeropuerto());
+                bus.start();
+            }            
             try {
                 Thread.sleep(milisegBus);
             } catch (InterruptedException e) {

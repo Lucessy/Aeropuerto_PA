@@ -6,6 +6,7 @@ package aeropuertos;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  *
@@ -14,7 +15,13 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class Aeropuerto {
     private BlockingQueue aviones = new LinkedBlockingQueue();
     private BlockingQueue buses = new LinkedBlockingQueue();
-    
+    private AtomicInteger pasajerosAeropuerto = new AtomicInteger(0);
+    private String nombre;
+
+    public Aeropuerto(String nombre, int pasajeros) {
+        this.nombre = nombre;
+        this.pasajerosAeropuerto = new AtomicInteger(pasajeros);
+    }
     
     public void añadirBus(String id){
         try{
@@ -42,6 +49,22 @@ public class Aeropuerto {
         return buses;
     }
 
+    public int getCapacidadAeropuerto() {
+        return pasajerosAeropuerto.get();
+    }
+
+    public int addCapacidadAeropuerto(int num) {
+        return pasajerosAeropuerto.addAndGet(num);
+    }
+    
+    public int restCapacidadAeropuerto(int num) {
+        return pasajerosAeropuerto.addAndGet(-(num));
+    }
+
+    public AtomicInteger getPasajerosAeropuerto() {
+        return pasajerosAeropuerto;
+    }
+    
     @Override
     public String toString() {
         return "Aeropuerto{" + "aviones=" + aviones + ", buses=" + buses + '}';

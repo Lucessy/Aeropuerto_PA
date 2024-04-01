@@ -14,7 +14,14 @@ public class Bus extends Thread{
     private int capacidad;
     private String id;
     private Random random = new Random();
-    private AtomicInteger capacidadAeropuerto;
+    private AtomicInteger pasajerosAeropuerto;
+    
+    //Constructor
+    public Bus(String id, AtomicInteger pasajerosAeropuerto){
+        this.capacidad=0;
+        this.id = id;
+        this.pasajerosAeropuerto = pasajerosAeropuerto;
+    }
     
     public void run(){
         while(true){
@@ -27,16 +34,9 @@ public class Bus extends Thread{
         }
     }
     
-    //Constructor
-    public Bus(String id, AtomicInteger capacidadAeropuerto){
-        this.capacidad=0;
-        this.id = id;
-        this.capacidadAeropuerto = capacidadAeropuerto;
-    }
-    
     //Recoger de 0-50 pasajeros durante 2-5 segundos
     public void llegadaCiudad(){
-        int miliseg = 2000+random.nextInt(3000);
+        int miliseg = 2000+random.nextInt(3000); 
         this.capacidad = random.nextInt(50);
         try{
             Thread.sleep(miliseg);
@@ -58,7 +58,7 @@ public class Bus extends Thread{
     //Aumento de la variable atómica del aeropuerto con los pasajeros que llegan
     public void llegadaAeropuerto(int pasajeros){
         for(int i=0;i<pasajeros;i++){
-            capacidadAeropuerto.incrementAndGet();
+            pasajerosAeropuerto.incrementAndGet();
         }
     }
     
@@ -71,14 +71,14 @@ public class Bus extends Thread{
         }catch (InterruptedException e) {
             System.err.println("El sleep fue interrumpido");
         }
-        if (capacidadAeropuerto.get() == 0){                
+        if (pasajerosAeropuerto.get() == 0){                
             this.capacidad = 0;                             //No se sube ningún pasajero, porque no hay en el aeropuerto
-        }else if (capacidadAeropuerto.get()<=pasajeros){    
-            this.capacidad=capacidadAeropuerto.get();       //Se suben todos los disponibles, que son menos de los que se piden
-            capacidadAeropuerto.set(0);              
+        }else if (pasajerosAeropuerto.get()<=pasajeros){    
+            this.capacidad=pasajerosAeropuerto.get();       //Se suben todos los disponibles, que son menos de los que se piden
+            pasajerosAeropuerto.set(0);              
         }else{
             this.capacidad=pasajeros;                       //Coge los pasajeros que se han idicado
-            capacidadAeropuerto.set(capacidadAeropuerto.get()-pasajeros);
+            pasajerosAeropuerto.set(pasajerosAeropuerto.get()-pasajeros);
         }
     }
 }
