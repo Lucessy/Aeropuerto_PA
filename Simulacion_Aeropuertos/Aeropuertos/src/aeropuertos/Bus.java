@@ -34,17 +34,6 @@ public class Bus extends Thread{
         this.capacidadAeropuerto = capacidadAeropuerto;
     }
     
-    //Gnerar el id del bus con formato B-XXXX 
-    /*public String generarId(int num){
-        stringNumId = String.format("%04d", num+1);
-        id = "B-"+stringNumId;
-        System.out.print(id+"\n");
-        if (num%2==0){
-            
-        }
-        return id;
-    }*/ //He pasado este método a la clase HiloAux para poder almacenar los buses en los aeropuertos (borrar)
-    
     //Recoger de 0-50 pasajeros durante 2-5 segundos
     public void llegadaCiudad(){
         int miliseg = 2000+random.nextInt(3000);

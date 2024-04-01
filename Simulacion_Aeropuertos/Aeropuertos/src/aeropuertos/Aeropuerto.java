@@ -4,45 +4,41 @@
  */
 package aeropuertos;
 
-import java.util.ArrayList;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  *
  * @author sandr
  */
 public class Aeropuerto {
-    private ArrayList<String> aviones = new ArrayList<>();
-    private ArrayList<String> buses = new ArrayList<>();
-    private Lock cerrojo = new ReentrantLock();
+    private BlockingQueue aviones = new LinkedBlockingQueue();
+    private BlockingQueue buses = new LinkedBlockingQueue();
     
     
     public void añadirBus(String id){
-        cerrojo.lock();
         try{
-            buses.add(id);
+            buses.put(id);
             System.out.print("BUSES"+buses.toString()+"\n");
-        }finally{
-            cerrojo.unlock();
+        } catch (InterruptedException ex) {
+            System.out.print("Error en la inserción del bus");
         }
         
     }
     public void añadirAvion(String id){
-        cerrojo.lock();
         try{
-            aviones.add(id);
+            aviones.put(id);
             System.out.print("AVIONES"+aviones.toString()+"\n");
-        }finally{
-            cerrojo.unlock();
+        } catch (InterruptedException ex) {
+            System.out.print("Error en la inserción del avión");
         }
     }
 
-    public ArrayList<String> getAviones() {
+    public BlockingQueue getAviones() {
         return aviones;
     }
 
-    public ArrayList<String> getBuses() {
+    public BlockingQueue getBuses() {
         return buses;
     }
 
