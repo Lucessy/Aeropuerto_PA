@@ -13,31 +13,39 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author sandr
  */
 public class Aeropuerto {
+
     private BlockingQueue aviones = new LinkedBlockingQueue();
     private BlockingQueue buses = new LinkedBlockingQueue();
-    private AtomicInteger pasajerosAeropuerto = new AtomicInteger(0);
+    private AtomicInteger pasajerosAeropuerto;
     private String nombre;
 
-    public Aeropuerto(String nombre, int pasajeros) {
+    // Constructor
+    public Aeropuerto(String nombre) {
         this.nombre = nombre;
-        this.pasajerosAeropuerto = new AtomicInteger(pasajeros);
+        this.pasajerosAeropuerto = new AtomicInteger(0);
     }
-    
-    public void añadirBus(String id){
-        try{
-            buses.put(id);
-            System.out.print("BUSES"+buses.toString()+"\n");
+
+    // Métodos
+    public void añadirBus(Bus bus) { //Pasar objeto Bus
+        try {
+            buses.put(bus);
+
+            System.out.println("Bus " + bus.getIdBus() + " es creado.");
+
         } catch (InterruptedException ex) {
-            System.out.print("Error en la inserción del bus");
+            System.out.println("Error en la inserción del bus");
         }
-        
+
     }
-    public void añadirAvion(String id){
-        try{
-            aviones.put(id);
-            System.out.print("AVIONES"+aviones.toString()+"\n");
+
+    public void añadirAvion(Avion avion) { //Pasar objeto Avion
+        try {
+            aviones.put(avion);
+
+            System.out.println("Avion " + avion.getIdAvion() + " es creado.");
+
         } catch (InterruptedException ex) {
-            System.out.print("Error en la inserción del avión");
+            System.out.println("Error en la inserción del avión");
         }
     }
 
@@ -49,26 +57,8 @@ public class Aeropuerto {
         return buses;
     }
 
-    public int getCapacidadAeropuerto() {
-        return pasajerosAeropuerto.get();
-    }
-
-    public int addCapacidadAeropuerto(int num) {
-        return pasajerosAeropuerto.addAndGet(num);
-    }
-    
-    public int restCapacidadAeropuerto(int num) {
-        return pasajerosAeropuerto.addAndGet(-(num));
-    }
-
     public AtomicInteger getPasajerosAeropuerto() {
         return pasajerosAeropuerto;
     }
-    
-    @Override
-    public String toString() {
-        return "Aeropuerto{" + "aviones=" + aviones + ", buses=" + buses + '}';
-    }
-    
-    
+
 }
