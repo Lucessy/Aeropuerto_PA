@@ -15,8 +15,8 @@ public class Avion extends Thread {
     private Aeropuerto aeropuerto;
 
     //Constructor
-    public Avion(String id, Aeropuerto aeropuerto) {
-        this.capacidad = 0;
+    public Avion(String id, Aeropuerto aeropuerto, int capacidad) {
+        this.capacidad = capacidad;
         this.id = id;
         this.aeropuerto = aeropuerto;
     }

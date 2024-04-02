@@ -56,12 +56,13 @@ public class HiloAux extends Thread {
 
             stringNumId = String.format("%04d", i + 1);
             id = "" + letra1 + letra2 + "-" + stringNumId;
+            int capacidadAvion = 100 + random.nextInt(200); // Asigna un valor aleatorio entre 100 y 300 pasajeros de capacidad
             if ((i + 1) % 2 == 0) {             //Añade en el array de aviones de la clase aeropuerto los id que son pares en la instancia de madrid y los que son 
-                Avion avion = new Avion(id, madrid);
+                Avion avion = new Avion(id, madrid, capacidadAvion);
                 madrid.addAvion(avion);   //impares en la instancia de barcelona
                 avion.start();
             } else {
-                Avion avion = new Avion(id, barcelona);
+                Avion avion = new Avion(id, barcelona, capacidadAvion);
                 barcelona.addAvion(avion);
                 avion.start();
             }
