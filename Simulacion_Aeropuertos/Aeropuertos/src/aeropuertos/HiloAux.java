@@ -58,11 +58,11 @@ public class HiloAux extends Thread {
             id = "" + letra1 + letra2 + "-" + stringNumId;
             if ((i + 1) % 2 == 0) {             //Añade en el array de aviones de la clase aeropuerto los id que son pares en la instancia de madrid y los que son 
                 Avion avion = new Avion(id, madrid);
-                madrid.añadirAvion(avion);   //impares en la instancia de barcelona
+                madrid.addAvion(avion);   //impares en la instancia de barcelona
                 avion.start();
             } else {
                 Avion avion = new Avion(id, barcelona);
-                barcelona.añadirAvion(avion);
+                barcelona.addAvion(avion);
                 avion.start();
             }
             try {
@@ -81,11 +81,11 @@ public class HiloAux extends Thread {
             id = "B-" + stringNumId;
             if ((i + 1) % 2 == 0) {             //Añade en el array de buses de la clase aeropuerto los id que son pares en la instancia de madrid y los que son 
                 Bus bus = new Bus(id, madrid);
-                madrid.añadirBus(bus);   //impares en la instancia de barcelona
+                madrid.addBus(bus);   //impares en la instancia de barcelona
                 bus.start();
             } else {
                 Bus bus = new Bus(id, barcelona);
-                barcelona.añadirBus(bus);
+                barcelona.addBus(bus);
                 bus.start();
             }
             try {

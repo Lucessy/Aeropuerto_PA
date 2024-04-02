@@ -26,7 +26,7 @@ public class Aeropuerto {
     }
 
     // Métodos
-    public void añadirBus(Bus bus) { //Pasar objeto Bus
+    public void addBus(Bus bus) { //Pasar objeto Bus
         try {
             buses.put(bus);
 
@@ -34,11 +34,12 @@ public class Aeropuerto {
 
         } catch (InterruptedException ex) {
             System.out.println("Error en la inserción del bus");
+            
         }
 
     }
 
-    public void añadirAvion(Avion avion) { //Pasar objeto Avion
+    public void addAvion(Avion avion) { //Pasar objeto Avion
         try {
             aviones.put(avion);
 
