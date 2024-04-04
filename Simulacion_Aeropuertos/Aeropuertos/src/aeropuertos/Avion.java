@@ -4,6 +4,8 @@
  */
 package aeropuertos;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  *
  * @author sandr
@@ -13,6 +15,7 @@ public class Avion extends Thread {
     private int capacidad;
     private String id;
     private Aeropuerto aeropuerto;
+    private AtomicInteger numPasajeros;
 
     //Constructor
     public Avion(String id, Aeropuerto aeropuerto, int capacidad) {

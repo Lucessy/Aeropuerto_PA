@@ -18,6 +18,8 @@ public class Aeropuerto {
     private BlockingQueue buses = new LinkedBlockingQueue();
     private AtomicInteger pasajerosAeropuerto;
     private String nombre;
+    
+    private BlockingQueue pistas = new LinkedBlockingQueue(4);
 
     // Constructor
     public Aeropuerto(String nombre) {
@@ -49,6 +51,32 @@ public class Aeropuerto {
             System.out.println("Error en la inserción del avión");
         }
     }
+    
+    /*ZONAS DE ACTIVIDAD*/
+    public void hangar(){
+        
+    }
+    
+    public void taller(){
+        
+    }
+    
+    public void puertasEmbarque(){
+        
+    }
+    
+    public void pistas(){
+        
+    }
+    
+    public void areaEstacionamiento(){
+        
+    }
+    
+    public void areaRodaje(){
+        
+    }
+    /*FIN ZONAS DE ACTIVIDAD*/
 
     public BlockingQueue getAviones() {
         return aviones;
