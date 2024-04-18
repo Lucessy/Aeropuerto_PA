@@ -6,8 +6,9 @@ package aeropuertos;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.Lock;
+
 
 /**
  *
@@ -19,14 +20,19 @@ public class Aeropuerto {
     private BlockingQueue buses = new LinkedBlockingQueue();
     private AtomicInteger pasajerosAeropuerto;
     private String nombre;
+    private int posPista=0;
     
     private boolean[] pistas = new boolean[4];
-    private Lock lockPista = new ReentrantLock();
+    private Semaphore semPista = new Semaphore(1);
+    private Semaphore semDisponibilidadPista = new Semaphore(4,true);
 
     // Constructor
     public Aeropuerto(String nombre) {
         this.nombre = nombre;
         this.pasajerosAeropuerto = new AtomicInteger(0);
+        for(int i=0;i<4;i++){
+            pistas[i]=false;
+        }
     }
 
     // Métodos
@@ -67,10 +73,25 @@ public class Aeropuerto {
         
     }
     
-    public void getPista(){
-        int posPista = -1;
-        
-        
+    public int getPista() throws InterruptedException{
+        semDisponibilidadPista.acquire();
+        semPista.acquire();
+        for (int i=0;i<4;i++){
+            if (pistas[i]==false){
+                pistas[i]=true;
+                posPista=i;
+            }
+        }
+        semPista.release();
+        return posPista;        
+    }
+    
+    public void liberarPista(int posPista) throws InterruptedException{
+//        if (!flag boton){
+//            pistas[posPista]=false;
+//        }
+        pistas[posPista]=false;
+        semDisponibilidadPista.release();       
     }
     
     public void areaEstacionamiento(){
@@ -92,6 +113,10 @@ public class Aeropuerto {
 
     public AtomicInteger getPasajerosAeropuerto() {
         return pasajerosAeropuerto;
+    }
+
+    private void release() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
