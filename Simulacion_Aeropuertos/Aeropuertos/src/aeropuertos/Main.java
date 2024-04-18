@@ -14,7 +14,11 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
+        String nombreArchivo = "evolucionAeropuerto.txt";
+        String encoding = "UTF-8";
+        
+        Log log = new Log(nombreArchivo, encoding);
+        
         Aeropuerto madrid = new Aeropuerto("Madrid");
         Aeropuerto barcelona = new Aeropuerto("Barcelona");
 
