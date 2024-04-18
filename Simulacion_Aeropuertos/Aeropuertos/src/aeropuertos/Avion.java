@@ -4,6 +4,11 @@
  */
 package aeropuertos;
 
+import static java.lang.Math.random;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author sandr
@@ -14,6 +19,9 @@ public class Avion extends Thread {
     private String id;
     private Aeropuerto aeropuerto;
     private int numPasajeros;
+    private int tiempo;
+    private Random random;
+    private int posicionPista;
 
     //Constructor
     public Avion(String id, Aeropuerto aeropuerto, int capacidad) {
@@ -24,7 +32,22 @@ public class Avion extends Thread {
 
     // Métodos
     public void run() {
+        while(true){
+            try {
+                tiempo = 1000+random.nextInt(4000);
+                sleep(tiempo);  //Comprobaciones antes de entrar a pista 1-5seg.
+                posicionPista = aeropuerto.getPista();  //Pide pista libre y devuelve la posición de la pista 1-4
+                tiempo = 1000+random.nextInt(2000); //Últimas comprobaciones en pista 1-3seg.
+                sleep(tiempo);
+                tiempo = 1000+random.nextInt(4000);
+                sleep(tiempo);  //Tiempo de despegue 1-5seg.
+                aeropuerto.liberarPista(posicionPista);
 
+            } catch (InterruptedException ex) {
+                System.out.println(ex);
+            }
+
+        }
     }
 
     public int getCapacidad() {
