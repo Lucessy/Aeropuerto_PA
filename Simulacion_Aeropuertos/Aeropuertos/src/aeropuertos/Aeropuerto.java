@@ -7,6 +7,7 @@ package aeropuertos;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Lock;
 
 /**
  *
@@ -19,7 +20,8 @@ public class Aeropuerto {
     private AtomicInteger pasajerosAeropuerto;
     private String nombre;
     
-    private BlockingQueue pistas = new LinkedBlockingQueue(4);
+    private boolean[] pistas = new boolean[4];
+    private Lock lockPista = new ReentrantLock();
 
     // Constructor
     public Aeropuerto(String nombre) {
@@ -65,7 +67,9 @@ public class Aeropuerto {
         
     }
     
-    public void pistas(){
+    public void getPista(){
+        int posPista = -1;
+        
         
     }
     
