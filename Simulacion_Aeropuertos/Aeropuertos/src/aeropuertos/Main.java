@@ -19,18 +19,15 @@ public class Main {
         
         Log log = new Log(nombreArchivo, encoding);
         
-        Aeropuerto madrid = new Aeropuerto("Madrid");
-        Aeropuerto barcelona = new Aeropuerto("Barcelona");
+        Aeropuerto madrid = new Aeropuerto("Madrid",log);
+        Aeropuerto barcelona = new Aeropuerto("Barcelona",log);
 
-        HiloAux hiloAviones = new HiloAux(true, madrid, barcelona);
-        HiloAux hiloAutobuses = new HiloAux(false, madrid, barcelona);
+        HiloAux hiloAviones = new HiloAux(true, madrid, barcelona, log);
+        HiloAux hiloAutobuses = new HiloAux(false, madrid, barcelona, log);
 
         hiloAviones.start();
         hiloAutobuses.start();
-        /*System.out.print("aviones madrid"+ madrid.getAviones().toString()+"\n");
-        System.out.print("aviones barcelona"+ barcelona.getAviones().toString()+"\n");
-        System.out.print("Buses madrid"+madrid.getBuses().toString()+"\n");
-        System.out.print("Buses barcelona"+barcelona.getBuses().toString()+"\n");*/
-
+        
+        
     }
 }

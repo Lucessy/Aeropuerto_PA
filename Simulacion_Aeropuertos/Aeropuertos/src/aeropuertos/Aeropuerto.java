@@ -4,11 +4,14 @@
  */
 package aeropuertos;
 
+import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
-
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,26 +19,39 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Aeropuerto {
 
+    private Log log;
+
     private BlockingQueue aviones = new LinkedBlockingQueue();
     private BlockingQueue buses = new LinkedBlockingQueue();
+
+    private ArrayList<Avion> aeroviaIda = new ArrayList<>();
+    private ArrayList<Avion> aeroviaVuelta = new ArrayList<>();
+    
+    private ArrayList<Avion> listaPista = new ArrayList<>();
+
     //private BlockingQueue hangar = new LinkedBlockingQueue();
     private AtomicInteger pasajerosAeropuerto;
-    private String nombre;
-    private int posPista=0;
-    
-    private boolean[] pistas = new boolean[4];
-    private boolean[] puertasEmbarque = new boolean[6]; //La puerta 1 reservada solo para embarque, la puerta 6 para desembarque, el resto para ambas accioens
-    private Semaphore semPista = new Semaphore(1);
-    private Semaphore semDisponibilidadPista = new Semaphore(4,true);
-    private Semaphore semEmbarque = new Semaphore (1);
-    private Semaphore semDisponibilidadEmb = new Semaphore (6, true);
+    private final String nombre;
+    private int posPista = 0;
+
+    private final boolean[] pistas = new boolean[4];
+    private final boolean[] puertasEmbarque = new boolean[6]; //La puerta 1 reservada solo para embarque, la puerta 6 para desembarque, el resto para ambas accioens
+    private final Semaphore semPista = new Semaphore(1);
+    private final Semaphore semDisponibilidadPista = new Semaphore(4, true);
+    private final Semaphore semEmbarque = new Semaphore(1);
+
+    private Semaphore semDisponibilidadEmb = new Semaphore(0, true);
+    private Semaphore semDisponibilidadDesemb = new Semaphore(0, true);
+
+    private ReentrantLock lockLista;
 
     // Constructor
-    public Aeropuerto(String nombre) {
+    public Aeropuerto(String nombre, Log log) {
         this.nombre = nombre;
+        this.log = log;
         this.pasajerosAeropuerto = new AtomicInteger(0);
-        for(int i=0;i<4;i++){
-            pistas[i]=false;
+        for (int i = 0; i < 4; i++) {
+            pistas[i] = false;
         }
     }
 
@@ -43,12 +59,11 @@ public class Aeropuerto {
     public void addBus(Bus bus) { //Pasar objeto Bus
         try {
             buses.put(bus);
-
-            System.out.println("Bus " + bus.getIdBus() + " es creado.");
+            log.escribirArchivo("Bus " + bus.getIdBus() + " es creado.", nombre);
 
         } catch (InterruptedException ex) {
-            System.out.println("Error en la inserción del bus");
-            
+            log.escribirArchivo("Error en la inserción del bus: " + bus.getIdBus(), nombre);
+
         }
 
     }
@@ -57,74 +72,103 @@ public class Aeropuerto {
         try {
             aviones.put(avion);
 
-            System.out.println("Avion " + avion.getIdAvion() + " es creado.");
+            log.escribirArchivo("Avion " + avion.getIdAvion() + " es creado.", nombre);
 
         } catch (InterruptedException ex) {
-            System.out.println("Error en la inserción del avión");
+            log.escribirArchivo("Error en la inserción del avión: " + avion.getIdAvion(), nombre);
         }
     }
-    
+
     /*ZONAS DE ACTIVIDAD*/
-    public void hangar(Avion avion){
+    public void hangar(Avion avion) {
 //        try{
 //            hangar.put(avion);
 //        }catch (InterruptedException ex) {
 //            System.out.println("Error en la inserción del avión en el hangar");
 //        }
     }
-    
-    public void taller(){
-        
+
+    public void taller() {
+
     }
-    
-    public void puertasEmbarque(int capacidad) throws InterruptedException{
-        semDisponibilidadEmb.acquire();
-        semEmbarque.acquire();
-        if (capacidad == 0){    //El avion quiere embarcar porque tiene 0 pasajeros
-            for (int i = 0;i<4;i++){
-                if (puertasEmbarque[i]==false){
-                    puertasEmbarque[i]=true;
-                }
-            }
-        }else{  //El avion tiene capacidad >0 por lo que contiene pasajeros que desembarcar
-            for (int i=1;i<5;i++){  
-                if (puertasEmbarque[i]==false){
-                    puertasEmbarque[i]=true;
-                }
-            }
-        }
-    }
-    
-    public int getPista() throws InterruptedException{
+
+//    public void areaEstacionamiento(Avion avion) throws InterruptedException {
+//        lockLista.lock();
+//        try {
+//            listaPista.add(avion);
+//            int numPasajeros = avion.getNumPasajeros(); // Deberiamos poner un booleano que diga si esEmbarque
+//            
+//            if (numPasajeros == 0) {    //El avion quiere embarcar porque tiene 0 pasajeros
+//                semDisponibilidadEmb.acquire();
+//
+//            } else {  //El avion tiene capacidad >0 por lo que contiene pasajeros que desembarcar
+//                semDisponibilidadDesemb.acquire();
+//
+//            }
+//        } finally {
+//            lockLista.unlock();
+//        }
+//    }
+//
+//    public void puertasEmbarque(int numPasajeros) throws InterruptedException {
+//        semEmbarque.acquire();
+//        for (int i = 0; i < 5; i++) {
+//            if (puertasEmbarque[i] == false) {
+//                puertasEmbarque[i] = true;
+//            }
+//        }
+//    }
+//    
+//     public void puertasDesembarque(int numPasajeros) throws InterruptedException {
+//        semEmbarque.acquire();
+//        for (int i = 1; i < 6; i++) {
+//            if (puertasEmbarque[i] == false) {
+//                puertasEmbarque[i] = true;
+//            }
+//        }
+//    }
+
+    public int areaRodaje() throws InterruptedException {
         semDisponibilidadPista.acquire();
         semPista.acquire();
-        for (int i=0;i<4;i++){
-            if (pistas[i]==false){
-                pistas[i]=true;
-                posPista=i;
+
+        int posPista = getPista();
+
+        semPista.release();
+
+        return posPista;
+    }
+
+    public int getPista() throws InterruptedException {
+
+        for (int i = 0; i < 4; i++) {
+            if (pistas[i] == false) {
+                pistas[i] = true;
+                posPista = i;
             }
         }
-        semPista.release();
-        return posPista;        
+
+        return posPista;
     }
-    
-    public void liberarPista(int posPista) throws InterruptedException{
+
+    public void liberarPista(int posPista) throws InterruptedException {
 //        if (!flag boton){
 //            pistas[posPista]=false;
 //        }
-        pistas[posPista]=false;
-        semDisponibilidadPista.release();       
+        pistas[posPista] = false;
+        semDisponibilidadPista.release();
     }
-    
-    public void areaEstacionamiento(){
-        
-    }
-    
-    public void areaRodaje(){
-        
-    }
-    /*FIN ZONAS DE ACTIVIDAD*/
 
+    public synchronized void aeroviaIda(Avion avion) {
+        aeroviaIda.add(avion);
+    }
+
+    public synchronized void aeroviaVuelta(Avion avion) {
+        int indexAvion = aeroviaVuelta.indexOf(avion);
+        aeroviaVuelta.remove(indexAvion);
+    }
+
+    /*FIN ZONAS DE ACTIVIDAD*/
     public BlockingQueue getAviones() {
         return aviones;
     }
@@ -137,8 +181,8 @@ public class Aeropuerto {
         return pasajerosAeropuerto;
     }
 
-    private void release() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getNombre() {
+        return nombre;
     }
 
 }
