@@ -18,13 +18,17 @@ public class Aeropuerto {
 
     private BlockingQueue aviones = new LinkedBlockingQueue();
     private BlockingQueue buses = new LinkedBlockingQueue();
+    //private BlockingQueue hangar = new LinkedBlockingQueue();
     private AtomicInteger pasajerosAeropuerto;
     private String nombre;
     private int posPista=0;
     
     private boolean[] pistas = new boolean[4];
+    private boolean[] puertasEmbarque = new boolean[6]; //La puerta 1 reservada solo para embarque, la puerta 6 para desembarque, el resto para ambas accioens
     private Semaphore semPista = new Semaphore(1);
     private Semaphore semDisponibilidadPista = new Semaphore(4,true);
+    private Semaphore semEmbarque = new Semaphore (1);
+    private Semaphore semDisponibilidadEmb = new Semaphore (6, true);
 
     // Constructor
     public Aeropuerto(String nombre) {
@@ -49,7 +53,7 @@ public class Aeropuerto {
 
     }
 
-    public void addAvion(Avion avion) { //Pasar objeto Avion
+    public void addAvion(Avion avion) { //Pasar objeto Avion 
         try {
             aviones.put(avion);
 
@@ -61,16 +65,34 @@ public class Aeropuerto {
     }
     
     /*ZONAS DE ACTIVIDAD*/
-    public void hangar(){
-        
+    public void hangar(Avion avion){
+//        try{
+//            hangar.put(avion);
+//        }catch (InterruptedException ex) {
+//            System.out.println("Error en la inserción del avión en el hangar");
+//        }
     }
     
     public void taller(){
         
     }
     
-    public void puertasEmbarque(){
-        
+    public void puertasEmbarque(int capacidad) throws InterruptedException{
+        semDisponibilidadEmb.acquire();
+        semEmbarque.acquire();
+        if (capacidad == 0){    //El avion quiere embarcar porque tiene 0 pasajeros
+            for (int i = 0;i<4;i++){
+                if (puertasEmbarque[i]==false){
+                    puertasEmbarque[i]=true;
+                }
+            }
+        }else{  //El avion tiene capacidad >0 por lo que contiene pasajeros que desembarcar
+            for (int i=1;i<5;i++){  
+                if (puertasEmbarque[i]==false){
+                    puertasEmbarque[i]=true;
+                }
+            }
+        }
     }
     
     public int getPista() throws InterruptedException{
