@@ -59,10 +59,12 @@ public class HiloAux extends Thread {
             int capacidadAvion = 100 + random.nextInt(200); // Asigna un valor aleatorio entre 100 y 300 pasajeros de capacidad
             if ((i + 1) % 2 == 0) {             //Añade en el array de aviones de la clase aeropuerto los id que son pares en la instancia de madrid y los que son 
                 Avion avion = new Avion(id, madrid, capacidadAvion);
+                System.out.println("Avion"+id+"es creado");
                 madrid.addAvion(avion);   //impares en la instancia de barcelona
                 avion.start();
             } else {
                 Avion avion = new Avion(id, barcelona, capacidadAvion);
+                System.out.println("Avion"+id+"es creado");
                 barcelona.addAvion(avion);
                 avion.start();
             }
@@ -80,13 +82,16 @@ public class HiloAux extends Thread {
         for (int i = 0; i < 4000; i++) {
             stringNumId = String.format("%04d", i + 1);   //Añade 0's si es necesario para el formato XXXX
             id = "B-" + stringNumId;
-            if ((i + 1) % 2 == 0) {             //Añade en el array de buses de la clase aeropuerto los id que son pares en la instancia de madrid y los que son 
+            if ((i + 1) % 2 == 0) { //Añade en el array de buses de la clase aeropuerto los id que son pares en la instancia de madrid y los que son impares en Barcelona
                 Bus bus = new Bus(id, madrid);
-                madrid.addBus(bus);   //impares en la instancia de barcelona
+                System.out.println("Bus"+id+"es creado");
+                madrid.addBus(bus);   //buses con la id par en la instancia de Madrid
                 bus.start();
             } else {
                 Bus bus = new Bus(id, barcelona);
-                barcelona.addBus(bus);
+                System.out.println("Bus"+id+"es creado");
+                barcelona.addBus(bus);  //buses con id impar en la instancia de Barcelona
+                
                 bus.start();
             }
             try {

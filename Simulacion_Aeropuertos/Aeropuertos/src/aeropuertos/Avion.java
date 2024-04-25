@@ -37,13 +37,13 @@ public class Avion extends Thread {
                 tiempo = 1000+random.nextInt(4000);
                 sleep(tiempo);  //Comprobaciones antes de entrar a pista 1-5seg.
                 posicionPista = aeropuerto.getPista();  //Pide pista libre y devuelve la posición de la pista 1-4
-                System.out.println("El avión con id"+this.id+"ha entrado en la pista"+(posicionPista+1));
+                System.out.println("Avion"+this.id+"("+this.capacidad+"pasajerps) accede a Pista"+(posicionPista+1)+"para despegue");
                 tiempo = 1000+random.nextInt(2000); //Últimas comprobaciones en pista 1-3seg.
                 sleep(tiempo);
-                System.out.println("El avión ha terminado de hacer las últimas comprobaciones");
+                System.out.println("Avion"+this.id+" ha terminado de hacer las últimas comprobaciones");
                 tiempo = 1000+random.nextInt(4000);
                 sleep(tiempo);  //Tiempo de despegue 1-5seg.
-                System.out.println("El avión ha despegado con éxito");
+                System.out.println("Avion"+this.id+" ha despegado con éxito");
                 aeropuerto.liberarPista(posicionPista);
                 System.out.println("La pista"+(posicionPista+1)+"ha sido liberada");
 
