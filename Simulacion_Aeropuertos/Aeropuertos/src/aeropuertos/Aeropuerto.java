@@ -17,6 +17,8 @@ import java.util.logging.Logger;
  * @author sandr
  */
 public class Aeropuerto {
+    
+    private Log log;
 
     private BlockingQueue aviones = new LinkedBlockingQueue();
     private BlockingQueue buses = new LinkedBlockingQueue();
@@ -29,8 +31,8 @@ public class Aeropuerto {
     private String nombre;
     private int posPista = 0;
 
-    private boolean[] pistas = new boolean[4];
-    private boolean[] puertasEmbarque = new boolean[6]; //La puerta 1 reservada solo para embarque, la puerta 6 para desembarque, el resto para ambas accioens
+    private final boolean[] pistas = new boolean[4];
+    private final boolean[] puertasEmbarque = new boolean[6]; //La puerta 1 reservada solo para embarque, la puerta 6 para desembarque, el resto para ambas accioens
     private Semaphore semPista = new Semaphore(1);
     private Semaphore semDisponibilidadPista = new Semaphore(4, true);
     private Semaphore semEmbarque = new Semaphore(1);
@@ -38,8 +40,9 @@ public class Aeropuerto {
     private Semaphore semDisponibilidadDesemb = new Semaphore(5, true);
 
     // Constructor
-    public Aeropuerto(String nombre) {
+    public Aeropuerto(String nombre, Log log) {
         this.nombre = nombre;
+        this.log = log;
         this.pasajerosAeropuerto = new AtomicInteger(0);
         for (int i = 0; i < 4; i++) {
             pistas[i] = false;
@@ -50,11 +53,10 @@ public class Aeropuerto {
     public void addBus(Bus bus) { //Pasar objeto Bus
         try {
             buses.put(bus);
-
-            System.out.println("Bus " + bus.getIdBus() + " es creado.");
+            log.escribirArchivo("Bus " + bus.getIdBus() + " es creado.", nombre);
 
         } catch (InterruptedException ex) {
-            System.out.println("Error en la inserción del bus");
+            log.escribirArchivo("Error en la inserción del bus: " + bus.getIdBus(), nombre);
 
         }
 
@@ -64,10 +66,10 @@ public class Aeropuerto {
         try {
             aviones.put(avion);
 
-            System.out.println("Avion " + avion.getIdAvion() + " es creado.");
+            log.escribirArchivo("Avion " + avion.getIdAvion() + " es creado.", nombre);
 
         } catch (InterruptedException ex) {
-            System.out.println("Error en la inserción del avión");
+            log.escribirArchivo("Error en la inserción del avión: " + avion.getIdAvion(), nombre);
         }
     }
 
@@ -103,6 +105,17 @@ public class Aeropuerto {
             }
         }
     }
+    
+    public int areaRodaje() throws InterruptedException {
+        semDisponibilidadPista.acquire();
+        semPista.acquire();
+        
+        int posPista = getPista();
+        
+        semPista.release();
+        
+        return posPista;
+    }
 
     public int getPista() throws InterruptedException {
         
@@ -128,16 +141,7 @@ public class Aeropuerto {
 
     }
 
-    public int areaRodaje() throws InterruptedException {
-        semDisponibilidadPista.acquire();
-        semPista.acquire();
-        
-        int posPista = getPista();
-        
-        semPista.release();
-        
-        return posPista;
-    }
+    
     
     public synchronized void aeroviaIda(Avion avion){
         aeroviaIda.add(avion);
@@ -162,8 +166,8 @@ public class Aeropuerto {
         return pasajerosAeropuerto;
     }
 
-    private void release() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getNombre() {
+        return nombre;
     }
-
+    
 }

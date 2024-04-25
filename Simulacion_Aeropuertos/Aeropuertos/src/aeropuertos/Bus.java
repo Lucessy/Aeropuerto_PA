@@ -12,19 +12,23 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author sandr
  */
 public class Bus extends Thread {
-
+    
+    private Log log;
     private int capacidad;
     private String id;
     private Random random = new Random();
     private AtomicInteger pasajerosAeropuerto;
     private Aeropuerto aeropuerto;
+    private String nombreAeropuerto;
 
     //Constructor
-    public Bus(String id, Aeropuerto aeropuerto) {
+    public Bus(String id, Aeropuerto aeropuerto, Log log) {
         this.capacidad = 0;
         this.id = id;
         this.aeropuerto = aeropuerto;
+        this.log = log;
         this.pasajerosAeropuerto = this.aeropuerto.getPasajerosAeropuerto();
+        this.nombreAeropuerto = aeropuerto.getNombre();
     }
 
     public void run() {
@@ -35,7 +39,7 @@ public class Bus extends Thread {
             vueltaAeropuerto();
             conducir();
 
-            System.out.println("Bus " + this.id + " deja " + this.capacidad + " pasajeros en la ciudad.");
+            log.escribirArchivo("Bus " + this.id + " deja " + this.capacidad + " pasajeros en la ciudad.", nombreAeropuerto);
 
             this.capacidad = 0;        //Se vuelve a poner la capacidad a 0 del bus para simular que se han bajado todos los pasajeros
         }
@@ -48,10 +52,10 @@ public class Bus extends Thread {
         try {
             Thread.sleep(miliseg);
 
-            System.out.println("Bus " + this.id + " recoge " + this.capacidad + " pasajeros de la ciudad.");
+            log.escribirArchivo("Bus " + this.id + " recoge " + this.capacidad + " pasajeros de la ciudad.", nombreAeropuerto);
 
         } catch (InterruptedException e) {
-            System.err.println("El sleep fue interrumpido");
+            log.escribirArchivo("El sleep fue interrumpido", nombreAeropuerto);
         }
     }
 
@@ -60,10 +64,10 @@ public class Bus extends Thread {
         int miliseg = 5000 + random.nextInt(5000);
         try {
             Thread.sleep(miliseg);
-            System.out.println("Bus " + this.id + " conduce.");
+            log.escribirArchivo("Bus " + this.id + " conduce.", nombreAeropuerto);
 
         } catch (InterruptedException e) {
-            System.err.println("El sleep fue interrumpido");
+            log.escribirArchivo("El sleep fue interrumpido", nombreAeropuerto);
         }
     }
 
@@ -73,7 +77,7 @@ public class Bus extends Thread {
             pasajerosAeropuerto.incrementAndGet();
         }
 
-        System.out.println("Bus " + this.id + " deja " + pasajeros + " pasajeros en el aeropuerto.");
+        log.escribirArchivo("Bus " + this.id + " deja " + pasajeros + " pasajeros en el aeropuerto.", nombreAeropuerto);
     }
 
     //Se esperan de 2-5 segundos y se cogen los pasajeros que se piden o los que haya disponibles si son menos.
@@ -83,7 +87,7 @@ public class Bus extends Thread {
         try {
             Thread.sleep(miliseg);
         } catch (InterruptedException e) {
-            System.err.println("El sleep fue interrumpido");
+            log.escribirArchivo("El sleep fue interrumpido", nombreAeropuerto);
         }
         if (pasajerosAeropuerto.get() == 0) {
             this.capacidad = 0;                             //No se sube ningún pasajero, porque no hay en el aeropuerto
@@ -95,7 +99,7 @@ public class Bus extends Thread {
             pasajerosAeropuerto.set(pasajerosAeropuerto.get() - pasajeros);
         }
 
-        System.out.println("Bus " + this.id + " recoge " + pasajeros + " pasajeros del aeropuerto.");
+        log.escribirArchivo("Bus " + this.id + " recoge " + pasajeros + " pasajeros del aeropuerto.", nombreAeropuerto);
 
     }
 

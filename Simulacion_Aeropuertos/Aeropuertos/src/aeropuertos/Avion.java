@@ -14,7 +14,8 @@ import java.util.logging.Logger;
  * @author sandr
  */
 public class Avion extends Thread {
-
+    
+    private Log log;
     private int capacidad;
     private String id;
     private Aeropuerto aeropuerto;
@@ -22,41 +23,43 @@ public class Avion extends Thread {
     private int tiempo;
     private Random random;
     private int posicionPista;
+    private String nombreAeropuerto;
 
     //Constructor
-    public Avion(String id, Aeropuerto aeropuerto, int capacidad) {
+    public Avion(String id, Aeropuerto aeropuerto, int capacidad, Log log) {
         this.capacidad = capacidad;
         this.id = id;
         this.aeropuerto = aeropuerto;
+        this.log = log;
+        this.nombreAeropuerto = aeropuerto.getNombre();
     }
 
     // Métodos
     public void run() {
-        while(true){
-            try {
-                /*Hangar -> Puertas de embarque */
-                
-                tiempo = 1000+random.nextInt(4000);
-                sleep(tiempo);  //Comprobaciones antes de entrar a pista 1-5seg.
-                posicionPista = aeropuerto.areaRodaje();  //Pide pista libre y devuelve la posición de la pista 1-4
-                System.out.println("El avión con id"+this.id+"ha entrado en la pista"+(posicionPista+1));
-                
-                tiempo = 1000+random.nextInt(2000); //Últimas comprobaciones en pista 1-3seg.
-                sleep(tiempo);
-                System.out.println("El avión ha terminado de hacer las últimas comprobaciones");
-                
-                tiempo = 1000+random.nextInt(4000);
-                sleep(tiempo);  //Tiempo de despegue 1-5seg.
-                System.out.println("El avión ha despegado con éxito");
-                
-                aeropuerto.liberarPista(posicionPista);
-                System.out.println("La pista"+(posicionPista+1)+"ha sido liberada");
-
-            } catch (InterruptedException ex) {
-                System.out.println(ex);
-            }
-
-        }
+//        while(true){
+//            try {
+//                /*Hangar -> Puertas de embarque */
+//                
+//                tiempo = 1000+random.nextInt(4000);
+//                sleep(tiempo);  //Comprobaciones antes de entrar a pista 1-5seg.
+//                posicionPista = aeropuerto.areaRodaje();  //Pide pista libre y devuelve la posición de la pista 1-4
+//                log.escribirArchivo("El avión con id"+this.id+"ha entrado en la pista"+(posicionPista+1), nombreAeropuerto);
+//                
+//                tiempo = 1000+random.nextInt(2000); //Últimas comprobaciones en pista 1-3seg.
+//                sleep(tiempo);
+//                log.escribirArchivo("El avión ha terminado de hacer las últimas comprobaciones", nombreAeropuerto);
+//                
+//                tiempo = 1000+random.nextInt(4000);
+//                sleep(tiempo);  //Tiempo de despegue 1-5seg.
+//                log.escribirArchivo("El avión ha despegado con éxito", nombreAeropuerto);
+//                
+//                aeropuerto.liberarPista(posicionPista);
+//                log.escribirArchivo("La pista"+(posicionPista+1)+"ha sido liberada", nombreAeropuerto);
+//
+//            } catch (InterruptedException ex) {
+//                System.out.println(ex);
+//            }
+//        }
     }
 
     public int getCapacidad() {
