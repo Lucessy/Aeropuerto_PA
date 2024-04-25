@@ -12,9 +12,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author sandr
  */
 public class Bus extends Thread {
-    
+
     private Log log;
-    private int capacidad;
+    private int numPasajeros;
     private String id;
     private Random random = new Random();
     private AtomicInteger pasajerosAeropuerto;
@@ -23,7 +23,7 @@ public class Bus extends Thread {
 
     //Constructor
     public Bus(String id, Aeropuerto aeropuerto, Log log) {
-        this.capacidad = 0;
+        this.numPasajeros = 0;
         this.id = id;
         this.aeropuerto = aeropuerto;
         this.log = log;
@@ -35,24 +35,24 @@ public class Bus extends Thread {
         while (true) {
             llegadaCiudad();
             conducir();
-            llegadaAeropuerto(this.capacidad);
+            llegadaAeropuerto(this.numPasajeros);
             vueltaAeropuerto();
             conducir();
 
-            log.escribirArchivo("Bus " + this.id + " deja " + this.capacidad + " pasajeros en la ciudad.", nombreAeropuerto);
+            log.escribirArchivo("Bus " + this.id + " deja " + this.numPasajeros + " pasajeros en la ciudad.", nombreAeropuerto);
 
-            this.capacidad = 0;        //Se vuelve a poner la capacidad a 0 del bus para simular que se han bajado todos los pasajeros
+            this.numPasajeros = 0;        //Se vuelve a poner la numPasajeros a 0 del bus para simular que se han bajado todos los pasajeros
         }
     }
 
     //Recoger de 0-50 pasajeros durante 2-5 segundos
     public void llegadaCiudad() {
         int miliseg = 2000 + random.nextInt(3000);
-        this.capacidad = random.nextInt(50);
+        this.numPasajeros = random.nextInt(50);
         try {
             Thread.sleep(miliseg);
 
-            log.escribirArchivo("Bus " + this.id + " recoge " + this.capacidad + " pasajeros de la ciudad.", nombreAeropuerto);
+            log.escribirArchivo("Bus " + this.id + " recoge " + this.numPasajeros + " pasajeros de la ciudad.", nombreAeropuerto);
 
         } catch (InterruptedException e) {
             log.escribirArchivo("El sleep fue interrumpido", nombreAeropuerto);
@@ -73,9 +73,7 @@ public class Bus extends Thread {
 
     //Aumento de la variable atómica del aeropuerto con los pasajeros que llegan
     public void llegadaAeropuerto(int pasajeros) {
-        for (int i = 0; i < pasajeros; i++) {
-            pasajerosAeropuerto.incrementAndGet();
-        }
+        pasajerosAeropuerto.addAndGet(pasajeros);
 
         log.escribirArchivo("Bus " + this.id + " deja " + pasajeros + " pasajeros en el aeropuerto.", nombreAeropuerto);
     }
@@ -89,26 +87,30 @@ public class Bus extends Thread {
         } catch (InterruptedException e) {
             log.escribirArchivo("El sleep fue interrumpido", nombreAeropuerto);
         }
+        
         if (pasajerosAeropuerto.get() == 0) {
-            this.capacidad = 0;                             //No se sube ningún pasajero, porque no hay en el aeropuerto
+            this.numPasajeros = 0;                             //No se sube ningún pasajero, porque no hay en el aeropuerto
+        
         } else if (pasajerosAeropuerto.get() <= pasajeros) {
-            this.capacidad = pasajerosAeropuerto.get();       //Se suben todos los disponibles, que son menos de los que se piden
-            pasajerosAeropuerto.set(0);
+            this.numPasajeros = pasajerosAeropuerto.getAndSet(0);       //Se suben todos los disponibles, que son menos de los que se piden y se iguala a 0
+        
         } else {
-            this.capacidad = pasajeros;                       //Coge los pasajeros que se han idicado
-            pasajerosAeropuerto.set(pasajerosAeropuerto.get() - pasajeros);
+            this.numPasajeros = pasajeros;                       //Coge los pasajeros que se han idicado
+            pasajerosAeropuerto.addAndGet(-pasajeros);          // Decrementa la cantidad de pasajeros total -(pasajeros)
         }
 
         log.escribirArchivo("Bus " + this.id + " recoge " + pasajeros + " pasajeros del aeropuerto.", nombreAeropuerto);
 
     }
-
-    public int getCapacidad() {
-        return capacidad;
+    
+    // Métodos
+    
+    public int getNumPasajeros() {
+        return numPasajeros;
     }
 
-    public void setCapacidad(int capacidad) {
-        this.capacidad = capacidad;
+    public void setNumPasajeros(int numPasajeros) {
+        this.numPasajeros = numPasajeros;
     }
 
     public String getIdBus() {
