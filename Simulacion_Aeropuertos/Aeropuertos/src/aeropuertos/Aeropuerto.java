@@ -92,41 +92,42 @@ public class Aeropuerto {
 
     }
 
-//    public void areaEstacionamiento(Avion avion) throws InterruptedException {
+    public void areaEstacionamiento(Avion avion) throws InterruptedException {
 //        lockLista.lock();
 //        try {
-//            listaPista.add(avion);
-//            int numPasajeros = avion.getNumPasajeros(); // Deberiamos poner un booleano que diga si esEmbarque
-//            
-//            if (numPasajeros == 0) {    //El avion quiere embarcar porque tiene 0 pasajeros
-//                semDisponibilidadEmb.acquire();
-//
-//            } else {  //El avion tiene capacidad >0 por lo que contiene pasajeros que desembarcar
-//                semDisponibilidadDesemb.acquire();
-//
-//            }
+             
+            listaPista.add(avion); // Lista FIFO que representa la llegada real de los hilos
+            int numPasajeros = avion.getNumPasajeros(); // Deberiamos poner un booleano que diga si esEmbarque
+            
+            if (numPasajeros == 0) {    //El avion quiere embarcar porque tiene 0 pasajeros
+                semDisponibilidadEmb.acquire();
+
+            } else {  //El avion tiene capacidad >0 por lo que contiene pasajeros que desembarcar
+                semDisponibilidadDesemb.acquire();
+
+            }
 //        } finally {
 //            lockLista.unlock();
 //        }
-//    }
-//
-//    public void puertasEmbarque(int numPasajeros) throws InterruptedException {
-//        semEmbarque.acquire();
-//        for (int i = 0; i < 5; i++) {
-//            if (puertasEmbarque[i] == false) {
-//                puertasEmbarque[i] = true;
-//            }
-//        }
-//    }
-//    
-//     public void puertasDesembarque(int numPasajeros) throws InterruptedException {
-//        semEmbarque.acquire();
-//        for (int i = 1; i < 6; i++) {
-//            if (puertasEmbarque[i] == false) {
-//                puertasEmbarque[i] = true;
-//            }
-//        }
-//    }
+    }
+
+    public void puertasEmbarque(int numPasajeros) throws InterruptedException {
+        semEmbarque.acquire();
+        for (int i = 0; i < 5; i++) {
+            if (puertasEmbarque[i] == false) {
+                puertasEmbarque[i] = true;
+            }
+        }
+    }
+    
+     public void puertasDesembarque(int numPasajeros) throws InterruptedException {
+        semEmbarque.acquire();
+        for (int i = 1; i < 6; i++) {
+            if (puertasEmbarque[i] == false) {
+                puertasEmbarque[i] = true;
+            }
+        }
+    }
 
     public int areaRodaje() throws InterruptedException {
         semDisponibilidadPista.acquire();

@@ -38,32 +38,32 @@ public class Avion extends Thread {
 
     // Métodos
     public void run() {
-        while(true){
-            try {
-                /*Hangar -> Puertas de embarque */
-                
-                tiempo = 1000+random.nextInt(4000);
-                sleep(tiempo);  //Comprobaciones antes de entrar a pista 1-5seg.
-                posicionPista = aeropuerto.areaRodaje();  //Pide pista libre y devuelve la posición de la pista 1-4
-                log.escribirArchivo("El avión con id"+this.id+"ha entrado en la pista"+(posicionPista+1), nombreAeropuerto);
-                
-                tiempo = 1000+random.nextInt(2000); //Últimas comprobaciones en pista 1-3seg.
-                sleep(tiempo);
-                log.escribirArchivo("El avión ha terminado de hacer las últimas comprobaciones", nombreAeropuerto);
-                
-                tiempo = 1000+random.nextInt(4000);
-                sleep(tiempo);  //Tiempo de despegue 1-5seg.
-                log.escribirArchivo("El avión ha despegado con éxito", nombreAeropuerto);
-                
-                numVuelos+=1;//Registro del número de vuelos para el taller
-                
-                aeropuerto.liberarPista(posicionPista);
-                log.escribirArchivo("La pista"+(posicionPista+1)+"ha sido liberada", nombreAeropuerto);
-
-            } catch (InterruptedException ex) {
-                System.out.println(ex);
-            }
-        }
+//        while(true){
+//            try {
+//                /*Hangar -> Puertas de embarque */
+//                
+//                tiempo = 1000+random.nextInt(4000);
+//                sleep(tiempo);  //Comprobaciones antes de entrar a pista 1-5seg.
+//                posicionPista = aeropuerto.areaRodaje();  //Pide pista libre y devuelve la posición de la pista 1-4
+//                log.escribirArchivo("El avión con id "+this.id+" ha entrado en la pista "+(posicionPista+1), nombreAeropuerto);
+//                
+//                tiempo = 1000+random.nextInt(2000); //Últimas comprobaciones en pista 1-3seg.
+//                sleep(tiempo);
+//                log.escribirArchivo("El avión ha terminado de hacer las últimas comprobaciones", nombreAeropuerto);
+//                
+//                tiempo = 1000+random.nextInt(4000);
+//                sleep(tiempo);  //Tiempo de despegue 1-5seg.
+//                log.escribirArchivo("El avión ha despegado con éxito", nombreAeropuerto);
+//                
+//                numVuelos+=1;//Registro del número de vuelos para el taller
+//                
+//                aeropuerto.liberarPista(posicionPista);
+//                log.escribirArchivo("La pista "+(posicionPista+1)+" ha sido liberada", nombreAeropuerto);
+//
+//            } catch (InterruptedException ex) {
+//                System.out.println(ex);
+//            }
+//        }
     }
 
     public int getCapacidad() {
