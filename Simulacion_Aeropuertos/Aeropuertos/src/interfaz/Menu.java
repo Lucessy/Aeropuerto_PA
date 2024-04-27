@@ -4,19 +4,46 @@
  */
 package interfaz;
 
+
+import aeropuertos.Bus;
 import aeropuertos.Central;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.awt.Color;
+
 
 /**
  *
  * @author lucia
  */
 public class Menu extends javax.swing.JFrame {
-    
+
+    int xMouse, yMouse;
+
     /**
      * Creates new form Menu
      */
     public Menu() {
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Windows".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -31,9 +58,6 @@ public class Menu extends javax.swing.JFrame {
     private void initComponents() {
 
         bg = new javax.swing.JPanel();
-        botonPausar = new javax.swing.JToggleButton();
-        botonReanudar = new javax.swing.JToggleButton();
-        jSeparator2 = new javax.swing.JSeparator();
         bgMadrid = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         textoNumPasajeros = new javax.swing.JTextField();
@@ -59,7 +83,6 @@ public class Menu extends javax.swing.JFrame {
         textoPuerta5 = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         textoPuerta6 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         textoRodaje = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
@@ -70,16 +93,18 @@ public class Menu extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         textoPista4 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         bgAero = new javax.swing.JPanel();
         textoAeroBaMa = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         textoAeroMaBa = new javax.swing.JTextField();
+        botonReanudar = new javax.swing.JToggleButton();
+        botonPausar = new javax.swing.JToggleButton();
+        icon = new javax.swing.JLabel();
         bgBarcelona = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
-        textoNumPasajeros1 = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
-        textoBusA1 = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
         textoHangar1 = new javax.swing.JTextField();
         textoTaller1 = new javax.swing.JTextField();
@@ -100,7 +125,6 @@ public class Menu extends javax.swing.JFrame {
         textoPuerta11 = new javax.swing.JTextField();
         jLabel33 = new javax.swing.JLabel();
         textoPuerta12 = new javax.swing.JTextField();
-        jLabel34 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
         textoRodaje1 = new javax.swing.JTextField();
         jLabel36 = new javax.swing.JLabel();
@@ -111,47 +135,47 @@ public class Menu extends javax.swing.JFrame {
         jLabel38 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
         textoPista8 = new javax.swing.JTextField();
+        textoNumPasajeros1 = new javax.swing.JTextField();
+        textoBusA1 = new javax.swing.JTextField();
+        jLabel34 = new javax.swing.JLabel();
+        header = new javax.swing.JPanel();
+        exitpanel = new javax.swing.JPanel();
+        txtexit = new javax.swing.JLabel();
+        javaeatlogo1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
+        setMaximumSize(new java.awt.Dimension(830, 580));
+        setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        bg.setBackground(new java.awt.Color(204, 204, 204));
+        bg.setBackground(new java.awt.Color(204, 255, 255));
+        bg.setForeground(new java.awt.Color(204, 204, 204));
+        bg.setMaximumSize(new java.awt.Dimension(830, 580));
+        bg.setMinimumSize(new java.awt.Dimension(830, 580));
         bg.setPreferredSize(new java.awt.Dimension(830, 580));
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        botonPausar.setText("Pausar");
-        botonPausar.setPreferredSize(new java.awt.Dimension(80, 23));
-        botonPausar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonPausarActionPerformed(evt);
-            }
-        });
-        bg.add(botonPausar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, -1, -1));
-
-        botonReanudar.setText("Reanudar");
-        botonReanudar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonReanudarActionPerformed(evt);
-            }
-        });
-        bg.add(botonReanudar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, -1, -1));
-        bg.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 818, 11));
-
-        bgMadrid.setBackground(new java.awt.Color(204, 204, 204));
+        bgMadrid.setBackground(new java.awt.Color(204, 255, 255));
         bgMadrid.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Nº pasajeros en Aeropuerto:");
-        bgMadrid.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+        bgMadrid.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
         textoNumPasajeros.setEditable(false);
-        bgMadrid.add(textoNumPasajeros, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, 230, -1));
+        textoNumPasajeros.setText("0");
+        textoNumPasajeros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textoNumPasajerosActionPerformed(evt);
+            }
+        });
+        bgMadrid.add(textoNumPasajeros, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 70, -1));
 
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("Vía Aeropuerto:");
-        bgMadrid.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 90, -1));
+        jLabel4.setText("Desde Aeropuerto:");
+        bgMadrid.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 110, -1));
 
         textoBusA.setEditable(false);
         textoBusA.addActionListener(new java.awt.event.ActionListener() {
@@ -159,7 +183,7 @@ public class Menu extends javax.swing.JFrame {
                 textoBusAActionPerformed(evt);
             }
         });
-        bgMadrid.add(textoBusA, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 110, -1));
+        bgMadrid.add(textoBusA, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 80, -1));
 
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Hangar:");
@@ -176,11 +200,11 @@ public class Menu extends javax.swing.JFrame {
         bgMadrid.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("Vía Ciudad :");
-        bgMadrid.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, -1, -1));
+        jLabel7.setText("Desde Ciudad :");
+        bgMadrid.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, -1, -1));
 
         textoBusC.setEditable(false);
-        bgMadrid.add(textoBusC, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 110, -1));
+        bgMadrid.add(textoBusC, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, 80, -1));
 
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Área de estacionamiento:");
@@ -261,10 +285,6 @@ public class Menu extends javax.swing.JFrame {
         });
         bgMadrid.add(textoPuerta6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, 130, -1));
 
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Aeropuerto de Madrid");
-        bgMadrid.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 120, -1));
-
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("Área rodaje:");
         bgMadrid.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
@@ -320,9 +340,15 @@ public class Menu extends javax.swing.JFrame {
         });
         bgMadrid.add(textoPista4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 130, -1));
 
+        jLabel2.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Aeropuerto de Madrid");
+        bgMadrid.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, -1));
+
         bg.add(bgMadrid, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 410, 380));
 
-        bgAero.setBackground(new java.awt.Color(204, 204, 204));
+        bgAero.setBackground(new java.awt.Color(204, 255, 255));
         bgAero.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         textoAeroBaMa.setEditable(false);
@@ -339,29 +365,38 @@ public class Menu extends javax.swing.JFrame {
         textoAeroMaBa.setEditable(false);
         bgAero.add(textoAeroMaBa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 810, -1));
 
-        bg.add(bgAero, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 830, 140));
+        botonReanudar.setText("Reanudar");
+        botonReanudar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReanudarActionPerformed(evt);
+            }
+        });
+        bgAero.add(botonReanudar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, -1));
 
-        bgBarcelona.setBackground(new java.awt.Color(204, 204, 204));
+        botonPausar.setText("Pausar");
+        botonPausar.setPreferredSize(new java.awt.Dimension(80, 23));
+        botonPausar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonPausarActionPerformed(evt);
+            }
+        });
+        bgAero.add(botonPausar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, -1, -1));
+
+        icon.setText("hay una foto");
+        bgAero.add(icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 80, 80));
+
+        bg.add(bgAero, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 830, 200));
+
+        bgBarcelona.setBackground(new java.awt.Color(204, 255, 255));
         bgBarcelona.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel22.setForeground(new java.awt.Color(0, 0, 0));
         jLabel22.setText("Nº pasajeros en Aeropuerto:");
-        bgBarcelona.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
-
-        textoNumPasajeros1.setEditable(false);
-        bgBarcelona.add(textoNumPasajeros1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, 230, -1));
+        bgBarcelona.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
         jLabel23.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel23.setText("Vía Aeropuerto:");
-        bgBarcelona.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 90, -1));
-
-        textoBusA1.setEditable(false);
-        textoBusA1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoBusA1ActionPerformed(evt);
-            }
-        });
-        bgBarcelona.add(textoBusA1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 110, -1));
+        jLabel23.setText("Desde Aeropuerto:");
+        bgBarcelona.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 130, -1));
 
         jLabel24.setForeground(new java.awt.Color(0, 0, 0));
         jLabel24.setText("Hangar:");
@@ -378,11 +413,11 @@ public class Menu extends javax.swing.JFrame {
         bgBarcelona.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
         jLabel26.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel26.setText("Vía Ciudad :");
-        bgBarcelona.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, -1, -1));
+        jLabel26.setText("Desde Ciudad :");
+        bgBarcelona.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, -1, -1));
 
         textoBusC1.setEditable(false);
-        bgBarcelona.add(textoBusC1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 110, -1));
+        bgBarcelona.add(textoBusC1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 80, -1));
 
         jLabel27.setForeground(new java.awt.Color(0, 0, 0));
         jLabel27.setText("Área de estacionamiento:");
@@ -463,10 +498,6 @@ public class Menu extends javax.swing.JFrame {
         });
         bgBarcelona.add(textoPuerta12, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, 130, -1));
 
-        jLabel34.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel34.setText("Aeropuerto de Barcelona");
-        bgBarcelona.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 140, -1));
-
         jLabel35.setForeground(new java.awt.Color(0, 0, 0));
         jLabel35.setText("Área rodaje:");
         bgBarcelona.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
@@ -522,21 +553,123 @@ public class Menu extends javax.swing.JFrame {
         });
         bgBarcelona.add(textoPista8, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 130, -1));
 
+        textoNumPasajeros1.setEditable(false);
+        textoNumPasajeros1.setText("0");
+        bgBarcelona.add(textoNumPasajeros1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 70, -1));
+
+        textoBusA1.setEditable(false);
+        textoBusA1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textoBusA1ActionPerformed(evt);
+            }
+        });
+        bgBarcelona.add(textoBusA1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 80, -1));
+
+        jLabel34.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
+        jLabel34.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel34.setText("Aeropuerto de Barcelona");
+        bgBarcelona.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, -1));
+
         bg.add(bgBarcelona, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 50, 410, 380));
 
-        getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 580));
+        header.setBackground(new java.awt.Color(142, 181, 207));
+        header.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                headerMouseDragged(evt);
+            }
+        });
+        header.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                headerMousePressed(evt);
+            }
+        });
 
-        setBounds(0, 0, 846, 588);
+        exitpanel.setBackground(new java.awt.Color(142, 181, 207));
+
+        txtexit.setBackground(new java.awt.Color(0, 0, 0));
+        txtexit.setFont(new java.awt.Font("Roboto Thin", 0, 18)); // NOI18N
+        txtexit.setForeground(new java.awt.Color(0, 0, 0));
+        txtexit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtexit.setText("X");
+        txtexit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txtexit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtexitMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtexitMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                txtexitMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout exitpanelLayout = new javax.swing.GroupLayout(exitpanel);
+        exitpanel.setLayout(exitpanelLayout);
+        exitpanelLayout.setHorizontalGroup(
+            exitpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, exitpanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtexit, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        exitpanelLayout.setVerticalGroup(
+            exitpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(txtexit, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+        );
+
+        javaeatlogo1.setFont(new java.awt.Font("Roboto Condensed", 1, 36)); // NOI18N
+        javaeatlogo1.setForeground(new java.awt.Color(255, 102, 0));
+
+        javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
+        header.setLayout(headerLayout);
+        headerLayout.setHorizontalGroup(
+            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(headerLayout.createSequentialGroup()
+                .addGap(160, 160, 160)
+                .addComponent(javaeatlogo1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 612, Short.MAX_VALUE)
+                .addComponent(exitpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        headerLayout.setVerticalGroup(
+            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(javaeatlogo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(headerLayout.createSequentialGroup()
+                .addComponent(exitpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        bg.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 40));
+
+        getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 620));
+
+        setBounds(0, 0, 830, 619);
     }// </editor-fold>//GEN-END:initComponents
-    
-    public void actualizarPasajeros(int pasajeros, String nombreAeropuerto){
-        if("Madrid".equals(nombreAeropuerto)){
+
+    public void actualizarPasajeros(int pasajeros, String nombreAeropuerto) {
+        if ("Madrid".equals(nombreAeropuerto)) {
             textoNumPasajeros.setText(String.valueOf(pasajeros));
-        }else{
+        } else {
             textoNumPasajeros1.setText(String.valueOf(pasajeros));
         }
     }
-    
+
+    public void actualizarBusCiudad(Bus bus, String nombreAeropuerto) {
+        if ("Madrid".equals(nombreAeropuerto)) {
+            textoBusC.setText(bus.getIdBus() + " (" + bus.getNumPasajeros() + ")");
+        } else {
+            textoBusC1.setText(bus.getIdBus() + " (" + bus.getNumPasajeros() + ")");
+        }
+    }
+
+    public void actualizarBusAeropuerto(Bus bus, String nombreAeropuerto) {
+        if ("Madrid".equals(nombreAeropuerto)) {
+            textoBusA.setText(bus.getIdBus() + " (" + bus.getNumPasajeros() + ")");
+        } else {
+            textoBusA1.setText(bus.getIdBus() + " (" + bus.getNumPasajeros() + ")");
+        }
+    }
+
     private void botonPausarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPausarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_botonPausarActionPerformed
@@ -633,6 +766,33 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_botonReanudarActionPerformed
 
+    private void txtexitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtexitMouseClicked
+        Central.salir();
+    }//GEN-LAST:event_txtexitMouseClicked
+
+    private void txtexitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtexitMouseEntered
+        txtexit.setForeground(Color.white);
+    }//GEN-LAST:event_txtexitMouseEntered
+
+    private void txtexitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtexitMouseExited
+        txtexit.setForeground(Color.black);
+    }//GEN-LAST:event_txtexitMouseExited
+
+    private void headerMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_headerMouseDragged
+
+    private void headerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_headerMousePressed
+
+    private void textoNumPasajerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNumPasajerosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textoNumPasajerosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -644,7 +804,7 @@ public class Menu extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -675,6 +835,9 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JPanel bgMadrid;
     private javax.swing.JToggleButton botonPausar;
     private javax.swing.JToggleButton botonReanudar;
+    private javax.swing.JPanel exitpanel;
+    private javax.swing.JPanel header;
+    private javax.swing.JLabel icon;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -713,7 +876,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel javaeatlogo1;
     private javax.swing.JTextField textoAeroBaMa;
     private javax.swing.JTextField textoAeroMaBa;
     private javax.swing.JTextField textoBusA;
@@ -750,5 +913,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JTextField textoRodaje1;
     private javax.swing.JTextField textoTaller;
     private javax.swing.JTextField textoTaller1;
+    private javax.swing.JLabel txtexit;
     // End of variables declaration//GEN-END:variables
 }

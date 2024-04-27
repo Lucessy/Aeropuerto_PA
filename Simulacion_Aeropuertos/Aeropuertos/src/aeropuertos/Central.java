@@ -6,6 +6,7 @@ package aeropuertos;
 
 import interfaz.Menu;
 import java.lang.reflect.Constructor;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.swing.JFrame;
 
@@ -24,6 +25,9 @@ public abstract class Central {
     private static Menu menu;
     private static JFrame frameActual;
     
+    private static Semaphore semBusC = new Semaphore(1);
+    private static Semaphore semBusA = new Semaphore(1);
+    
     /**
      * @param args the command line arguments
      */
@@ -40,7 +44,17 @@ public abstract class Central {
     }
     
     // Métodos
-
+    /**
+     * Guarda los datos y finaliza la aplicación.
+     */
+    public static void salir() {
+        System.exit(0);
+    }
+    
+    /**
+     * Inicia los hilos aviones y buses
+     * @param
+     */
     public static void iniciarCentral(){
         HiloAux hiloAviones = new HiloAux(true, madrid, barcelona, log);
         HiloAux hiloAutobuses = new HiloAux(false, madrid, barcelona, log);
@@ -49,17 +63,49 @@ public abstract class Central {
         hiloAutobuses.start();
     }
     
+    /**
+     * Da los pasajeros del aeropuerto determinado
+     * @param aeropuerto
+     * @return AtomicInteger, el contador de los pasajeros
+     */
     public static AtomicInteger getPasajeros(Aeropuerto aeropuerto){
         return aeropuerto.getPasajerosAeropuerto();
     }
     
-    public static void sumarPasajeros(int pasajeros, Aeropuerto aeropuerto){
+    /**
+     * Suma la cantidad dada a los pasajeros del aeropuerto (Puede ser un número negativo)
+     * y lo actualiza en el Menu del aeropuerto
+     * @param pasajeros
+     * @param aeropuerto 
+     */
+    public static synchronized void sumarPasajeros(int pasajeros, Aeropuerto aeropuerto){
         menu.actualizarPasajeros(aeropuerto.getPasajerosAeropuerto().addAndGet(pasajeros), aeropuerto.getNombre());
     }
     
-    public static void fijarPasajeros(int pasajeros, Aeropuerto aeropuerto){
+    /**
+     * Fija ....
+     * @param pasajeros
+     * @param aeropuerto 
+     */
+    public static synchronized void fijarPasajeros(int pasajeros, Aeropuerto aeropuerto){
         aeropuerto.getPasajerosAeropuerto().set(pasajeros);
         menu.actualizarPasajeros(aeropuerto.getPasajerosAeropuerto().get(), aeropuerto.getNombre());
+    }
+    
+    public static void mostrarBusCiudad(Bus bus) throws InterruptedException{
+        semBusC.acquire();
+        
+        menu.actualizarBusCiudad(bus, bus.getAeropuerto().getNombre());
+        
+        semBusC.release();
+    }
+    
+    public static void mostrarBusAeropuerto(Bus bus) throws InterruptedException{
+        semBusA.acquire();
+        
+        menu.actualizarBusAeropuerto(bus, bus.getAeropuerto().getNombre());
+        
+        semBusA.release();
     }
     
 //    /**
