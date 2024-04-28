@@ -5,10 +5,12 @@
 package aeropuertos;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,6 +44,11 @@ public class Aeropuerto {
 
     private Semaphore semDisponibilidadEmb = new Semaphore(0, true);
     private Semaphore semDisponibilidadDesemb = new Semaphore(0, true);
+    
+    private Semaphore taller = new Semaphore (20, true);
+    private Lock puertaTaller = new ReentrantLock();
+    
+    private Random random = new Random();
 
     private ReentrantLock lockLista;
 
@@ -88,45 +95,73 @@ public class Aeropuerto {
 //        }
     }
 
-    public void taller() {
-
+    public void taller(Avion avion) throws InterruptedException {
+        try{
+            taller.acquire();
+            puertaTaller.lock();//Por la puerta solo pasa un avion y tarda 1 segundo en hacer la accion
+            avion.sleep(1000);
+            puertaTaller.unlock();
+            if (avion.getNumVuelos()==15){
+                int tiempoTaller = 5000 + random.nextInt(5000);
+                avion.sleep(tiempoTaller);
+                avion.setNumVuelos(0);//Al llegar a 15 vuelos se reinicia el contador
+            }else{
+                int tiempoTaller = 1000 + random.nextInt(4000);
+                avion.sleep(tiempoTaller);
+            }
+            puertaTaller.lock();
+            avion.sleep(1000);
+            puertaTaller.unlock();
+            taller.release();
+        }catch (InterruptedException ex) {
+            System.out.println(ex);
+       }
+        
     }
 
-//    public void areaEstacionamiento(Avion avion) throws InterruptedException {
-//        lockLista.lock();
-//        try {
-//            listaPista.add(avion);
-//            int numPasajeros = avion.getNumPasajeros(); // Deberiamos poner un booleano que diga si esEmbarque
-//            
-//            if (numPasajeros == 0) {    //El avion quiere embarcar porque tiene 0 pasajeros
-//                semDisponibilidadEmb.acquire();
-//
-//            } else {  //El avion tiene capacidad >0 por lo que contiene pasajeros que desembarcar
-//                semDisponibilidadDesemb.acquire();
-//
-//            }
-//        } finally {
-//            lockLista.unlock();
-//        }
-//    }
-//
-//    public void puertasEmbarque(int numPasajeros) throws InterruptedException {
-//        semEmbarque.acquire();
-//        for (int i = 0; i < 5; i++) {
-//            if (puertasEmbarque[i] == false) {
-//                puertasEmbarque[i] = true;
-//            }
-//        }
-//    }
-//    
-//     public void puertasDesembarque(int numPasajeros) throws InterruptedException {
-//        semEmbarque.acquire();
-//        for (int i = 1; i < 6; i++) {
-//            if (puertasEmbarque[i] == false) {
-//                puertasEmbarque[i] = true;
-//            }
-//        }
-//    }
+    public void areaEstacionamientoEmbarque(Avion avion) throws InterruptedException {
+        lockLista.lock();
+        try {
+            listaPista.add(avion);
+            int numPasajeros = avion.getNumPasajeros(); // Deberiamos poner un booleano que diga si esEmbarque
+            
+            if (numPasajeros == 0) {    //El avion quiere embarcar porque tiene 0 pasajeros
+                semDisponibilidadEmb.acquire();
+
+            } else {  //El avion tiene capacidad >0 por lo que contiene pasajeros que desembarcar
+                semDisponibilidadDesemb.acquire();
+
+            }
+        } finally {
+            lockLista.unlock();
+        }
+    }
+
+    public void areaEstacionamientoDesembarque(Avion avion) throws InterruptedException{
+        try{
+            int tiempo = 1000+ random.nextInt(4000); //Tiempo entre 1-5s de comprobaciones después de desembarcar
+            avion.sleep(tiempo);
+        }catch (InterruptedException ex) {
+            System.out.println(ex);
+        }
+    }
+    public void puertasEmbarque(int numPasajeros) throws InterruptedException {
+        semEmbarque.acquire();
+        for (int i = 0; i < 5; i++) {
+            if (puertasEmbarque[i] == false) {
+                puertasEmbarque[i] = true;
+            }
+        }
+    }
+    
+     public void puertasDesembarque(int numPasajeros) throws InterruptedException {
+        semEmbarque.acquire();
+        for (int i = 1; i < 6; i++) {
+            if (puertasEmbarque[i] == false) {
+                puertasEmbarque[i] = true;
+            }
+        }
+    }
 
     public int areaRodaje() throws InterruptedException {
         semDisponibilidadPista.acquire();
