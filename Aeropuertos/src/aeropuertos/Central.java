@@ -5,10 +5,10 @@
 package aeropuertos;
 
 import interfaz.Menu;
-import java.lang.reflect.Constructor;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.swing.JFrame;
+
 
 /**
  *
@@ -106,6 +106,14 @@ public abstract class Central {
         menu.actualizarBusAeropuerto(bus, bus.getAeropuerto().getNombre());
         
         semBusA.release();
+    }
+    
+    public static void dormir(int inicioMiliseg, int finalMiliseg){
+        int tiempo = inicioMiliseg + (int) ((finalMiliseg - inicioMiliseg) * Math.random());
+        try {
+            Thread.sleep(tiempo);
+        } catch (InterruptedException ex) {
+        }
     }
     
 //    /**
