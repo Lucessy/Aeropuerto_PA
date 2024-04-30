@@ -12,8 +12,7 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -119,10 +118,11 @@ public class Aeropuerto {
         
     }
 
-    public void areaEstacionamientoEmbarque(Avion avion) throws InterruptedException {
+    public void areaEstacionamiento(Avion avion) throws InterruptedException {
         lockLista.lock();
         try {
-            listaPista.add(avion);
+             
+            listaPista.add(avion); // Lista FIFO que representa la llegada real de los hilos
             int numPasajeros = avion.getNumPasajeros(); // Deberiamos poner un booleano que diga si esEmbarque
             
             if (numPasajeros == 0) {    //El avion quiere embarcar porque tiene 0 pasajeros
@@ -145,6 +145,11 @@ public class Aeropuerto {
             System.out.println(ex);
         }
     }
+//        } finally {
+//            lockLista.unlock();
+//        }
+    }
+
     public void puertasEmbarque(int numPasajeros) throws InterruptedException {
         semEmbarque.acquire();
         for (int i = 0; i < 5; i++) {

@@ -17,7 +17,6 @@ public class Bus extends Thread {
     private int numPasajeros;
     private String id;
     private Random random = new Random();
-    private AtomicInteger pasajerosAeropuerto;
     private Aeropuerto aeropuerto;
     private String nombreAeropuerto;
 
@@ -27,16 +26,17 @@ public class Bus extends Thread {
         this.id = id;
         this.aeropuerto = aeropuerto;
         this.log = log;
-        this.pasajerosAeropuerto = this.aeropuerto.getPasajerosAeropuerto();
         this.nombreAeropuerto = aeropuerto.getNombre();
     }
 
+    /**
+     * Ciclo de vida del bus
+     */
     public void run() {
         while (true) {
             llegadaCiudad();
             conducir();
             llegadaAeropuerto(this.numPasajeros);
-            vueltaAeropuerto();
             conducir();
 
             log.escribirArchivo("Bus " + this.id + " deja " + this.numPasajeros + " pasajeros en la ciudad.", nombreAeropuerto);
@@ -54,6 +54,7 @@ public class Bus extends Thread {
 
             log.escribirArchivo("Bus " + this.id + " recoge " + this.numPasajeros + " pasajeros de la ciudad.", nombreAeropuerto);
 
+            Central.mostrarBusCiudad(this);
         } catch (InterruptedException e) {
             log.escribirArchivo("El sleep fue interrumpido", nombreAeropuerto);
         }
@@ -73,9 +74,11 @@ public class Bus extends Thread {
 
     //Aumento de la variable atómica del aeropuerto con los pasajeros que llegan
     public void llegadaAeropuerto(int pasajeros) {
-        pasajerosAeropuerto.addAndGet(pasajeros);
+        Central.sumarPasajeros(pasajeros, aeropuerto);
 
         log.escribirArchivo("Bus " + this.id + " deja " + pasajeros + " pasajeros en el aeropuerto.", nombreAeropuerto);
+
+        vueltaAeropuerto();
     }
 
     //Se esperan de 2-5 segundos y se cogen los pasajeros que se piden o los que haya disponibles si son menos.
@@ -84,27 +87,29 @@ public class Bus extends Thread {
         int miliseg = 2000 + random.nextInt(3000);
         try {
             Thread.sleep(miliseg);
+
+            if (Central.getPasajeros(aeropuerto).get() == 0) {
+                this.numPasajeros = 0;                             //   No se sube ningún pasajero, porque no hay en el aeropuerto
+
+            } else if (Central.getPasajeros(aeropuerto).get() <= pasajeros) {
+                this.numPasajeros = Central.getPasajeros(aeropuerto).get();       //    Se suben todos los disponibles, que son menos de los que se piden y se iguala a 0
+                Central.fijarPasajeros(0, aeropuerto);
+
+            } else {
+                this.numPasajeros = pasajeros;                          //  Coge los pasajeros que se han idicado
+                Central.sumarPasajeros(-pasajeros, aeropuerto);         //  Decrementa la cantidad de pasajeros total -(pasajeros)
+            }
+
+            log.escribirArchivo("Bus " + this.id + " recoge " + pasajeros + " pasajeros del aeropuerto.", nombreAeropuerto);
+
+            Central.mostrarBusAeropuerto(this);
+
         } catch (InterruptedException e) {
-            log.escribirArchivo("El sleep fue interrumpido", nombreAeropuerto);
+            log.escribirArchivo("El sleep o semáforo fue interrumpido", nombreAeropuerto);
         }
-        
-        if (pasajerosAeropuerto.get() == 0) {
-            this.numPasajeros = 0;                             //No se sube ningún pasajero, porque no hay en el aeropuerto
-        
-        } else if (pasajerosAeropuerto.get() <= pasajeros) {
-            this.numPasajeros = pasajerosAeropuerto.getAndSet(0);       //Se suben todos los disponibles, que son menos de los que se piden y se iguala a 0
-        
-        } else {
-            this.numPasajeros = pasajeros;                       //Coge los pasajeros que se han idicado
-            pasajerosAeropuerto.addAndGet(-pasajeros);          // Decrementa la cantidad de pasajeros total -(pasajeros)
-        }
-
-        log.escribirArchivo("Bus " + this.id + " recoge " + pasajeros + " pasajeros del aeropuerto.", nombreAeropuerto);
-
     }
-    
-    // Métodos
-    
+
+    // Métodos Get y Set
     public int getNumPasajeros() {
         return numPasajeros;
     }
