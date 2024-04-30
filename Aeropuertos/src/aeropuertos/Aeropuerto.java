@@ -40,6 +40,8 @@ public class Aeropuerto {
     private final Semaphore semPista = new Semaphore(1);
     private final Semaphore semDisponibilidadPista = new Semaphore(4, true);
     private final Semaphore semEmbarque = new Semaphore(1);
+    
+    private ReentrantLock lockPista;
 
     private Semaphore semDisponibilidadEmb = new Semaphore(0, true);
     private Semaphore semDisponibilidadDesemb = new Semaphore(0, true);
@@ -179,16 +181,16 @@ public class Aeropuerto {
 
     public int areaRodaje() throws InterruptedException {
         semDisponibilidadPista.acquire();
-        semPista.acquire();
+        lockPista.lock();
 
         int posPista = getPista();
 
-        semPista.release();
+        lockPista.lock();
 
         return posPista;
     }
 
-    public int getPista() throws InterruptedException {
+    public int getPista() {
 
         for (int i = 0; i < 4; i++) {
             if (pistas[i] == false) {
@@ -200,7 +202,21 @@ public class Aeropuerto {
         return posPista;
     }
     
+    public void accederAerovia(){
+        
+    }
     
+    public int solicitarPista(){
+        while(!lockPista.tryLock()){
+            Central.dormir(1000, 5000);
+        }
+        
+        int posPista = getPista();
+        
+        lockPista.unlock();
+        
+        return posPista;
+    }
 
     public void liberarPista(int posPista) throws InterruptedException {
 //        if (!flag boton){
