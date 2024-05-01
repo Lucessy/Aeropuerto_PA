@@ -62,13 +62,13 @@ public class HiloAux extends Thread {
             int capacidadAvion = 100 + random.nextInt(200); // Asigna un valor aleatorio entre 100 y 300 pasajeros de capacidad
             if ((i + 1) % 2 == 0) {             //Añade en el array de aviones de la clase aeropuerto los id que son pares en la instancia de madrid y los que son 
                 Avion avion = new Avion(id, madrid, capacidadAvion, log);
-                madrid.addAvion(avion);   //impares en la instancia de barcelona
                 avion.start();
+                log.escribirArchivo("Avion " + avion.getIdAvion() + " es creado.", madrid.getNombre());
                 
-            } else {
+            } else { //impares en la instancia de barcelona
                 Avion avion = new Avion(id, barcelona, capacidadAvion, log);
-                barcelona.addAvion(avion);
                 avion.start();
+                log.escribirArchivo("Avion " + avion.getIdAvion() + " es creado.", barcelona.getNombre());
                 
             }
             try {
@@ -87,13 +87,13 @@ public class HiloAux extends Thread {
             id = "B-" + stringNumId;
             if ((i + 1) % 2 == 0) {             //Añade en el array de buses de la clase aeropuerto los id que son pares en la instancia de madrid y los que son 
                 Bus bus = new Bus(id, madrid, log);
-                madrid.addBus(bus);   //impares en la instancia de barcelona
                 bus.start();
+                log.escribirArchivo("Bus " + bus.getIdBus() + " es creado.", madrid.getNombre());
                 
-            } else {
+            } else {    //impares en la instancia de barcelona
                 Bus bus = new Bus(id, barcelona, log);
-                barcelona.addBus(bus);
                 bus.start();
+                log.escribirArchivo("Bus " + bus.getIdBus() + " es creado.", barcelona.getNombre());
                 
             }
             try {

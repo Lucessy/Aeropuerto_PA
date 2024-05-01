@@ -14,14 +14,14 @@ import java.awt.Color;
  *
  * @author lucia
  */
-public class Menu extends javax.swing.JFrame {
+public class MenuRemoto extends javax.swing.JFrame {
 
     int xMouse, yMouse;
 
     /**
      * Creates new form Menu
      */
-    public Menu() {
+    public MenuRemoto() {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -34,14 +34,15 @@ public class Menu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuRemoto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuRemoto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuRemoto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuRemoto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         initComponents();
@@ -61,14 +62,10 @@ public class Menu extends javax.swing.JFrame {
         bgMadrid = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         textoNumPasajeros = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        textoBusA = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         textoHangar = new javax.swing.JTextField();
         textoTaller = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        textoBusC = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         textoEstacionamiento = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -86,31 +83,30 @@ public class Menu extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         textoRodaje = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        textoPista1 = new javax.swing.JTextField();
-        textoPista2 = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        textoPista3 = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        textoPista4 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        abrirPista_1 = new javax.swing.JToggleButton();
+        cerrarPista_1 = new javax.swing.JToggleButton();
+        cerrarPista_2 = new javax.swing.JToggleButton();
+        abrirPista_2 = new javax.swing.JToggleButton();
+        cerrarPista_3 = new javax.swing.JToggleButton();
+        abrirPista_3 = new javax.swing.JToggleButton();
+        cerrarPista_4 = new javax.swing.JToggleButton();
+        abrirPista_4 = new javax.swing.JToggleButton();
         bgAero = new javax.swing.JPanel();
         textoAeroBaMa = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         textoAeroMaBa = new javax.swing.JTextField();
-        botonReanudar = new javax.swing.JToggleButton();
-        botonPausar = new javax.swing.JToggleButton();
         icon = new javax.swing.JLabel();
         bgBarcelona = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         textoHangar1 = new javax.swing.JTextField();
         textoTaller1 = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        textoBusC1 = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
         textoEstacionamiento1 = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
@@ -128,25 +124,27 @@ public class Menu extends javax.swing.JFrame {
         jLabel35 = new javax.swing.JLabel();
         textoRodaje1 = new javax.swing.JTextField();
         jLabel36 = new javax.swing.JLabel();
-        textoPista5 = new javax.swing.JTextField();
-        textoPista6 = new javax.swing.JTextField();
         jLabel37 = new javax.swing.JLabel();
-        textoPista7 = new javax.swing.JTextField();
         jLabel38 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
-        textoPista8 = new javax.swing.JTextField();
         textoNumPasajeros1 = new javax.swing.JTextField();
-        textoBusA1 = new javax.swing.JTextField();
         jLabel34 = new javax.swing.JLabel();
+        abrirPista_5 = new javax.swing.JToggleButton();
+        cerrarPista_5 = new javax.swing.JToggleButton();
+        abrirPista_6 = new javax.swing.JToggleButton();
+        cerrarPista_6 = new javax.swing.JToggleButton();
+        cerrarPista_7 = new javax.swing.JToggleButton();
+        abrirPista_7 = new javax.swing.JToggleButton();
+        cerrarPista_8 = new javax.swing.JToggleButton();
+        abrirPista_8 = new javax.swing.JToggleButton();
         header = new javax.swing.JPanel();
         exitpanel = new javax.swing.JPanel();
         txtexit = new javax.swing.JLabel();
         javaeatlogo1 = new javax.swing.JLabel();
-        botonRemoto = new javax.swing.JButton();
+        botonVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
-        setMaximumSize(new java.awt.Dimension(830, 580));
         setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -174,49 +172,30 @@ public class Menu extends javax.swing.JFrame {
         });
         bgMadrid.add(textoNumPasajeros, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 70, -1));
 
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("Hacía Aeropuerto:");
-        bgMadrid.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 110, -1));
-
-        textoBusA.setEditable(false);
-        textoBusA.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoBusAActionPerformed(evt);
-            }
-        });
-        bgMadrid.add(textoBusA, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 80, -1));
-
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Hangar:");
-        bgMadrid.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
+        bgMadrid.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
         textoHangar.setEditable(false);
-        bgMadrid.add(textoHangar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 340, -1));
+        bgMadrid.add(textoHangar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 70, -1));
 
         textoTaller.setEditable(false);
-        bgMadrid.add(textoTaller, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 340, -1));
+        bgMadrid.add(textoTaller, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 70, -1));
 
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Taller:");
-        bgMadrid.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
-
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("Hacía Ciudad:");
-        bgMadrid.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, -1, -1));
-
-        textoBusC.setEditable(false);
-        bgMadrid.add(textoBusC, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, 80, -1));
+        bgMadrid.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Área de estacionamiento:");
-        bgMadrid.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
+        bgMadrid.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, -1, -1));
 
         textoEstacionamiento.setEditable(false);
-        bgMadrid.add(textoEstacionamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 250, -1));
+        bgMadrid.add(textoEstacionamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 70, -1));
 
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Puerta 1 (E):");
-        bgMadrid.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 90, -1));
+        bgMadrid.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 90, -1));
 
         textoPuerta1.setEditable(false);
         textoPuerta1.addActionListener(new java.awt.event.ActionListener() {
@@ -224,7 +203,7 @@ public class Menu extends javax.swing.JFrame {
                 textoPuerta1ActionPerformed(evt);
             }
         });
-        bgMadrid.add(textoPuerta1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, 120, -1));
+        bgMadrid.add(textoPuerta1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 120, -1));
 
         textoPuerta2.setEditable(false);
         textoPuerta2.addActionListener(new java.awt.event.ActionListener() {
@@ -232,11 +211,11 @@ public class Menu extends javax.swing.JFrame {
                 textoPuerta2ActionPerformed(evt);
             }
         });
-        bgMadrid.add(textoPuerta2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 120, -1));
+        bgMadrid.add(textoPuerta2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 120, -1));
 
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Puerta 2:");
-        bgMadrid.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 90, -1));
+        bgMadrid.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 90, -1));
 
         textoPuerta3.setEditable(false);
         textoPuerta3.addActionListener(new java.awt.event.ActionListener() {
@@ -244,11 +223,11 @@ public class Menu extends javax.swing.JFrame {
                 textoPuerta3ActionPerformed(evt);
             }
         });
-        bgMadrid.add(textoPuerta3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 120, -1));
+        bgMadrid.add(textoPuerta3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 120, -1));
 
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Puerta 3:");
-        bgMadrid.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 90, -1));
+        bgMadrid.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 90, -1));
 
         textoPuerta4.setEditable(false);
         textoPuerta4.addActionListener(new java.awt.event.ActionListener() {
@@ -256,15 +235,15 @@ public class Menu extends javax.swing.JFrame {
                 textoPuerta4ActionPerformed(evt);
             }
         });
-        bgMadrid.add(textoPuerta4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 190, 130, -1));
+        bgMadrid.add(textoPuerta4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 130, -1));
 
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Puerta 4:");
-        bgMadrid.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 50, -1));
+        bgMadrid.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 140, 50, -1));
 
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("Puerta 5:");
-        bgMadrid.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 90, -1));
+        bgMadrid.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 90, -1));
 
         textoPuerta5.setEditable(false);
         textoPuerta5.addActionListener(new java.awt.event.ActionListener() {
@@ -272,11 +251,11 @@ public class Menu extends javax.swing.JFrame {
                 textoPuerta5ActionPerformed(evt);
             }
         });
-        bgMadrid.add(textoPuerta5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, 130, -1));
+        bgMadrid.add(textoPuerta5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 170, 130, -1));
 
         jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("Puerta 6 (DE):");
-        bgMadrid.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 80, -1));
+        bgMadrid.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 80, -1));
 
         textoPuerta6.setEditable(false);
         textoPuerta6.addActionListener(new java.awt.event.ActionListener() {
@@ -284,68 +263,100 @@ public class Menu extends javax.swing.JFrame {
                 textoPuerta6ActionPerformed(evt);
             }
         });
-        bgMadrid.add(textoPuerta6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, 130, -1));
+        bgMadrid.add(textoPuerta6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 130, -1));
 
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("Área rodaje:");
-        bgMadrid.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
+        bgMadrid.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, -1, -1));
 
         textoRodaje.setEditable(false);
-        bgMadrid.add(textoRodaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 320, -1));
+        bgMadrid.add(textoRodaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 70, -1));
 
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Pista 1:");
-        bgMadrid.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 90, -1));
-
-        textoPista1.setEditable(false);
-        textoPista1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoPista1ActionPerformed(evt);
-            }
-        });
-        bgMadrid.add(textoPista1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, 130, -1));
-
-        textoPista2.setEditable(false);
-        textoPista2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoPista2ActionPerformed(evt);
-            }
-        });
-        bgMadrid.add(textoPista2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, 130, -1));
+        bgMadrid.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 150, -1));
 
         jLabel17.setForeground(new java.awt.Color(0, 0, 0));
         jLabel17.setText("Pista 2:");
-        bgMadrid.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 90, -1));
-
-        textoPista3.setEditable(false);
-        textoPista3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoPista3ActionPerformed(evt);
-            }
-        });
-        bgMadrid.add(textoPista3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 310, 130, -1));
+        bgMadrid.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 150, -1));
 
         jLabel18.setForeground(new java.awt.Color(0, 0, 0));
         jLabel18.setText("Pista 3:");
-        bgMadrid.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 310, 50, -1));
+        bgMadrid.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, 150, -1));
 
         jLabel19.setForeground(new java.awt.Color(0, 0, 0));
         jLabel19.setText("Pista 4:");
-        bgMadrid.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, 90, -1));
-
-        textoPista4.setEditable(false);
-        textoPista4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoPista4ActionPerformed(evt);
-            }
-        });
-        bgMadrid.add(textoPista4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 130, -1));
+        bgMadrid.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 310, 150, -1));
 
         jLabel2.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Aeropuerto de Madrid");
         bgMadrid.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, -1));
+
+        abrirPista_1.setText("Abrir");
+        abrirPista_1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abrirPista_1ActionPerformed(evt);
+            }
+        });
+        bgMadrid.add(abrirPista_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, 70, -1));
+
+        cerrarPista_1.setText("Cerrar");
+        cerrarPista_1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarPista_1ActionPerformed(evt);
+            }
+        });
+        bgMadrid.add(cerrarPista_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 70, -1));
+
+        cerrarPista_2.setText("Cerrar");
+        cerrarPista_2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarPista_2ActionPerformed(evt);
+            }
+        });
+        bgMadrid.add(cerrarPista_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 70, -1));
+
+        abrirPista_2.setText("Abrir");
+        abrirPista_2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abrirPista_2ActionPerformed(evt);
+            }
+        });
+        bgMadrid.add(abrirPista_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, 70, -1));
+
+        cerrarPista_3.setText("Cerrar");
+        cerrarPista_3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarPista_3ActionPerformed(evt);
+            }
+        });
+        bgMadrid.add(cerrarPista_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, 70, -1));
+
+        abrirPista_3.setText("Abrir");
+        abrirPista_3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abrirPista_3ActionPerformed(evt);
+            }
+        });
+        bgMadrid.add(abrirPista_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 270, 70, -1));
+
+        cerrarPista_4.setText("Cerrar");
+        cerrarPista_4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarPista_4ActionPerformed(evt);
+            }
+        });
+        bgMadrid.add(cerrarPista_4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 330, 70, -1));
+
+        abrirPista_4.setText("Abrir");
+        abrirPista_4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abrirPista_4ActionPerformed(evt);
+            }
+        });
+        bgMadrid.add(abrirPista_4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 330, 70, -1));
 
         bg.add(bgMadrid, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 410, 380));
 
@@ -366,23 +377,6 @@ public class Menu extends javax.swing.JFrame {
         textoAeroMaBa.setEditable(false);
         bgAero.add(textoAeroMaBa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 810, -1));
 
-        botonReanudar.setText("Reanudar");
-        botonReanudar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonReanudarActionPerformed(evt);
-            }
-        });
-        bgAero.add(botonReanudar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, -1));
-
-        botonPausar.setText("Pausar");
-        botonPausar.setPreferredSize(new java.awt.Dimension(80, 23));
-        botonPausar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonPausarActionPerformed(evt);
-            }
-        });
-        bgAero.add(botonPausar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, -1, -1));
-
         icon.setText("hay una foto");
         bgAero.add(icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 80, 80));
 
@@ -395,41 +389,30 @@ public class Menu extends javax.swing.JFrame {
         jLabel22.setText("Nº pasajeros en Aeropuerto:");
         bgBarcelona.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
-        jLabel23.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel23.setText("Desde Aeropuerto:");
-        bgBarcelona.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 130, -1));
-
         jLabel24.setForeground(new java.awt.Color(0, 0, 0));
         jLabel24.setText("Hangar:");
-        bgBarcelona.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
+        bgBarcelona.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
         textoHangar1.setEditable(false);
-        bgBarcelona.add(textoHangar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 340, -1));
+        bgBarcelona.add(textoHangar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 80, -1));
 
         textoTaller1.setEditable(false);
-        bgBarcelona.add(textoTaller1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 340, -1));
+        bgBarcelona.add(textoTaller1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 80, -1));
 
         jLabel25.setForeground(new java.awt.Color(0, 0, 0));
         jLabel25.setText("Taller:");
-        bgBarcelona.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
-
-        jLabel26.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel26.setText("Desde Ciudad :");
-        bgBarcelona.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, -1, -1));
-
-        textoBusC1.setEditable(false);
-        bgBarcelona.add(textoBusC1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 80, -1));
+        bgBarcelona.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
         jLabel27.setForeground(new java.awt.Color(0, 0, 0));
         jLabel27.setText("Área de estacionamiento:");
-        bgBarcelona.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
+        bgBarcelona.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, -1, -1));
 
         textoEstacionamiento1.setEditable(false);
-        bgBarcelona.add(textoEstacionamiento1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 250, -1));
+        bgBarcelona.add(textoEstacionamiento1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, 80, -1));
 
         jLabel28.setForeground(new java.awt.Color(0, 0, 0));
         jLabel28.setText("Puerta 1 (E):");
-        bgBarcelona.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 90, -1));
+        bgBarcelona.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 90, -1));
 
         textoPuerta7.setEditable(false);
         textoPuerta7.addActionListener(new java.awt.event.ActionListener() {
@@ -437,7 +420,7 @@ public class Menu extends javax.swing.JFrame {
                 textoPuerta7ActionPerformed(evt);
             }
         });
-        bgBarcelona.add(textoPuerta7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, 120, -1));
+        bgBarcelona.add(textoPuerta7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 120, -1));
 
         textoPuerta8.setEditable(false);
         textoPuerta8.addActionListener(new java.awt.event.ActionListener() {
@@ -445,11 +428,11 @@ public class Menu extends javax.swing.JFrame {
                 textoPuerta8ActionPerformed(evt);
             }
         });
-        bgBarcelona.add(textoPuerta8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 120, -1));
+        bgBarcelona.add(textoPuerta8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 120, -1));
 
         jLabel29.setForeground(new java.awt.Color(0, 0, 0));
         jLabel29.setText("Puerta 2:");
-        bgBarcelona.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 90, -1));
+        bgBarcelona.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 90, -1));
 
         textoPuerta9.setEditable(false);
         textoPuerta9.addActionListener(new java.awt.event.ActionListener() {
@@ -457,11 +440,11 @@ public class Menu extends javax.swing.JFrame {
                 textoPuerta9ActionPerformed(evt);
             }
         });
-        bgBarcelona.add(textoPuerta9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 120, -1));
+        bgBarcelona.add(textoPuerta9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 120, -1));
 
         jLabel30.setForeground(new java.awt.Color(0, 0, 0));
         jLabel30.setText("Puerta 3:");
-        bgBarcelona.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 90, -1));
+        bgBarcelona.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 90, -1));
 
         textoPuerta10.setEditable(false);
         textoPuerta10.addActionListener(new java.awt.event.ActionListener() {
@@ -469,15 +452,15 @@ public class Menu extends javax.swing.JFrame {
                 textoPuerta10ActionPerformed(evt);
             }
         });
-        bgBarcelona.add(textoPuerta10, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 190, 130, -1));
+        bgBarcelona.add(textoPuerta10, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 130, -1));
 
         jLabel31.setForeground(new java.awt.Color(0, 0, 0));
         jLabel31.setText("Puerta 4:");
-        bgBarcelona.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 50, -1));
+        bgBarcelona.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 140, 50, -1));
 
         jLabel32.setForeground(new java.awt.Color(0, 0, 0));
         jLabel32.setText("Puerta 5:");
-        bgBarcelona.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 90, -1));
+        bgBarcelona.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 90, -1));
 
         textoPuerta11.setEditable(false);
         textoPuerta11.addActionListener(new java.awt.event.ActionListener() {
@@ -485,11 +468,11 @@ public class Menu extends javax.swing.JFrame {
                 textoPuerta11ActionPerformed(evt);
             }
         });
-        bgBarcelona.add(textoPuerta11, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, 130, -1));
+        bgBarcelona.add(textoPuerta11, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 170, 130, -1));
 
         jLabel33.setForeground(new java.awt.Color(0, 0, 0));
         jLabel33.setText("Puerta 6 (DE):");
-        bgBarcelona.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 80, -1));
+        bgBarcelona.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 80, -1));
 
         textoPuerta12.setEditable(false);
         textoPuerta12.addActionListener(new java.awt.event.ActionListener() {
@@ -497,80 +480,104 @@ public class Menu extends javax.swing.JFrame {
                 textoPuerta12ActionPerformed(evt);
             }
         });
-        bgBarcelona.add(textoPuerta12, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, 130, -1));
+        bgBarcelona.add(textoPuerta12, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 130, -1));
 
         jLabel35.setForeground(new java.awt.Color(0, 0, 0));
         jLabel35.setText("Área rodaje:");
-        bgBarcelona.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
+        bgBarcelona.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, -1, -1));
 
         textoRodaje1.setEditable(false);
-        bgBarcelona.add(textoRodaje1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 320, -1));
+        bgBarcelona.add(textoRodaje1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 80, -1));
 
         jLabel36.setForeground(new java.awt.Color(0, 0, 0));
         jLabel36.setText("Pista 1:");
-        bgBarcelona.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 90, -1));
-
-        textoPista5.setEditable(false);
-        textoPista5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoPista5ActionPerformed(evt);
-            }
-        });
-        bgBarcelona.add(textoPista5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 310, 120, -1));
-
-        textoPista6.setEditable(false);
-        textoPista6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoPista6ActionPerformed(evt);
-            }
-        });
-        bgBarcelona.add(textoPista6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, 120, -1));
+        bgBarcelona.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 50, -1));
 
         jLabel37.setForeground(new java.awt.Color(0, 0, 0));
         jLabel37.setText("Pista 2:");
-        bgBarcelona.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 90, -1));
-
-        textoPista7.setEditable(false);
-        textoPista7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoPista7ActionPerformed(evt);
-            }
-        });
-        bgBarcelona.add(textoPista7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 310, 130, -1));
+        bgBarcelona.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 150, -1));
 
         jLabel38.setForeground(new java.awt.Color(0, 0, 0));
         jLabel38.setText("Pista 3:");
-        bgBarcelona.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 310, 50, -1));
+        bgBarcelona.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, 150, -1));
 
         jLabel39.setForeground(new java.awt.Color(0, 0, 0));
         jLabel39.setText("Pista 4:");
-        bgBarcelona.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, 90, -1));
-
-        textoPista8.setEditable(false);
-        textoPista8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoPista8ActionPerformed(evt);
-            }
-        });
-        bgBarcelona.add(textoPista8, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 130, -1));
+        bgBarcelona.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 310, 150, -1));
 
         textoNumPasajeros1.setEditable(false);
         textoNumPasajeros1.setText("0");
         bgBarcelona.add(textoNumPasajeros1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 70, -1));
-
-        textoBusA1.setEditable(false);
-        textoBusA1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoBusA1ActionPerformed(evt);
-            }
-        });
-        bgBarcelona.add(textoBusA1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 80, -1));
 
         jLabel34.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
         jLabel34.setForeground(new java.awt.Color(0, 0, 0));
         jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel34.setText("Aeropuerto de Barcelona");
         bgBarcelona.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, -1));
+
+        abrirPista_5.setText("Abrir");
+        abrirPista_5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abrirPista_5ActionPerformed(evt);
+            }
+        });
+        bgBarcelona.add(abrirPista_5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, 70, -1));
+
+        cerrarPista_5.setText("Cerrar");
+        cerrarPista_5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarPista_5ActionPerformed(evt);
+            }
+        });
+        bgBarcelona.add(cerrarPista_5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 70, -1));
+
+        abrirPista_6.setText("Abrir");
+        abrirPista_6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abrirPista_6ActionPerformed(evt);
+            }
+        });
+        bgBarcelona.add(abrirPista_6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, 70, -1));
+
+        cerrarPista_6.setText("Cerrar");
+        cerrarPista_6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarPista_6ActionPerformed(evt);
+            }
+        });
+        bgBarcelona.add(cerrarPista_6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 70, -1));
+
+        cerrarPista_7.setText("Cerrar");
+        cerrarPista_7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarPista_7ActionPerformed(evt);
+            }
+        });
+        bgBarcelona.add(cerrarPista_7, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, 70, -1));
+
+        abrirPista_7.setText("Abrir");
+        abrirPista_7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abrirPista_7ActionPerformed(evt);
+            }
+        });
+        bgBarcelona.add(abrirPista_7, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 270, 70, -1));
+
+        cerrarPista_8.setText("Cerrar");
+        cerrarPista_8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarPista_8ActionPerformed(evt);
+            }
+        });
+        bgBarcelona.add(cerrarPista_8, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 330, 70, -1));
+
+        abrirPista_8.setText("Abrir");
+        abrirPista_8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abrirPista_8ActionPerformed(evt);
+            }
+        });
+        bgBarcelona.add(abrirPista_8, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 330, 70, -1));
 
         bg.add(bgBarcelona, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 50, 410, 380));
 
@@ -622,10 +629,10 @@ public class Menu extends javax.swing.JFrame {
         javaeatlogo1.setFont(new java.awt.Font("Roboto Condensed", 1, 36)); // NOI18N
         javaeatlogo1.setForeground(new java.awt.Color(255, 102, 0));
 
-        botonRemoto.setText("Remoto");
-        botonRemoto.addActionListener(new java.awt.event.ActionListener() {
+        botonVolver.setText("Volver");
+        botonVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonRemotoActionPerformed(evt);
+                botonVolverActionPerformed(evt);
             }
         });
 
@@ -635,10 +642,10 @@ public class Menu extends javax.swing.JFrame {
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(botonRemoto)
-                .addGap(74, 74, 74)
+                .addComponent(botonVolver)
+                .addGap(71, 71, 71)
                 .addComponent(javaeatlogo1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 612, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 615, Short.MAX_VALUE)
                 .addComponent(exitpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         headerLayout.setVerticalGroup(
@@ -649,7 +656,7 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(exitpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(headerLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(botonRemoto)))
+                        .addComponent(botonVolver)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -668,29 +675,6 @@ public class Menu extends javax.swing.JFrame {
         }
     }
 
-    public void actualizarBusCiudad(Bus bus, String nombreAeropuerto) {
-        if ("Madrid".equals(nombreAeropuerto)) {
-            textoBusC.setText(bus.getIdBus() + " (" + bus.getNumPasajeros() + ")");
-        } else {
-            textoBusC1.setText(bus.getIdBus() + " (" + bus.getNumPasajeros() + ")");
-        }
-    }
-
-    public void actualizarBusAeropuerto(Bus bus, String nombreAeropuerto) {
-        if ("Madrid".equals(nombreAeropuerto)) {
-            textoBusA.setText(bus.getIdBus() + " (" + bus.getNumPasajeros() + ")");
-        } else {
-            textoBusA1.setText(bus.getIdBus() + " (" + bus.getNumPasajeros() + ")");
-        }
-    }
-
-    private void botonPausarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPausarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonPausarActionPerformed
-
-    private void textoBusAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoBusAActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textoBusAActionPerformed
 
     private void textoPuerta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoPuerta1ActionPerformed
         // TODO add your handling code here:
@@ -716,26 +700,6 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_textoPuerta6ActionPerformed
 
-    private void textoPista1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoPista1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textoPista1ActionPerformed
-
-    private void textoPista2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoPista2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textoPista2ActionPerformed
-
-    private void textoPista3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoPista3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textoPista3ActionPerformed
-
-    private void textoPista4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoPista4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textoPista4ActionPerformed
-
-    private void textoBusA1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoBusA1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textoBusA1ActionPerformed
-
     private void textoPuerta7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoPuerta7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textoPuerta7ActionPerformed
@@ -759,26 +723,6 @@ public class Menu extends javax.swing.JFrame {
     private void textoPuerta12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoPuerta12ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textoPuerta12ActionPerformed
-
-    private void textoPista5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoPista5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textoPista5ActionPerformed
-
-    private void textoPista6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoPista6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textoPista6ActionPerformed
-
-    private void textoPista7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoPista7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textoPista7ActionPerformed
-
-    private void textoPista8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoPista8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textoPista8ActionPerformed
-
-    private void botonReanudarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReanudarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonReanudarActionPerformed
 
     private void txtexitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtexitMouseClicked
         Central.salir();
@@ -807,9 +751,73 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_textoNumPasajerosActionPerformed
 
-    private void botonRemotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRemotoActionPerformed
+    private void abrirPista_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirPista_1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_botonRemotoActionPerformed
+    }//GEN-LAST:event_abrirPista_1ActionPerformed
+
+    private void cerrarPista_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarPista_1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cerrarPista_1ActionPerformed
+
+    private void cerrarPista_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarPista_2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cerrarPista_2ActionPerformed
+
+    private void abrirPista_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirPista_2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_abrirPista_2ActionPerformed
+
+    private void cerrarPista_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarPista_3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cerrarPista_3ActionPerformed
+
+    private void abrirPista_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirPista_3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_abrirPista_3ActionPerformed
+
+    private void cerrarPista_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarPista_4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cerrarPista_4ActionPerformed
+
+    private void abrirPista_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirPista_4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_abrirPista_4ActionPerformed
+
+    private void abrirPista_5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirPista_5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_abrirPista_5ActionPerformed
+
+    private void cerrarPista_5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarPista_5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cerrarPista_5ActionPerformed
+
+    private void abrirPista_6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirPista_6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_abrirPista_6ActionPerformed
+
+    private void cerrarPista_6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarPista_6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cerrarPista_6ActionPerformed
+
+    private void cerrarPista_7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarPista_7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cerrarPista_7ActionPerformed
+
+    private void abrirPista_7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirPista_7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_abrirPista_7ActionPerformed
+
+    private void cerrarPista_8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarPista_8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cerrarPista_8ActionPerformed
+
+    private void abrirPista_8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirPista_8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_abrirPista_8ActionPerformed
+
+    private void botonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonVolverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -828,32 +836,47 @@ public class Menu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuRemoto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuRemoto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuRemoto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuRemoto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu().setVisible(true);
+                new MenuRemoto().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton abrirPista_1;
+    private javax.swing.JToggleButton abrirPista_2;
+    private javax.swing.JToggleButton abrirPista_3;
+    private javax.swing.JToggleButton abrirPista_4;
+    private javax.swing.JToggleButton abrirPista_5;
+    private javax.swing.JToggleButton abrirPista_6;
+    private javax.swing.JToggleButton abrirPista_7;
+    private javax.swing.JToggleButton abrirPista_8;
     private javax.swing.JPanel bg;
     private javax.swing.JPanel bgAero;
     private javax.swing.JPanel bgBarcelona;
     private javax.swing.JPanel bgMadrid;
-    private javax.swing.JToggleButton botonPausar;
-    private javax.swing.JToggleButton botonReanudar;
-    private javax.swing.JButton botonRemoto;
+    private javax.swing.JButton botonVolver;
+    private javax.swing.JToggleButton cerrarPista_1;
+    private javax.swing.JToggleButton cerrarPista_2;
+    private javax.swing.JToggleButton cerrarPista_3;
+    private javax.swing.JToggleButton cerrarPista_4;
+    private javax.swing.JToggleButton cerrarPista_5;
+    private javax.swing.JToggleButton cerrarPista_6;
+    private javax.swing.JToggleButton cerrarPista_7;
+    private javax.swing.JToggleButton cerrarPista_8;
     private javax.swing.JPanel exitpanel;
     private javax.swing.JPanel header;
     private javax.swing.JLabel icon;
@@ -871,10 +894,8 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
@@ -889,33 +910,19 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel javaeatlogo1;
     private javax.swing.JTextField textoAeroBaMa;
     private javax.swing.JTextField textoAeroMaBa;
-    private javax.swing.JTextField textoBusA;
-    private javax.swing.JTextField textoBusA1;
-    private javax.swing.JTextField textoBusC;
-    private javax.swing.JTextField textoBusC1;
     private javax.swing.JTextField textoEstacionamiento;
     private javax.swing.JTextField textoEstacionamiento1;
     private javax.swing.JTextField textoHangar;
     private javax.swing.JTextField textoHangar1;
     private javax.swing.JTextField textoNumPasajeros;
     private javax.swing.JTextField textoNumPasajeros1;
-    private javax.swing.JTextField textoPista1;
-    private javax.swing.JTextField textoPista2;
-    private javax.swing.JTextField textoPista3;
-    private javax.swing.JTextField textoPista4;
-    private javax.swing.JTextField textoPista5;
-    private javax.swing.JTextField textoPista6;
-    private javax.swing.JTextField textoPista7;
-    private javax.swing.JTextField textoPista8;
     private javax.swing.JTextField textoPuerta1;
     private javax.swing.JTextField textoPuerta10;
     private javax.swing.JTextField textoPuerta11;

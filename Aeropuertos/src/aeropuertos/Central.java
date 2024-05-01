@@ -1,19 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package aeropuertos;
 
 import interfaz.Menu;
+import interfaz.MenuRemoto;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
-
-/**
- *
- * @author lucia
- */
 public abstract class Central {
     
     // Variables
@@ -23,6 +17,7 @@ public abstract class Central {
     private static Aeropuerto barcelona;
     private static Log log;
     private static Menu menu;
+    private static MenuRemoto menuRemoto;
     private static JFrame frameActual;
     
     private static Semaphore semBusC = new Semaphore(1);
@@ -40,6 +35,8 @@ public abstract class Central {
         menu = new Menu();
         menu.setVisible(true);
         
+        menuRemoto = new MenuRemoto();
+        
         iniciarCentral();
     }
     
@@ -52,7 +49,7 @@ public abstract class Central {
     }
     
     /**
-     * Inicia los hilos aviones y buses
+     * Inicia los hilos que crearán los aviones y buses
      * @param
      */
     public static void iniciarCentral(){
@@ -83,29 +80,37 @@ public abstract class Central {
     }
     
     /**
-     * Fija ....
+     * 
+     * Actualiza el número de pasajeros del aeropuerto indicado
+     * en la interfaz Menu
      * @param pasajeros
      * @param aeropuerto 
      */
-    public static synchronized void fijarPasajeros(int pasajeros, Aeropuerto aeropuerto){
-        aeropuerto.getPasajerosAeropuerto().set(pasajeros);
-        menu.actualizarPasajeros(aeropuerto.getPasajerosAeropuerto().get(), aeropuerto.getNombre());
+    public static void actualizarPasajerosAeropuerto(int pasajeros, Aeropuerto aeropuerto){
+        menu.actualizarPasajeros(pasajeros, aeropuerto.getNombre());
     }
     
-    public static void mostrarBusCiudad(Bus bus) throws InterruptedException{
-        semBusC.acquire();
-        
-        menu.actualizarBusCiudad(bus, bus.getAeropuerto().getNombre());
-        
-        semBusC.release();
+    
+    public static void mostrarBusCiudad(Bus bus){
+        try {
+            semBusC.acquire();
+            
+            menu.actualizarBusCiudad(bus, bus.getAeropuerto().getNombre());
+            
+            semBusC.release();
+        } catch (InterruptedException ex) {
+        }
     }
     
-    public static void mostrarBusAeropuerto(Bus bus) throws InterruptedException{
-        semBusA.acquire();
-        
-        menu.actualizarBusAeropuerto(bus, bus.getAeropuerto().getNombre());
-        
-        semBusA.release();
+    public static void mostrarBusAeropuerto(Bus bus){
+        try {
+            semBusA.acquire();
+            
+            menu.actualizarBusAeropuerto(bus, bus.getAeropuerto().getNombre());
+            
+            semBusA.release();
+        } catch (InterruptedException ex) {
+        }
     }
     
     public static void dormir(int inicioMiliseg, int finalMiliseg){
