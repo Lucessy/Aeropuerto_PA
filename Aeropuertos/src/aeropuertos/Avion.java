@@ -25,6 +25,7 @@ public class Avion extends Thread {
     private int posicionPista;
     private String nombreAeropuerto;
     private int numVuelos;
+    private boolean embarcar;
 
     //Constructor
     public Avion(String id, Aeropuerto aeropuerto, int capacidad, Log log) {
@@ -34,6 +35,7 @@ public class Avion extends Thread {
         this.log = log;
         this.nombreAeropuerto = aeropuerto.getNombre();
         this.numVuelos = 0;
+        this.embarcar = true;//Si está a true es que el avion tiene que embarcar, sino desembarcar
     }
 
     // Métodos
@@ -97,6 +99,16 @@ public class Avion extends Thread {
     public void setNumVuelos(int numVuelos) {
         this.numVuelos = numVuelos;
     }
+
+    public boolean isEmbarcar() {
+        return embarcar;
+    }
+
+    public void setEmbarcar(boolean embarcar) {
+        this.embarcar = embarcar;
+    }
+    
+    
     
     
 }

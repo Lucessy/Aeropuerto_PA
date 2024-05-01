@@ -10,6 +10,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -24,6 +25,8 @@ public class Aeropuerto {
 
     private BlockingQueue aviones = new LinkedBlockingQueue();
     private BlockingQueue buses = new LinkedBlockingQueue();
+//    private PuertaEmbarque puertaBarcelona = new PuertaEmbarque();
+//    private PuertaEmbarque puertaMadrid = new PuertaEmbarque();    
 
     private ArrayList<Avion> aeroviaIda = new ArrayList<>();
     private ArrayList<Avion> aeroviaVuelta = new ArrayList<>();
@@ -36,7 +39,7 @@ public class Aeropuerto {
     private int posPista = 0;
 
     private final boolean[] pistas = new boolean[4];
-    private final boolean[] puertasEmbarque = new boolean[6]; //La puerta 1 reservada solo para embarque, la puerta 6 para desembarque, el resto para ambas accioens
+    //private final boolean[] puertasEmbarque = new boolean[6]; //La puerta 1 reservada solo para embarque, la puerta 6 para desembarque, el resto para ambas accioens
     private final Semaphore semPista = new Semaphore(1);
     private final Semaphore semDisponibilidadPista = new Semaphore(4, true);
     private final Semaphore semEmbarque = new Semaphore(1);
@@ -50,7 +53,7 @@ public class Aeropuerto {
     private Random random = new Random();
 
     private ReentrantLock lockLista;
-
+       
     // Constructor
     public Aeropuerto(String nombre, Log log) {
         this.nombre = nombre;
@@ -136,37 +139,39 @@ public class Aeropuerto {
             lockLista.unlock();
         }
     }
-
-    public void areaEstacionamientoDesembarque(Avion avion) throws InterruptedException{
-        try{
-            int tiempo = 1000+ random.nextInt(4000); //Tiempo entre 1-5s de comprobaciones después de desembarcar
-            avion.sleep(tiempo);
-        }catch (InterruptedException ex) {
-            System.out.println(ex);
-        }
-    }
-//        } finally {
-//            lockLista.unlock();
-//        }
-    }
-
-    public void puertasEmbarque(int numPasajeros) throws InterruptedException {
-        semEmbarque.acquire();
-        for (int i = 0; i < 5; i++) {
-            if (puertasEmbarque[i] == false) {
-                puertasEmbarque[i] = true;
-            }
-        }
-    }
     
-     public void puertasDesembarque(int numPasajeros) throws InterruptedException {
-        semEmbarque.acquire();
-        for (int i = 1; i < 6; i++) {
-            if (puertasEmbarque[i] == false) {
-                puertasEmbarque[i] = true;
-            }
-        }
-    }
+    
+
+//    public void areaEstacionamientoDesembarque(Avion avion) throws InterruptedException{
+//        try{
+//            int tiempo = 1000+ random.nextInt(4000); //Tiempo entre 1-5s de comprobaciones después de desembarcar
+//            avion.sleep(tiempo);
+//        }catch (InterruptedException ex) {
+//            System.out.println(ex);
+//        }
+//    }
+////        } finally {
+////            lockLista.unlock();
+////        }
+//    }
+
+//    public void puertasEmbarque(int numPasajeros) throws InterruptedException {
+//        semEmbarque.acquire();
+//        for (int i = 0; i < 5; i++) {
+//            if (puertasEmbarque[i] == false) {
+//                puertasEmbarque[i] = true;
+//            }
+//        }
+//    }
+    
+//     public void puertasDesembarque(int numPasajeros) throws InterruptedException {
+//        semEmbarque.acquire();
+//        for (int i = 1; i < 6; i++) {
+//            if (puertasEmbarque[i] == false) {
+//                puertasEmbarque[i] = true;
+//            }
+//        }
+//    }
 
     public int areaRodaje() throws InterruptedException {
         semDisponibilidadPista.acquire();
