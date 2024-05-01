@@ -28,8 +28,8 @@ public class Aeropuerto {
 //    private PuertaEmbarque puertaBarcelona = new PuertaEmbarque();
 //    private PuertaEmbarque puertaMadrid = new PuertaEmbarque();    
 
-    private ArrayList<Avion> aeroviaIda = new ArrayList<>();
-    private ArrayList<Avion> aeroviaVuelta = new ArrayList<>();
+    private BlockingQueue aeroviaIda = new LinkedBlockingQueue();
+    private BlockingQueue aeroviaVuelta = new LinkedBlockingQueue();
     
     private ArrayList<Avion> listaPista = new ArrayList<>();
 
@@ -39,10 +39,12 @@ public class Aeropuerto {
     private int posPista = 0;
 
     private final boolean[] pistas = new boolean[4];
-    //private final boolean[] puertasEmbarque = new boolean[6]; //La puerta 1 reservada solo para embarque, la puerta 6 para desembarque, el resto para ambas accioens
+    private final boolean[] puertasEmbarque = new boolean[6]; //Puerta 1 -> Desembarque, 2,3,4,5 -> Otros, 6 -> Embarque
     private final Semaphore semPista = new Semaphore(1);
     private final Semaphore semDisponibilidadPista = new Semaphore(4, true);
     private final Semaphore semEmbarque = new Semaphore(1);
+    
+    private ReentrantLock lockPista;
 
     private Semaphore semDisponibilidadEmb = new Semaphore(0, true);
     private Semaphore semDisponibilidadDesemb = new Semaphore(0, true);
@@ -90,6 +92,7 @@ public class Aeropuerto {
 
     /*ZONAS DE ACTIVIDAD*/
     public void hangar(Avion avion) {
+        Central.dormir(15000, 30000);
 //        try{
 //            hangar.put(avion);
 //        }catch (InterruptedException ex) {
@@ -101,15 +104,13 @@ public class Aeropuerto {
         try{
             taller.acquire();
             puertaTaller.lock();//Por la puerta solo pasa un avion y tarda 1 segundo en hacer la accion
-            avion.sleep(1000);
+            Central.dormir(1000,1000);
             puertaTaller.unlock();
             if (avion.getNumVuelos()==15){
-                int tiempoTaller = 5000 + random.nextInt(5000);
-                avion.sleep(tiempoTaller);
+                Central.dormir(5000, 10000);
                 avion.setNumVuelos(0);//Al llegar a 15 vuelos se reinicia el contador
             }else{
-                int tiempoTaller = 1000 + random.nextInt(4000);
-                avion.sleep(tiempoTaller);
+                Central.dormir(1000, 5000);
             }
             puertaTaller.lock();
             avion.sleep(1000);
@@ -130,14 +131,46 @@ public class Aeropuerto {
             
             if (numPasajeros == 0) {    //El avion quiere embarcar porque tiene 0 pasajeros
                 semDisponibilidadEmb.acquire();
+                puertasEmbarque(numPasajeros);
 
             } else {  //El avion tiene capacidad >0 por lo que contiene pasajeros que desembarcar
                 semDisponibilidadDesemb.acquire();
+                puertasEmbarque(numPasajeros);
 
             }
         } finally {
             lockLista.unlock();
         }
+    }
+
+    public void areaEstacionamientoDesembarque(Avion avion) throws InterruptedException{
+        try{
+            int tiempo = 1000+ random.nextInt(4000); //Tiempo entre 1-5s de comprobaciones después de desembarcar
+            avion.sleep(tiempo);
+        }catch (InterruptedException ex) {
+            System.out.println(ex);
+        }
+    }
+//        } finally {
+//            lockLista.unlock();
+//        }
+    
+
+    public void puertasEmbarque(int numPasajeros) throws InterruptedException {
+        semEmbarque.acquire();
+        
+            for (int i = 0; i < 5; i++) {
+                if (puertasEmbarque[i] == false) {
+                    puertasEmbarque[i] = true;
+                }
+            }
+        // Intenta embarcar el número máximo de pasajeros
+        boolean maxPasajeros = false;
+        int intentos = 0;
+        while(!maxPasajeros && intentos<3){
+            
+        }
+        
     }
     
     
@@ -175,16 +208,16 @@ public class Aeropuerto {
 
     public int areaRodaje() throws InterruptedException {
         semDisponibilidadPista.acquire();
-        semPista.acquire();
+        lockPista.lock();
 
         int posPista = getPista();
 
-        semPista.release();
+        lockPista.lock();
 
         return posPista;
     }
 
-    public int getPista() throws InterruptedException {
+    public int getPista() {
 
         for (int i = 0; i < 4; i++) {
             if (pistas[i] == false) {
@@ -193,6 +226,22 @@ public class Aeropuerto {
             }
         }
 
+        return posPista;
+    }
+    
+    public void accederAerovia(){
+        
+    }
+    
+    public int solicitarPista(){
+        while(!lockPista.tryLock()){
+            Central.dormir(1000, 5000);
+        }
+        
+        int posPista = getPista();
+        
+        lockPista.unlock();
+        
         return posPista;
     }
 
@@ -208,10 +257,10 @@ public class Aeropuerto {
         aeroviaIda.add(avion);
     }
 
-    public synchronized void aeroviaVuelta(Avion avion) {
-        int indexAvion = aeroviaVuelta.indexOf(avion);
-        aeroviaVuelta.remove(indexAvion);
-    }
+//    public synchronized void aeroviaVuelta(Avion avion) {
+//        int indexAvion = aeroviaVuelta.indexOf(avion);
+//        aeroviaVuelta.remove(indexAvion);
+//    }
 
     /*FIN ZONAS DE ACTIVIDAD*/
     public BlockingQueue getAviones() {
