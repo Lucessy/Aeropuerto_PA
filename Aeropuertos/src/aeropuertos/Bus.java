@@ -34,82 +34,37 @@ public class Bus extends Thread {
      */
     public void run() {
         while (true) {
-            llegadaCiudad();
-            conducir();
-            llegadaAeropuerto(this.numPasajeros);
-            conducir();
+            //Recoger de 0-50 pasajeros durante 2-5 segundos en la ciudad
+            numPasajeros = random.nextInt(50);
+            Central.dormir(2000, 5000);
+            log.escribirArchivo("Bus " + id + " recoge " + numPasajeros + " pasajeros de la ciudad.", nombreAeropuerto);
 
-            log.escribirArchivo("Bus " + this.id + " deja " + this.numPasajeros + " pasajeros en la ciudad.", nombreAeropuerto);
+            //Esperar 5-10s para conducir
+            Central.mostrarBusAeropuerto(this);
+            Central.dormir(5000, 10000);
+            log.escribirArchivo("Bus " + id + " conduce.", nombreAeropuerto);
 
-            this.numPasajeros = 0;        //Se vuelve a poner la numPasajeros a 0 del bus para simular que se han bajado todos los pasajeros
-        }
-    }
+            //Deja a todos los pasajeros en el aeropuerto
+            Central.sumarPasajeros(numPasajeros, aeropuerto);
+            log.escribirArchivo("Bus " + this.id + " deja " + numPasajeros + " pasajeros en el aeropuerto.", nombreAeropuerto);
 
-    //Recoger de 0-50 pasajeros durante 2-5 segundos
-    public void llegadaCiudad() {
-        int miliseg = 2000 + random.nextInt(3000);
-        this.numPasajeros = random.nextInt(50);
-        try {
-            Thread.sleep(miliseg);
-
-            log.escribirArchivo("Bus " + this.id + " recoge " + this.numPasajeros + " pasajeros de la ciudad.", nombreAeropuerto);
-
-            Central.mostrarBusCiudad(this);
-        } catch (InterruptedException e) {
-            log.escribirArchivo("El sleep fue interrumpido", nombreAeropuerto);
-        }
-    }
-
-    //Esperar 5-10s
-    public void conducir() {
-        int miliseg = 5000 + random.nextInt(5000);
-        try {
-            Thread.sleep(miliseg);
-            log.escribirArchivo("Bus " + this.id + " conduce.", nombreAeropuerto);
-
-        } catch (InterruptedException e) {
-            log.escribirArchivo("El sleep fue interrumpido", nombreAeropuerto);
-        }
-    }
-
-    //Aumento de la variable atómica del aeropuerto con los pasajeros que llegan
-    public void llegadaAeropuerto(int pasajeros) {
-        Central.sumarPasajeros(pasajeros, aeropuerto);
-
-        log.escribirArchivo("Bus " + this.id + " deja " + pasajeros + " pasajeros en el aeropuerto.", nombreAeropuerto);
-
-        vueltaAeropuerto();
-    }
-
-    //Se esperan de 2-5 segundos y se cogen los pasajeros que se piden o los que haya disponibles si son menos.
-    public void vueltaAeropuerto() {
-        int pasajeros = random.nextInt(50);
-        int miliseg = 2000 + random.nextInt(3000);
-        try {
-            Thread.sleep(miliseg);
-
-            if (Central.getPasajeros(aeropuerto).get() == 0) {
-                this.numPasajeros = 0;                             //   No se sube ningún pasajero, porque no hay en el aeropuerto
-
-            } else if (Central.getPasajeros(aeropuerto).get() <= pasajeros) {
-                this.numPasajeros = Central.getPasajeros(aeropuerto).get();       //    Se suben todos los disponibles, que son menos de los que se piden y se iguala a 0
-                Central.fijarPasajeros(0, aeropuerto);
-
-            } else {
-                this.numPasajeros = pasajeros;                          //  Coge los pasajeros que se han idicado
-                Central.sumarPasajeros(-pasajeros, aeropuerto);         //  Decrementa la cantidad de pasajeros total -(pasajeros)
-            }
-
+            //Recoger de 0-50 pasajeros durante 2-5 segundos en el aeropuerto
+            int pasajeros = random.nextInt(50);
+            Central.dormir(2000, 5000);
+            numPasajeros = aeropuerto.getPasajerosDisponibles(pasajeros);
             log.escribirArchivo("Bus " + this.id + " recoge " + pasajeros + " pasajeros del aeropuerto.", nombreAeropuerto);
 
-            Central.mostrarBusAeropuerto(this);
+            //Esperar 5-10s para conducir
+            Central.mostrarBusCiudad(this);
+            Central.dormir(5000, 10000);
+            log.escribirArchivo("Bus " + id + " conduce.", nombreAeropuerto);
 
-        } catch (InterruptedException e) {
-            log.escribirArchivo("El sleep o semáforo fue interrumpido", nombreAeropuerto);
+            //Deja a todos los pasajeros en la ciudad
+            log.escribirArchivo("Bus " + id + " deja " + numPasajeros + " pasajeros en la ciudad.", nombreAeropuerto);
         }
     }
 
-    // Métodos Get y Set
+    // Métodos
     public int getNumPasajeros() {
         return numPasajeros;
     }
