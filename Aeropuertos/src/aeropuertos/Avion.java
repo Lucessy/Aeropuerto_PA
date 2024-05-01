@@ -35,7 +35,7 @@ public class Avion extends Thread {
         this.log = log;
         this.nombreAeropuerto = aeropuerto.getNombre();
         this.numVuelos = 0;
-        this.embarcar = true;//Si está a true es que el avion tiene que embarcar, sino desembarcar
+        this.embarcar = true;//Si está a true es que el avion tiene que embarcar, sino desembarcar. Todos los aviones comienzan teniendo que embarcar
     }
 
     // Métodos
@@ -45,8 +45,8 @@ public class Avion extends Thread {
         while(true){
             try {
                 // PROCESO DE EMBARCAR
-                aeropuerto.areaEstacionamiento(this);
-                aeropuerto.puertasEmbarque(numPasajeros); // Embarcará porque pues SI XD
+//                aeropuerto.areaEstacionamiento(this);
+//                aeropuerto.puertasEmbarque(numPasajeros); // Embarcará porque pues SI XD
                 Central.dormir(1000, 5000); //Comprobaciones antes de entrar a pista 1-5seg.
                 
                 // PROCESO OBTENER PISTA PARA SALIR
