@@ -6,6 +6,7 @@ package aeropuertos;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.Semaphore;
@@ -40,14 +41,21 @@ public class Aeropuerto {
 
     private final boolean[] pistas = new boolean[4];
     private final boolean[] puertasEmbarque = new boolean[6]; //Puerta 1 -> Desembarque, 2,3,4,5 -> Otros, 6 -> Embarque
+    private final ArrayBlockingQueue<Integer> indicesPuertas = new ArrayBlockingQueue<>(4);
     private final Semaphore semPista = new Semaphore(1);
     private final Semaphore semDisponibilidadPista = new Semaphore(4, true);
-    private final Semaphore semEmbarque = new Semaphore(1);
+    private final Semaphore semDisponibilidadPuertas = new Semaphore(6, true);
+    private final Semaphore semEmbarque = new Semaphore(1);//Exclusivo para la puerta de embarque
+    private final Semaphore semDesembarque = new Semaphore(1);//Exclusivo para la puerta de desembarque
+    private final Semaphore semPuertasCompartidas = new Semaphore(1);
     
     private ReentrantLock lockPista;
+    private ReentrantLock lockPuertas = new ReentrantLock(true);
+//    private Condition embarcar = lockPuertas.newCondition();
+//    private Condition desembarcar = lockPuertas.newCondition();
 
-    private Semaphore semDisponibilidadEmb = new Semaphore(0, true);
-    private Semaphore semDisponibilidadDesemb = new Semaphore(0, true);
+//    private Semaphore semDisponibilidadEmb = new Semaphore(0, true);
+//    private Semaphore semDisponibilidadDesemb = new Semaphore(0, true);
     
     private Semaphore taller = new Semaphore (20, true);
     private Lock puertaTaller = new ReentrantLock();
@@ -63,6 +71,9 @@ public class Aeropuerto {
         this.pasajerosAeropuerto = new AtomicInteger(0);
         for (int i = 0; i < 4; i++) {
             pistas[i] = false;
+        }
+        for (int i = 1; i<5;i++){
+            indicesPuertas.add(i);
         }
     }
 
@@ -122,71 +133,54 @@ public class Aeropuerto {
         
     }
 
-    public void areaEstacionamiento(Avion avion) throws InterruptedException {
-        lockLista.lock();
-        try {
-             
-            listaPista.add(avion); // Lista FIFO que representa la llegada real de los hilos
-            int numPasajeros = avion.getNumPasajeros(); // Deberiamos poner un booleano que diga si esEmbarque
-            
-            if (numPasajeros == 0) {    //El avion quiere embarcar porque tiene 0 pasajeros
-                semDisponibilidadEmb.acquire();
-                puertasEmbarque(numPasajeros);
-
-            } else {  //El avion tiene capacidad >0 por lo que contiene pasajeros que desembarcar
-                semDisponibilidadDesemb.acquire();
-                puertasEmbarque(numPasajeros);
-
-            }
-        } finally {
-            lockLista.unlock();
-        }
-    }
-
-    public void areaEstacionamientoDesembarque(Avion avion) throws InterruptedException{
-        try{
-            int tiempo = 1000+ random.nextInt(4000); //Tiempo entre 1-5s de comprobaciones después de desembarcar
-            avion.sleep(tiempo);
-        }catch (InterruptedException ex) {
-            System.out.println(ex);
-        }
-    }
-//        } finally {
-//            lockLista.unlock();
-//        }
-    
-
-    public void puertasEmbarque(int numPasajeros) throws InterruptedException {
-        semEmbarque.acquire();
-        
-            for (int i = 0; i < 5; i++) {
-                if (puertasEmbarque[i] == false) {
-                    puertasEmbarque[i] = true;
-                }
-            }
-        // Intenta embarcar el número máximo de pasajeros
-        boolean maxPasajeros = false;
-        int intentos = 0;
-        while(!maxPasajeros && intentos<3){
-            
-        }
-        
-    }
-    
-    
-
-//    public void areaEstacionamientoDesembarque(Avion avion) throws InterruptedException{
-//        try{
-//            int tiempo = 1000+ random.nextInt(4000); //Tiempo entre 1-5s de comprobaciones después de desembarcar
-//            avion.sleep(tiempo);
-//        }catch (InterruptedException ex) {
-//            System.out.println(ex);
+//    public void areaEstacionamiento(Avion avion) throws InterruptedException {
+//        if (avion.isEmbarcar()){ //Si el avión va a embarcar solicita puerta de embarque
+//            lockLista.lock();//Exclusión mutua para acceder a los aviones en pista
+//            try {
+//                listaPista.add(avion); // Lista FIFO que representa la llegada real de los hilos
+//                indice = puertasEmbarque(avion.isEmbarcar());
+//                //return indice con la puerta de embarque libre
+//            } finally {
+//                lockLista.unlock();
+//            }
+//        
+//        } else {  //El avion ha desembarcado y solo tiene que hacer comprobaciones
+//                 try{
+//                    int tiempo = 1000+ random.nextInt(4000); //Tiempo entre 1-5s de comprobaciones después de desembarcar
+//                    avion.sleep(tiempo);
+//                }catch (InterruptedException ex) {
+//                    System.out.println(ex);
+//                }
+//
 //        }
 //    }
-////        } finally {
-////            lockLista.unlock();
-////        }
+
+
+
+//    public int puertasEmbarque(boolean esEmbarque) throws InterruptedException {
+//        int indice=-1;
+//        if (esEmbarque){
+//            if(puertasEmbarque[0]=false){
+//                semEmbarque.acquire();//Cuando embarquen los pasajeros se usara para ponerlo a false
+//                puertasEmbarque[0]=true;
+//            }else{
+//                semPuertasCompartidas.acquire();
+//                indice = indicesPuertas.take();//Puede obtener indices del 1-4
+//                puertasEmbarque[indice]=true;
+//            }
+//        }else{
+//            if(puertasEmbarque[5]=false){
+//                semDesembarque.acquire();
+//            }else{
+//                semPuertasCompartidas.acquire();
+//                indice = indicesPuertas.take();//Puede obtener indices del 1-4
+//                puertasEmbarque[indice]=true;
+//            }
+//        }
+//        
 //    }
+    
+    
 
 //    public void puertasEmbarque(int numPasajeros) throws InterruptedException {
 //        semEmbarque.acquire();
