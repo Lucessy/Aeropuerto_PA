@@ -148,7 +148,7 @@ public class Aeropuerto {
 //        } finally {
 //            lockLista.unlock();
 //        }
-    }
+    
 
     public void puertasEmbarque(int numPasajeros) throws InterruptedException {
         semEmbarque.acquire();
