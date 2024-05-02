@@ -7,6 +7,8 @@ package aeropuertos;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Log {
 
@@ -14,6 +16,7 @@ public class Log {
     private String encoding;
     private PrintWriter writer;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private Lock lockLog = new ReentrantLock(true);
 
     public Log(String nombre, String encoding) {
         this.nombreArchivo = nombre;
@@ -27,18 +30,29 @@ public class Log {
         }
     }
 
-    public synchronized void escribirArchivo(String evento, String aeropuerto) {
-        LocalDateTime timestamp = LocalDateTime.now();
-        String mensaje = "[" + timestamp.format(formatter) + "] " + aeropuerto + ": " + evento;
-        writer.println(mensaje);
-        writer.flush(); // Asegurar que los datos se escriban en el archivo inmediatamente
+    public void escribirArchivo(String evento, String aeropuerto) {
+        lockLog.lock();
+        try {
+            LocalDateTime timestamp = LocalDateTime.now();
+            String mensaje = "[" + timestamp.format(formatter) + "] " + aeropuerto + ": " + evento;
+            writer.println(mensaje);
+            writer.flush(); // Asegurar que los datos se escriban en el archivo inmediatamente
+        } finally {
+            lockLog.unlock();
+        }
     }
-    
-    public synchronized void escribirArchivo(String evento) { // Comentarios del sistema, no del ciclo de vida de buses y aviones
-        LocalDateTime timestamp = LocalDateTime.now();
-        String mensaje = "[" + timestamp.format(formatter) + "] " + ": " + evento;
-        writer.println(mensaje);
-        writer.flush(); // Asegurar que los datos se escriban en el archivo inmediatamente
+
+    public synchronized void escribirArchivo(String evento) {
+        lockLog.lock();
+        try {
+            // Comentarios del sistema, no del ciclo de vida de buses y aviones
+            LocalDateTime timestamp = LocalDateTime.now();
+            String mensaje = "[" + timestamp.format(formatter) + "] " + ": " + evento;
+            writer.println(mensaje);
+            writer.flush(); // Asegurar que los datos se escriban en el archivo inmediatamente
+        } finally {
+            lockLog.unlock();
+        }
     }
 
     public void cerrar() {
@@ -47,4 +61,3 @@ public class Log {
         }
     }
 }
-
