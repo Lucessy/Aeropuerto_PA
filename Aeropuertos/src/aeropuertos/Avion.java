@@ -1,96 +1,132 @@
 package aeropuertos;
 
-import static java.lang.Math.random;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Avion extends Thread {
 
     private Log log;
     private int capacidad;
     private String id;
-    private Aeropuerto aeropuerto;
     private Aeropuerto aeropuertoActual;
+    private Aeropuerto aeropuertoAntiguo;
+    private Aeropuerto barcelona;
+    private Aeropuerto madrid;
     private int numPasajeros;
     private int tiempo;
     private Random random;
     private int posicionPista;
-    private String nombreAeropuerto;
+    private int posPuerta;
     private int numVuelos;
     private boolean embarcar;
 
     //Constructor
-    public Avion(String id, Aeropuerto aeropuertoActual, int capacidad, Log log) {
+    public Avion(String id, Aeropuerto aeropuertoActual, Aeropuerto madrid, Aeropuerto barcelona, int capacidad, Log log) {
         this.id = id;
-        this.aeropuerto = aeropuertoActual;
+        this.aeropuertoActual = aeropuertoActual;
+        this.madrid = madrid;
+        this.barcelona = barcelona;
         this.capacidad = capacidad;
         this.log = log;
-        
-        this.nombreAeropuerto = aeropuerto.getNombre();
         this.numVuelos = 0;
-        
+        this.numPasajeros = 0;
+
         //Si está a true es que el avion tiene que embarcar, sino desembarcar. Todos los aviones comienzan teniendo que embarcar
         this.embarcar = true;
     }
 
     // Métodos
     public void run() {
-//        //Solo cuando se crea el avión
-//        aeropuertoActual.hangar(this,false); 
-//        while(true){
-//            try {
-//                // PROCESO DE EMBARCAR
-////                aeropuerto.areaEstacionamiento(this);
-////                aeropuerto.puertasEmbarque(numPasajeros); // Embarcará porque pues SI XD
-//                aeropuertoActual.areaEstacionamiento(this);
-//                
-//                aeropuertoActual.puertasEmbarque(this); // Embarcará porque pues SI XD
-//                Central.dormir(1000, 5000); //Comprobaciones antes de entrar a pista 1-5seg.
-//                
-//                
-//                // PROCESO OBTENER PISTA PARA SALIR
-//                posicionPista = aeropuertoActual.areaRodaje();  //Pide pista libre y devuelve la posición de la pista 1-4
-//                log.escribirArchivo("El avión con id "+this.id+" ha entrado en la pista "+(posicionPista+1), nombreAeropuerto);
-//                Central.dormir(1000, 3000);//Últimas comprobaciones en pista 1-3seg.
-//                log.escribirArchivo("El avión ha terminado de hacer las últimas comprobaciones", nombreAeropuerto);
-//                Central.dormir(1000, 5000);  //Tiempo de despegue 1-5seg.
-//                log.escribirArchivo("El avión ha despegado con éxito", nombreAeropuerto);
-//                numVuelos+=1;//Registro del número de vuelos para el taller
-//                
-//                
-//                // PROCESO DE ACCEDER A LA AEROVIA
-//                aeropuertoActual.liberarPista(posicionPista);
-//                log.escribirArchivo("La pista "+(posicionPista+1)+" ha sido liberada", nombreAeropuerto);
-//                
-//                
-//                // ACCEDER AEROVIA
-//                aeropuertoActual.accederAerovia(this);
-//                Central.dormir(15000, 30000);
-//                posicionPista = aeropuertoActual.solicitarPista(); //Espera entre 1-5 seg hasta conseguirla
-//                Central.dormir(1000, 5000); //Dura 1-5 seg en aterrizar
-//                aeropuertoActual.areaRodaje(); //Accede para pedir una puerta de embarque para desembarcar
-//                // dura entre 3-5 seg entre la pista y las puertas de embarque
-//                Central.dormir(1000,5000); //Descarga de los pasajeros
-//                
-//                
-//                
-//                aeropuertoActual.areaEstacionamiento(this);
-//                Central.dormir(1000,5000); //Comprobaciones de los pilotos
-//                
-//                
-//                
-//                
-//                aeropuertoActual.taller(this);
-//                
-//                if(random.nextInt(2) == 0){
-//                    aeropuertoActual.hangar(this,true);
-//                }
-//
-//            } catch (InterruptedException ex) {
-//                System.out.println(ex);
-//            }
-//        }
+        //Solo cuando se crea el avión
+        aeropuertoActual.hangar(this, false);
+        log.escribirArchivo("El avión con id " + this.id + " entra en el HANGAR", aeropuertoActual.getNombre());
+
+        while (true) {
+
+            /* PROCESO DE EMBARCAR  */
+            aeropuertoActual.areaEstacionamiento(this, false);
+            log.escribirArchivo("El avión con id " + this.id + " entra en el ÁREA DE ESTACIONAMIENTO", aeropuertoActual.getNombre());
+
+            aeropuertoActual.puertasEmbarque(this);
+            log.escribirArchivo("El avión con id " + this.id + " entra en la puerta de EMBARQUE" + (posPuerta + 1), aeropuertoActual.getNombre());
+
+            // Intenta embarcar el número máximo de pasajeros
+            boolean maxPasajeros = false;
+            int intentos = 0;
+            int capacidadActual = capacidad;
+            while (!maxPasajeros && intentos < 3) {
+                numPasajeros += aeropuertoActual.getPasajerosDisponibles(capacidad);
+                Central.dormir(1000, 3000);
+                if (numPasajeros < capacidadActual) {
+                    intentos++;
+                    capacidadActual = capacidadActual - numPasajeros;
+                    Central.dormir(1000, 5000);
+                } else {
+                    maxPasajeros = true;
+                }
+            }
+            log.escribirArchivo("El avión con id " + this.id + " ha embarcado " + numPasajeros + " pasajeros", aeropuertoActual.getNombre());
+            aeropuertoActual.salirPuertasEmbarque(this);
+
+            /* PROCESO OBTENER PISTA PARA SALIR */
+            aeropuertoActual.areaRodaje(this);
+            log.escribirArchivo("El avión con id " + this.id + " entra en el ÁREA DE RODAJE", aeropuertoActual.getNombre());
+            Central.dormir(1000, 5000); //Comprobaciones antes de entrar a pista 1-5seg.
+
+            aeropuertoActual.pista(this);    //Pide pista libre
+            log.escribirArchivo("El avión con id " + this.id + "(" + numPasajeros + " pasajeros)" + " ha entrado en la PISTA " + (posicionPista + 1), aeropuertoActual.getNombre());
+            Central.dormir(1000, 3000);//Últimas comprobaciones en pista 1-3seg.
+            log.escribirArchivo("El avión con id " + this.id + "(" + numPasajeros + " pasajeros)" + " ha terminado de hacer las últimas comprobaciones", aeropuertoActual.getNombre());
+
+            Central.dormir(1000, 5000);  //Tiempo de despegue 1-5seg.
+            log.escribirArchivo("El avión con id " + this.id + "(" + numPasajeros + " pasajeros)" + " ha despegado con éxito", aeropuertoActual.getNombre());
+            numVuelos += 1;//Registro del número de vuelos para el taller
+            aeropuertoActual.liberarPista(this);
+
+            /* ACCEDER AEROVIA  */
+            // Cambia de aeropuerto para acceder a la aerovia
+            if ("Madrid".equals(aeropuertoActual.getNombre())) {
+                log.escribirArchivo("El avión con id " + this.id + "(" + numPasajeros + " pasajeros)" + " accede a aerovía Madrid-Barcelona", aeropuertoActual.getNombre());
+                aeropuertoAntiguo = madrid;
+                aeropuertoActual = barcelona;
+
+            } else {
+                log.escribirArchivo("El avión con id " + this.id + "(" + numPasajeros + " pasajeros)" + " accede a aerovía Barcelona-Madrid", aeropuertoActual.getNombre());
+                aeropuertoAntiguo = barcelona;
+                aeropuertoActual = madrid;
+            }
+
+            aeropuertoAntiguo.accederAerovia(this);
+            Central.dormir(15000, 30000);
+            
+            aeropuertoActual.solicitarPista(aeropuertoAntiguo, this); //Espera entre 1-5 seg hasta conseguirla
+            log.escribirArchivo("El avión con id " + this.id + "(" + numPasajeros + " pasajeros)" + " ha entrado en la PISTA " + (posicionPista + 1), aeropuertoActual.getNombre());
+            Central.dormir(1000, 5000); //Dura 1-5 seg en aterrizar
+            aeropuertoActual.liberarPista(this);
+
+            aeropuertoActual.areaRodaje(this);
+            log.escribirArchivo("El avión con id " + this.id + " entra en el ÁREA DE RODAJE", aeropuertoActual.getNombre());
+            // dura entre 3-5 seg entre la pista y las puertas de embarque
+            Central.dormir(3000, 5000);
+
+            aeropuertoActual.puertasDesembarque(this);
+            log.escribirArchivo("El avión con id " + this.id + " entra en la puerta de EMBARQUE" + (posPuerta + 1) + " para desembarcar " + numPasajeros + " pasajeros", aeropuertoActual.getNombre());
+            Central.dormir(1000, 5000); //Descarga de los pasajeros
+            numPasajeros = 0;
+            aeropuertoActual.salirPuertasEmbarque(this);
+
+            aeropuertoActual.areaEstacionamiento(this, true);
+            log.escribirArchivo("El avión con id " + this.id + " entra en el ÁREA DE ESTACIONAMIENTO", aeropuertoActual.getNombre());
+            Central.dormir(1000, 5000); //Comprobaciones de los pilotos
+
+            aeropuertoActual.taller(this);
+            log.escribirArchivo("El avión con id " + this.id + " entra en el TALLER", aeropuertoActual.getNombre());
+
+            if (random.nextInt(2) == 0) {
+                log.escribirArchivo("El avión con id " + this.id + " entra en el HANGAR a reposar", aeropuertoActual.getNombre());
+                aeropuertoActual.hangar(this, true);
+            }
+
+        }
     }
 
     public int getCapacidad() {
@@ -131,6 +167,22 @@ public class Avion extends Thread {
 
     public void setEmbarcar(boolean embarcar) {
         this.embarcar = embarcar;
+    }
+
+    public int getPosicionPista() {
+        return posicionPista;
+    }
+
+    public void setPosicionPista(int posicionPista) {
+        this.posicionPista = posicionPista;
+    }
+
+    public int getPosPuerta() {
+        return posPuerta;
+    }
+
+    public void setPosPuerta(int posPuerta) {
+        this.posPuerta = posPuerta;
     }
 
 }
