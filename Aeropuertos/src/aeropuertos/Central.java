@@ -2,10 +2,10 @@ package aeropuertos;
 
 import interfaz.Menu;
 import interfaz.MenuRemoto;
+import java.lang.reflect.Constructor;
+import java.util.Queue;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 public abstract class Central {
@@ -22,6 +22,8 @@ public abstract class Central {
     
     private static Semaphore semBusC = new Semaphore(1);
     private static Semaphore semBusA = new Semaphore(1);
+    private static Semaphore semActCampo = new Semaphore(1,true);
+    private static Semaphore semActCampoSol = new Semaphore(1,true);
     
     /**
      * @param args the command line arguments
@@ -34,8 +36,6 @@ public abstract class Central {
         
         menu = new Menu();
         menu.setVisible(true);
-        
-        menuRemoto = new MenuRemoto();
         
         iniciarCentral();
     }
@@ -86,12 +86,12 @@ public abstract class Central {
      * @param pasajeros
      * @param aeropuerto 
      */
-    public static void actualizarPasajerosAeropuerto(int pasajeros, Aeropuerto aeropuerto){
+    public static synchronized void actualizarPasajerosAeropuerto(int pasajeros, Aeropuerto aeropuerto){
         menu.actualizarPasajeros(pasajeros, aeropuerto.getNombre());
     }
     
     
-    public static void mostrarBusCiudad(Bus bus){
+    public static synchronized void mostrarBusCiudad(Bus bus){
         try {
             semBusC.acquire();
             
@@ -102,7 +102,7 @@ public abstract class Central {
         }
     }
     
-    public static void mostrarBusAeropuerto(Bus bus){
+    public static synchronized void mostrarBusAeropuerto(Bus bus){
         try {
             semBusA.acquire();
             
@@ -121,24 +121,29 @@ public abstract class Central {
         }
     }
     
-//    /**
-//     * Cambia de Frame cerrando el anterior
-//     *
-//     * @param nombreFrame
-//     */
-//    public static void showFrame(String nombreFrame) {
-//        if (frameActual != null) {
-//            frameActual.setVisible(false);
-//            frameActual.dispose();
-//            frameActual = null;
-//        }
-//        try {
-//            Class<?> tempClass = Class.forName("interfaz." + nombreFrame);
-//            Constructor<?> ctor = tempClass.getConstructor();
-//            frameActual = (JFrame) ctor.newInstance();
-//            frameActual.setVisible(true);
-//        } catch (Exception e) {
-//            System.out.println("Error accediendo al nuevo Frame: " + nombreFrame + "\nError: " + e.getCause());
-//        }
-//    }
+    public static void actualizarAviones(String textField, Queue<Avion> listaAviones, String aeropuerto){
+        try {
+            semActCampo.acquire();
+            
+            menu.actualizarCampoAvion(textField, listaAviones, aeropuerto);
+            
+            semActCampo.release();
+        } catch (InterruptedException ex) {
+        }
+    }
+    
+    public static void actualizarAvionesSolitario(String textField, String texto, String aeropuerto){
+        try {
+            semActCampoSol.acquire();
+            
+            menu.actualizarCampoAvionSolitario(textField, texto, aeropuerto);
+            
+            semActCampoSol.release();
+        } catch (InterruptedException ex) {
+        }
+    }
+    
+    public static void botonPista(String boton, boolean flagBoton){
+        // implementar luego
+    }
 }
