@@ -219,7 +219,7 @@ public class Aeropuerto {
         semEmbarque.release();
     }
 
-    public void salirPuertasDesembarque(Avion avion){
+    public void salirPuertasDesembarque(Avion avion) {
         Central.actualizarAvionesSolitario("textoPuerta" + (avion.getPosPuerta() + 1), "", nombre);
         if (avion.getPosPuerta() == 5) {
             try {
@@ -238,7 +238,7 @@ public class Aeropuerto {
 
         semDesembarque.release();
     }
-    
+
     /**
      *
      * @param avion
@@ -332,18 +332,15 @@ public class Aeropuerto {
     public void taller(Avion avion) {
         try {
             semTaller.acquire();
-            
-            estacionamiento.remove(avion);
-            Central.actualizarAviones(avion, true, "textoEstacionamiento", estacionamiento, nombre);
-            
-            taller.offer(avion);
-            Central.actualizarAviones(avion, true, "textoTaller", taller, nombre);
 
-            semPuertaTaller.acquire();//Por la puerta solo pasa un avion y tarda 1 segundo en hacer la accion
+            Central.actualizarAviones(avion, false, "textoEstacionamiento", estacionamiento, nombre);
+
+            //Por la puerta solo pasa un avion y tarda 1 segundo en hacer la accion
+            semPuertaTaller.acquire();
             Central.dormir(1000, 1000);
             semPuertaTaller.release();
-
-            taller.offer(avion);
+            
+            Central.actualizarAviones(avion, true, "textoTaller", taller, nombre);
 
             if (avion.getNumVuelos() == 15) {
                 Central.dormir(5000, 10000);
@@ -418,7 +415,6 @@ public class Aeropuerto {
 //        int indexAvion = aeroviaVuelta.indexOf(avion);
 //        aeroviaVuelta.remove(indexAvion);
 //    }
-    
     public AtomicInteger getPasajerosAeropuerto() {
         return pasajerosAeropuerto;
     }

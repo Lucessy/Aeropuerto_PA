@@ -32,6 +32,7 @@ public class Avion extends Thread {
 
         //Si está a true es que el avion tiene que embarcar, sino desembarcar. Todos los aviones comienzan teniendo que embarcar
         this.embarcar = true;
+        this.random = new Random();
     }
 
     // Métodos
@@ -48,7 +49,7 @@ public class Avion extends Thread {
 
             /* OBTENER PUERTA DE EMBARQUE */
             aeropuertoActual.puertasEmbarque(this);
-            log.escribirArchivo("El avión con id " + this.id + " entra en la puerta de EMBARQUE" + (posPuerta + 1), aeropuertoActual.getNombre());
+            log.escribirArchivo("El avión con id " + this.id + " entra en la puerta de EMBARQUE " + (posPuerta + 1), aeropuertoActual.getNombre());
 
             /* EMBARCAR EL MÁXIMO Nº DE PASAJEROS */
             embarcarPasajeros();
@@ -100,7 +101,7 @@ public class Avion extends Thread {
 
             /* OBTENER PUERTAS DESEMBARQUE */
             aeropuertoActual.puertasDesembarque(this);
-            log.escribirArchivo("El avión con id " + this.id + " entra en la puerta de EMBARQUE" + (posPuerta + 1) + " para desembarcar " + numPasajeros + " pasajeros", aeropuertoActual.getNombre());
+            log.escribirArchivo("El avión con id " + this.id + " entra en la puerta de EMBARQUE " + (posPuerta + 1) + " para desembarcar " + numPasajeros + " pasajeros", aeropuertoActual.getNombre());
             Central.dormir(1000, 5000); //Descarga de los pasajeros
             numPasajeros = 0;
             aeropuertoActual.salirPuertasEmbarque(this);
