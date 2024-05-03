@@ -43,7 +43,7 @@ public class HiloAux extends Thread {
     //Genera 8000 aviones con espera entre cada creación de 1-3s
     public void generarAviones() {
         int milisegAvion = 1000 + random.nextInt(2000);
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 2; i++) {
             num1 = random.nextInt(26);
             num2 = random.nextInt(26);
             letra1 = (char) ('A' + num1);
@@ -76,7 +76,7 @@ public class HiloAux extends Thread {
     //Genera 4000 aviones con espera entre cada creación de 0.5-1s    
     public void generarBuses() {
         int milisegBus = 500 + random.nextInt(500);
-        for (int i = 0; i < 4000; i++) {
+        for (int i = 0; i < 50; i++) {
             stringNumId = String.format("%04d", i + 1);   //Añade 0's si es necesario para el formato XXXX
             id = "B-" + stringNumId;
             if ((i + 1) % 2 == 0) {             //Añade en el array de buses de la clase aeropuerto los id que son pares en la instancia de madrid y los que son 

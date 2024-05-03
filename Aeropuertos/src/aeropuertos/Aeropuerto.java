@@ -126,11 +126,12 @@ public class Aeropuerto {
      */
     public void puertasEmbarque(Avion avion) {
         try {
-            int indice;
-            if (puertasEmbarque[0] == true && indicesPuertas.isEmpty()) {
+            int indice=0;
+            lockEmbarque.lock();
+            while (puertasEmbarque[0] == true && indicesPuertas.isEmpty()) {
                 embarcar.await();
             }
-            lockEmbarque.lock();
+            
             //Primero busca ocupar la puerta exclusiva de embarque
             if (puertasEmbarque[0] == false) {
                 puertasEmbarque[0] = true;
@@ -167,11 +168,12 @@ public class Aeropuerto {
      */
     public void puertasDesembarque(Avion avion) {
         try {
-            int indice = -1;
-            if (puertasEmbarque[5] == true && indicesPuertas.isEmpty()) {
+            int indice=0;
+            lockDesembarque.lock();
+            while (puertasEmbarque[5] == true && indicesPuertas.isEmpty()) {
                 desembarcar.await();
             }
-            lockDesembarque.lock();
+            
             //Primero busca ocupar la puerta exclusiva de desembarque
             if (puertasEmbarque[5] == false) {
                 puertasEmbarque[5] = true;
@@ -180,7 +182,6 @@ public class Aeropuerto {
 
                 indice = 5;
                 avion.setPosPuerta(indice);
-                System.out.println("El avion con id " + avion.getIdAvion() + " ha cogido el lcok de desembarque y se encuentra en la puerta" + avion.getPosPuerta());
 
                 Central.actualizarAviones(avion, false, "textoRodaje", rodaje, nombre);
                 Central.actualizarAvionesSolitario("textoPuerta" + (indice + 1), avion.getIdAvion(), nombre);
@@ -195,7 +196,6 @@ public class Aeropuerto {
                 semPuertasCompartidas.release();
 
                 avion.setPosPuerta(indice);
-                System.out.println("El avion con id " + avion.getIdAvion() + " ha cogido el lcok de desembarque y se encuentra en la puerta" + avion.getPosPuerta());
 
                 Central.actualizarAviones(avion, false, "textoRodaje", rodaje, nombre);
                 Central.actualizarAvionesSolitario("textoPuerta" + (indice + 1), avion.getIdAvion(), nombre);
@@ -406,28 +406,6 @@ public class Aeropuerto {
         return pasajeros;
     }
 
-//    public void areaEstacionamiento(Avion avion) throws InterruptedException {
-//        if (avion.isEmbarcar()){ //Si el avión va a embarcar solicita puerta de embarque
-//            lockLista.lock();//Exclusión mutua para acceder a los aviones en pista
-//            try {
-//                listaPista.add(avion); // Lista FIFO que representa la llegada real de los hilos
-//                indice = puertasEmbarque(avion.isEmbarcar());
-//                //return indice con la puerta de embarque libre
-//            } finally {
-//                lockLista.unlock();
-//            }
-//        
-//        } else {  //El avion ha desembarcado y solo tiene que hacer comprobaciones
-//                 try{
-//                    int tiempo = 1000+ random.nextInt(4000); //Tiempo entre 1-5s de comprobaciones después de desembarcar
-//                    avion.sleep(tiempo);
-//                }catch (InterruptedException ex) {
-//                    System.out.println(ex);
-//                }
-//    public synchronized void aeroviaVuelta(Avion avion) {
-//        int indexAvion = aeroviaVuelta.indexOf(avion);
-//        aeroviaVuelta.remove(indexAvion);
-//    }
     public AtomicInteger getPasajerosAeropuerto() {
         return pasajerosAeropuerto;
     }
