@@ -129,34 +129,6 @@ public class Aeropuerto {
 
     /**
      * Entra en la zona compartida PUERTAS DE EMBARQUE y se añade a la lista
-     * concurrente (PRUEBAS)
-     *
-     * @param avion
-     */
-//    public void puertasEmbarque(Avion avion) throws InterruptedException {
-//        try {
-//            semEmbarque.acquire();
-//
-////        for (int i = 0; i < 5; i++) {
-////            if (puertasEmbarque[i] == false) {
-////                puertasEmbarque[i] = true;
-////            }
-////        }
-//            /*puedo hacer una lista de locks con trylock y asi cada uno entra en un lock diferente ahre*/
-//            int i = 0;
-//            puertasEmbarque[0] = true;
-//            avion.setPosPuerta(i);
-//
-//            estacionamiento.remove(avion);
-//            Central.actualizarAviones("textoEstacionamiento", estacionamiento, nombre);
-//
-//            Central.actualizarAvionesSolitario("textoPuerta" + (i + 1), avion.getIdAvion(), nombre);
-//
-//        } catch (InterruptedException ex) {
-//        }
-//    }
-    /**
-     * Entra en la zona compartida PUERTAS DE EMBARQUE y se añade a la lista
      * concurrente
      *
      * @param avion
@@ -183,7 +155,6 @@ public class Aeropuerto {
                     indice = indicesPuertas.take();//Indices entre 1-4
                     puertasEmbarque[indice] = true;
                     semPuertasCompartidas.release();
-                    //avion.getSemEmbarque().release();
                     avion.setPosPuerta(indice);
                     System.out.println("El avion con id " + avion.getIdAvion() + " ha cogido el lcok de embarque y se encuentra en la puerta" + avion.getPosPuerta());
 
@@ -204,7 +175,6 @@ public class Aeropuerto {
                 if (puertasEmbarque[5] = false) {
                     puertasEmbarque[5] = true;
                     semDesembarque.release();
-                    //avion.getSemDesembarque().release();//Al obtener una puerta deja que el siguiente avion que quiere embarcar acceda a la lista.
                     indice = 5;
                     avion.setPosPuerta(indice);
                     System.out.println("El avion con id " + avion.getIdAvion() + " ha cogido el lcok de desembarque y se encuentra en la puerta" + avion.getPosPuerta());
@@ -218,7 +188,6 @@ public class Aeropuerto {
                     indice = indicesPuertas.take();//Indices entre 1-4
                     puertasEmbarque[indice] = true;
                     semPuertasCompartidas.release();
-                    //avion.getSemDesembarque().release();
                     avion.setPosPuerta(indice);
                     System.out.println("El avion con id " + avion.getIdAvion() + " ha cogido el lcok de desembarque y se encuentra en la puerta" + avion.getPosPuerta());
 
@@ -269,34 +238,7 @@ public class Aeropuerto {
 
         semDesembarque.release();
     }
-
-    /**
-     * METODO PRUEBA PUERTAS DESEMBARQUE
-     *
-     * @param avion
-     */
-//    public void puertasDesembarque(Avion avion) {
-//        try {
-//            semEmbarque.acquire();
-////        for (int i = 1; i < 6; i++) {
-////            if (puertasEmbarque[i] == false) {
-////                puertasEmbarque[i] = true;
-////            }
-////        }
-//            int i = 0;
-//            puertasEmbarque[0] = true;
-//            avion.setPosPuerta(i);
-//
-//            rodaje.remove(avion);
-//            Central.actualizarAviones("textoRodaje", rodaje, nombre);
-//
-//            Central.actualizarAvionesSolitario("textoPuerta" + (i + 1), avion.getIdAvion(), nombre);
-//
-//            pasajerosAeropuerto.addAndGet(avion.getNumPasajeros());
-//
-//        } catch (InterruptedException ex) {
-//        }
-//    }
+    
     /**
      *
      * @param avion
@@ -399,7 +341,7 @@ public class Aeropuerto {
 
             semPuertaTaller.acquire();//Por la puerta solo pasa un avion y tarda 1 segundo en hacer la accion
             Central.dormir(1000, 1000);
-            semPuertaTaller.acquire();
+            semPuertaTaller.release();
 
             taller.offer(avion);
 
@@ -412,7 +354,7 @@ public class Aeropuerto {
 
             semPuertaTaller.acquire();
             Central.dormir(1000, 1000);
-            semPuertaTaller.acquire();
+            semPuertaTaller.release();
 
             semTaller.release();
         } catch (InterruptedException ex) {
