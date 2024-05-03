@@ -7,6 +7,10 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 public abstract class Central {
@@ -18,8 +22,6 @@ public abstract class Central {
     private static Aeropuerto barcelona;
     private static Log log;
     private static Menu menu;
-    private static MenuRemoto menuRemoto;
-    private static JFrame frameActual;
 
     private static Semaphore semBusC = new Semaphore(1);
     private static Semaphore semBusA = new Semaphore(1);
@@ -28,6 +30,13 @@ public abstract class Central {
 
     private static Queue<Avion> aviones = new ConcurrentLinkedQueue();
     private static Queue<Bus> buses = new ConcurrentLinkedQueue();
+    
+    private static Semaphore semPausado = new Semaphore(1, true);
+    
+    private static HiloAux hiloAviones;
+    private static HiloAux hiloAutobuses;
+    
+    private static boolean estaPausado;
 
     /**
      * @param args the command line arguments
@@ -40,6 +49,11 @@ public abstract class Central {
 
         menu = new Menu();
         menu.setVisible(true);
+        
+        hiloAviones = new HiloAux(true, madrid, barcelona, log);
+        hiloAutobuses = new HiloAux(false, madrid, barcelona, log);
+        
+        estaPausado = false;
 
         iniciarCentral();
     }
@@ -58,9 +72,6 @@ public abstract class Central {
      * @param
      */
     public static void iniciarCentral() {
-        HiloAux hiloAviones = new HiloAux(true, madrid, barcelona, log);
-        HiloAux hiloAutobuses = new HiloAux(false, madrid, barcelona, log);
-
         hiloAviones.start();
         hiloAutobuses.start();
     }
@@ -208,12 +219,37 @@ public abstract class Central {
         // implementar luego
     }
     
+    /**
+     * 
+     */
     public static void pausarSistema(){
-        for(Avion avion : aviones){
-            avion.interrupt();
+        try {
+            if(estaPausado){
+                return;
+            }
+            
+            semPausado.acquire();
+            
+            for(Avion avion : aviones){
+                avion.interrupt();
+            }
+            for(Bus bus : buses){
+                bus.interrupt();
+            }
+            
+            hiloAviones.interrupt();
+            hiloAutobuses.interrupt();
+            
+        } catch (InterruptedException ex) {
         }
-        for(Bus bus : buses){
-            bus.interrupt();
+    }
+    
+    public void reanudarSistema(){
+        if(!estaPausado){
+            return;
         }
+        
+        estaPausado = false;
+        semPausado.release();
     }
 }

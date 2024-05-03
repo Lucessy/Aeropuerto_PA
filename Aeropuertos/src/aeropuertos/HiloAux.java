@@ -43,7 +43,7 @@ public class HiloAux extends Thread {
     //Genera 8000 aviones con espera entre cada creación de 1-3s
     public void generarAviones() {
         int milisegAvion = 1000 + random.nextInt(2000);
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 10; i++) {
             num1 = random.nextInt(26);
             num2 = random.nextInt(26);
             letra1 = (char) ('A' + num1);
