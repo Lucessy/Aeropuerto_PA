@@ -1,15 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package aeropuertos;
 
 import java.util.Random;
 
-/**
- *
- * @author sandr
- */
 public class HiloAux extends Thread {
 
     // Atributos
@@ -64,13 +56,15 @@ public class HiloAux extends Thread {
                 Avion avion = new Avion(id, madrid, madrid, barcelona, capacidadAvion, log);
                 avion.start();
                 log.escribirArchivo("Avion " + avion.getIdAvion() + " es creado.", madrid.getNombre());
+                Central.agregarAvion(avion);
                 
             } else { //impares en la instancia de barcelona
                 Avion avion = new Avion(id, barcelona, madrid, barcelona, capacidadAvion, log);
                 avion.start();
                 log.escribirArchivo("Avion " + avion.getIdAvion() + " es creado.", barcelona.getNombre());
-                
+                Central.agregarAvion(avion);
             }
+            
             try {
                 Thread.sleep(milisegAvion);
             } catch (InterruptedException e) {
@@ -89,12 +83,13 @@ public class HiloAux extends Thread {
                 Bus bus = new Bus(id, madrid, log);
                 bus.start();
                 log.escribirArchivo("Bus " + bus.getIdBus() + " es creado.", madrid.getNombre());
+                Central.agregarBus(bus);
                 
             } else {    //impares en la instancia de barcelona
                 Bus bus = new Bus(id, barcelona, log);
                 bus.start();
                 log.escribirArchivo("Bus " + bus.getIdBus() + " es creado.", barcelona.getNombre());
-                
+                Central.agregarBus(bus);
             }
             try {
                 Thread.sleep(milisegBus);

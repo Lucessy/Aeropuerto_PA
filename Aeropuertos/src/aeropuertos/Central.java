@@ -4,12 +4,13 @@ import interfaz.Menu;
 import interfaz.MenuRemoto;
 import java.lang.reflect.Constructor;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.swing.JFrame;
 
 public abstract class Central {
-    
+
     // Variables
     private static String nombreArchivo = "evolucionAeropuerto.txt";
     private static String encoding = "UTF-8";
@@ -19,27 +20,30 @@ public abstract class Central {
     private static Menu menu;
     private static MenuRemoto menuRemoto;
     private static JFrame frameActual;
-    
+
     private static Semaphore semBusC = new Semaphore(1);
     private static Semaphore semBusA = new Semaphore(1);
-    private static Semaphore semActCampo = new Semaphore(1,true);
-    private static Semaphore semActCampoSol = new Semaphore(1,true);
-    
+    private static Semaphore semActCampo = new Semaphore(1, true);
+    private static Semaphore semActCampoSol = new Semaphore(1, true);
+
+    private static Queue<Avion> aviones = new ConcurrentLinkedQueue();
+    private static Queue<Bus> buses = new ConcurrentLinkedQueue();
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         log = new Log(nombreArchivo, encoding);
-        
-        madrid = new Aeropuerto("Madrid",log);
-        barcelona = new Aeropuerto("Barcelona",log);
-        
+
+        madrid = new Aeropuerto("Madrid", log);
+        barcelona = new Aeropuerto("Barcelona", log);
+
         menu = new Menu();
         menu.setVisible(true);
-        
+
         iniciarCentral();
     }
-    
+
     // Métodos
     /**
      * Guarda los datos y finaliza la aplicación.
@@ -47,12 +51,13 @@ public abstract class Central {
     public static void salir() {
         System.exit(0);
     }
-    
+
     /**
      * Inicia los hilos que crearán los aviones y buses
+     *
      * @param
      */
-    public static void iniciarCentral(){
+    public static void iniciarCentral() {
         HiloAux hiloAviones = new HiloAux(true, madrid, barcelona, log);
         HiloAux hiloAutobuses = new HiloAux(false, madrid, barcelona, log);
 
@@ -61,59 +66,90 @@ public abstract class Central {
     }
     
     /**
-     * Da los pasajeros del aeropuerto determinado
-     * @param aeropuerto
-     * @return AtomicInteger, el contador de los pasajeros
+     * 
+     * @param avion 
      */
-    public static AtomicInteger getPasajeros(Aeropuerto aeropuerto){
-        return aeropuerto.getPasajerosAeropuerto();
-    }
-    
-    /**
-     * Suma la cantidad dada a los pasajeros del aeropuerto (Puede ser un número negativo)
-     * y lo actualiza en el Menu del aeropuerto
-     * @param pasajeros
-     * @param aeropuerto 
-     */
-    public static synchronized void sumarPasajeros(int pasajeros, Aeropuerto aeropuerto){
-        menu.actualizarPasajeros(aeropuerto.getPasajerosAeropuerto().addAndGet(pasajeros), aeropuerto.getNombre());
+    public static void agregarAvion(Avion avion){
+        aviones.offer(avion);
     }
     
     /**
      * 
-     * Actualiza el número de pasajeros del aeropuerto indicado
-     * en la interfaz Menu
-     * @param pasajeros
-     * @param aeropuerto 
+     * @param bus 
      */
-    public static synchronized void actualizarPasajerosAeropuerto(int pasajeros, Aeropuerto aeropuerto){
+    public static void agregarBus(Bus bus){
+        buses.offer(bus);
+    }
+    
+    /**
+     * Da los pasajeros del aeropuerto determinado
+     *
+     * @param aeropuerto
+     * @return AtomicInteger, el contador de los pasajeros
+     */
+    public static AtomicInteger getPasajeros(Aeropuerto aeropuerto) {
+        return aeropuerto.getPasajerosAeropuerto();
+    }
+
+    /**
+     * Suma la cantidad dada a los pasajeros del aeropuerto (Puede ser un número
+     * negativo) y lo actualiza en el Menu del aeropuerto
+     *
+     * @param pasajeros
+     * @param aeropuerto
+     */
+    public static synchronized void sumarPasajeros(int pasajeros, Aeropuerto aeropuerto) {
+        menu.actualizarPasajeros(aeropuerto.getPasajerosAeropuerto().addAndGet(pasajeros), aeropuerto.getNombre());
+    }
+
+    /**
+     *
+     * Actualiza el número de pasajeros del aeropuerto indicado en la interfaz
+     * Menu
+     *
+     * @param pasajeros
+     * @param aeropuerto
+     */
+    public static synchronized void actualizarPasajerosAeropuerto(int pasajeros, Aeropuerto aeropuerto) {
         menu.actualizarPasajeros(pasajeros, aeropuerto.getNombre());
     }
     
-    
-    public static synchronized void mostrarBusCiudad(Bus bus){
+    /**
+     * 
+     * @param bus 
+     */
+    public static synchronized void mostrarBusCiudad(Bus bus) {
         try {
             semBusC.acquire();
-            
+
             menu.actualizarBusCiudad(bus, bus.getAeropuerto().getNombre());
-            
+
             semBusC.release();
         } catch (InterruptedException ex) {
         }
     }
     
-    public static synchronized void mostrarBusAeropuerto(Bus bus){
+    /**
+     * 
+     * @param bus 
+     */
+    public static synchronized void mostrarBusAeropuerto(Bus bus) {
         try {
             semBusA.acquire();
-            
+
             menu.actualizarBusAeropuerto(bus, bus.getAeropuerto().getNombre());
-            
+
             semBusA.release();
         } catch (InterruptedException ex) {
         }
     }
     
-    public static void dormir(int inicioMiliseg, int finalMiliseg){
+    /**
+     * 
+     * @param inicioMiliseg
+     * @param finalMiliseg 
+     */
+    public static void dormir(int inicioMiliseg, int finalMiliseg) {
         int tiempo = inicioMiliseg + (int) ((finalMiliseg - inicioMiliseg) * Math.random());
         try {
             Thread.sleep(tiempo);
@@ -121,29 +157,63 @@ public abstract class Central {
         }
     }
     
-    public static void actualizarAviones(String textField, Queue<Avion> listaAviones, String aeropuerto){
+    /**
+     * 
+     * @param avion
+     * @param agregar
+     * @param textField
+     * @param listaAviones
+     * @param aeropuerto 
+     */
+    public static void actualizarAviones(Avion avion, boolean agregar, String textField, Queue<Avion> listaAviones, String aeropuerto) {
         try {
             semActCampo.acquire();
             
+            if(agregar){
+                listaAviones.offer(avion);
+            }else{
+                listaAviones.remove(avion);
+            }
+                
             menu.actualizarCampoAvion(textField, listaAviones, aeropuerto);
-            
+
             semActCampo.release();
         } catch (InterruptedException ex) {
         }
     }
     
-    public static void actualizarAvionesSolitario(String textField, String texto, String aeropuerto){
+    /**
+     * 
+     * @param textField
+     * @param texto
+     * @param aeropuerto 
+     */
+    public static void actualizarAvionesSolitario(String textField, String texto, String aeropuerto) {
         try {
             semActCampoSol.acquire();
-            
+
             menu.actualizarCampoAvionSolitario(textField, texto, aeropuerto);
-            
+
             semActCampoSol.release();
         } catch (InterruptedException ex) {
         }
     }
     
-    public static void botonPista(String boton, boolean flagBoton){
+    /**
+     * 
+     * @param boton
+     * @param flagBoton 
+     */
+    public static void botonPista(String boton, boolean flagBoton) {
         // implementar luego
+    }
+    
+    public static void pausarSistema(){
+        for(Avion avion : aviones){
+            avion.interrupt();
+        }
+        for(Bus bus : buses){
+            bus.interrupt();
+        }
     }
 }

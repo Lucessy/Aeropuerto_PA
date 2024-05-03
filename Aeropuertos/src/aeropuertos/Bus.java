@@ -1,16 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package aeropuertos;
 
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- *
- * @author sandr
- */
 public class Bus extends Thread {
 
     private Log log;

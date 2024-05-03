@@ -744,7 +744,12 @@ public class Menu extends javax.swing.JFrame {
     }
 
     private void botonPausarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPausarActionPerformed
-        // TODO add your handling code here:
+        if(botonReanudar.isSelected()){
+            botonReanudar.setSelected(false);
+            Central.pausarSistema();
+        }else{
+            botonPausar.setSelected(true);
+        }
     }//GEN-LAST:event_botonPausarActionPerformed
 
     private void textoBusAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoBusAActionPerformed
