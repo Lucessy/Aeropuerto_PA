@@ -5,7 +5,7 @@
 package conexionRemoto;
 
 import aeropuertos.Avion;
-import aeropuertos.Central;
+import aeropuertos.Servidor;
 import interfaz.Menu;
 import java.awt.Color;
 import java.lang.reflect.Field;
@@ -276,7 +276,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         bgAero.setBackground(new java.awt.Color(204, 255, 255));
         bgAero.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        icon.setText("hay una foto");
+        icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/avion.png"))); // NOI18N
         bgAero.add(icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 80, 80));
 
         textoAeroB.setEditable(false);
@@ -552,7 +552,7 @@ public class MenuRemoto extends javax.swing.JFrame {
     }
     
     private void txtexitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtexitMouseClicked
-        Central.salir();
+        Servidor.salir();
     }//GEN-LAST:event_txtexitMouseClicked
 
     private void txtexitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtexitMouseEntered

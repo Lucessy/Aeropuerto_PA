@@ -2,7 +2,12 @@ package aeropuertos;
 
 import interfaz.Menu;
 import conexionRemoto.MenuRemoto;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Semaphore;
@@ -13,7 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 
-public abstract class Central {
+public abstract class Servidor {
 
     // Variables
     private static String nombreArchivo = "evolucionAeropuerto.txt";
@@ -34,6 +39,13 @@ public abstract class Central {
     private static boolean estaPausado;
     private static Lock lockPausa = new ReentrantLock();
 
+    // CONEXIÓN SOCKET
+    private static ServerSocket servidor;
+    private static Socket conexion;
+    private static DataOutputStream salida;
+    private static DataInputStream entrada;
+    private static int num = 0;
+
     /**
      * @param args the command line arguments
      */
@@ -48,6 +60,32 @@ public abstract class Central {
         estaPausado = false;
 
         iniciarCentral();
+        
+        try{
+            servidor = new ServerSocket(5000);
+            System.out.println("Servidor arrancando. . .");
+            while(true){
+                conexion = servidor.accept();
+                
+                num++;
+                
+                System.out.println("Conexión n."+num+" desde: "+conexion.getInetAddress().getHostName());
+                
+                entrada = new DataInputStream(conexion.getInputStream());
+                salida = new DataOutputStream(conexion.getOutputStream());
+                
+                String mensaje = entrada.readUTF();
+                
+                System.out.println("Conexión n."+num+" mensaje: "+mensaje);
+                
+                //Cerramos los flujos de entrada y salida
+                salida.writeUTF(mensaje);
+                entrada.close();
+                salida.close();
+                conexion.close();
+            }
+            //servidor.close();
+        }catch(IOException e){}
     }
 
     // Métodos
@@ -202,8 +240,9 @@ public abstract class Central {
     }
 
     /**
-     *  Consideramos que estará pausado cuando los hilos duermen, por lo que se pone el flag estaPausado
-     *  en true y se hace un lock para dejar a los hilos bloqueados.
+     * Consideramos que estará pausado cuando los hilos duermen, por lo que se
+     * pone el flag estaPausado en true y se hace un lock para dejar a los hilos
+     * bloqueados.
      */
     public static void pausarSistema() {
         estaPausado = true;
@@ -211,7 +250,7 @@ public abstract class Central {
     }
 
     /**
-     * 
+     *
      */
     public static void reanudarSistema() {
         estaPausado = false;

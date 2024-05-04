@@ -28,27 +28,27 @@ public class Bus extends Thread {
         while (true) {
             //Recoger de 0-50 pasajeros durante 2-5 segundos en la ciudad
             numPasajeros = random.nextInt(50);
-            Central.dormir(2000, 5000);
+            Servidor.dormir(2000, 5000);
             log.escribirArchivo("Bus " + id + " recoge " + numPasajeros + " pasajeros de la ciudad.", nombreAeropuerto);
 
             //Esperar 5-10s para conducir
-            Central.mostrarBusAeropuerto(this);
-            Central.dormir(5000, 10000);
+            Servidor.mostrarBusAeropuerto(this);
+            Servidor.dormir(5000, 10000);
             log.escribirArchivo("Bus " + id + " conduce.", nombreAeropuerto);
 
             //Deja a todos los pasajeros en el aeropuerto
-            Central.sumarPasajeros(numPasajeros, aeropuerto);
+            Servidor.sumarPasajeros(numPasajeros, aeropuerto);
             log.escribirArchivo("Bus " + this.id + " deja " + numPasajeros + " pasajeros en el aeropuerto.", nombreAeropuerto);
 
             //Recoger de 0-50 pasajeros durante 2-5 segundos en el aeropuerto
             int pasajeros = random.nextInt(50);
-            Central.dormir(2000, 5000);
+            Servidor.dormir(2000, 5000);
             numPasajeros = aeropuerto.getPasajerosDisponibles(pasajeros);
             log.escribirArchivo("Bus " + this.id + " recoge " + pasajeros + " pasajeros del aeropuerto.", nombreAeropuerto);
 
             //Esperar 5-10s para conducir
-            Central.mostrarBusCiudad(this);
-            Central.dormir(5000, 10000);
+            Servidor.mostrarBusCiudad(this);
+            Servidor.dormir(5000, 10000);
             log.escribirArchivo("Bus " + id + " conduce.", nombreAeropuerto);
 
             //Deja a todos los pasajeros en la ciudad
