@@ -59,15 +59,15 @@ public class Avion extends Thread {
             /* ACCEDER ÁREA RODAJE */
             aeropuertoActual.areaRodaje(this);
             log.escribirArchivo("El avión con id " + this.id + "(" + numPasajeros + " pasajeros)" + " entra en el ÁREA DE RODAJE", aeropuertoActual.getNombre());
-            Central.dormir(1000, 5000); //Comprobaciones antes de entrar a pista 1-5seg.
+            Servidor.dormir(1000, 5000); //Comprobaciones antes de entrar a pista 1-5seg.
 
             /* OBTENER PISTA */
             aeropuertoActual.pista(this);    //Pide pista libre
             log.escribirArchivo("El avión con id " + this.id + "(" + numPasajeros + " pasajeros)" + " ha entrado en la PISTA " + (posicionPista + 1), aeropuertoActual.getNombre());
-            Central.dormir(1000, 3000);//Últimas comprobaciones en pista 1-3seg.
+            Servidor.dormir(1000, 3000);//Últimas comprobaciones en pista 1-3seg.
             log.escribirArchivo("El avión con id " + this.id + "(" + numPasajeros + " pasajeros)" + " ha terminado de hacer las últimas comprobaciones", aeropuertoActual.getNombre());
 
-            Central.dormir(1000, 5000);  //Tiempo de despegue 1-5seg.
+            Servidor.dormir(1000, 5000);  //Tiempo de despegue 1-5seg.
             log.escribirArchivo("El avión con id " + this.id + "(" + numPasajeros + " pasajeros)" + " ha despegado con éxito", aeropuertoActual.getNombre());
             numVuelos += 1;//Registro del número de vuelos para el taller
             aeropuertoActual.liberarPista(this);
@@ -85,31 +85,31 @@ public class Avion extends Thread {
                 aeropuertoActual = madrid;
             }
             aeropuertoAntiguo.accederAerovia(this);
-            Central.dormir(15000, 30000);
+            Servidor.dormir(15000, 30000);
 
             /* OBTENER PISTA */
             aeropuertoActual.solicitarPista(aeropuertoAntiguo, this); //Espera entre 1-5 seg hasta conseguirla
             log.escribirArchivo("El avión con id " + this.id + "(" + numPasajeros + " pasajeros)" + " ha entrado en la PISTA " + (posicionPista + 1), aeropuertoActual.getNombre());
-            Central.dormir(1000, 5000); //Dura 1-5 seg en aterrizar
+            Servidor.dormir(1000, 5000); //Dura 1-5 seg en aterrizar
             aeropuertoActual.liberarPista(this);
 
             /* ACCEDER ÁREA RODAJE */
             aeropuertoActual.areaRodaje(this);
             log.escribirArchivo("El avión con id " + this.id + "(" + numPasajeros + " pasajeros)" + " entra en el ÁREA DE RODAJE", aeropuertoActual.getNombre());
             // dura entre 3-5 seg entre la pista y las puertas de embarque
-            Central.dormir(3000, 5000);
+            Servidor.dormir(3000, 5000);
 
             /* OBTENER PUERTAS DESEMBARQUE */
             aeropuertoActual.puertasDesembarque(this);
             log.escribirArchivo("El avión con id " + this.id + " entra en la puerta de EMBARQUE " + (posPuerta + 1) + " para desembarcar " + numPasajeros + " pasajeros", aeropuertoActual.getNombre());
-            Central.dormir(1000, 5000); //Descarga de los pasajeros
+            Servidor.dormir(1000, 5000); //Descarga de los pasajeros
             numPasajeros = 0;
             aeropuertoActual.salirPuertasEmbarque(this);
             
             /* ACCEDER ÁREA DE ESTACIONAMIENTO */
             aeropuertoActual.areaEstacionamiento(this);
             log.escribirArchivo("El avión con id " + this.id + " entra en el ÁREA DE ESTACIONAMIENTO", aeropuertoActual.getNombre());
-            Central.dormir(1000, 5000); //Comprobaciones de los pilotos
+            Servidor.dormir(1000, 5000); //Comprobaciones de los pilotos
 
             /* ACCEDER TALLER */
             aeropuertoActual.taller(this);
@@ -134,16 +134,18 @@ public class Avion extends Thread {
         int capacidadActual = capacidad;
         while (!maxPasajeros && intentos < 3) {
             numPasajeros += aeropuertoActual.getPasajerosDisponibles(capacidadActual);
-            Central.dormir(1000, 3000);
+            Servidor.dormir(1000, 3000);
             if (numPasajeros < capacidadActual) {
                 intentos++;
                 capacidadActual -= numPasajeros;
-                Central.dormir(1000, 5000);
+                Servidor.dormir(1000, 5000);
             } else {
                 maxPasajeros = true;
             }
         }
     }
+    
+    // Get y Set
 
     public int getCapacidad() {
         return capacidad;

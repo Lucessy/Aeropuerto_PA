@@ -89,11 +89,11 @@ public class Aeropuerto {
      * @param reposar
      */
     public void hangar(Avion avion, boolean reposar) {
-        Central.actualizarAviones(avion, true, "textoHangar", hangar, nombre);
+        Servidor.actualizarAviones(avion, true, "textoHangar", hangar, nombre);
 
         if (reposar) {
-            Central.actualizarAviones(avion, false, "textoTaller", taller, nombre);
-            Central.dormir(15000, 30000);
+            Servidor.actualizarAviones(avion, false, "textoTaller", taller, nombre);
+            Servidor.dormir(15000, 30000);
         }
     }
 
@@ -106,14 +106,14 @@ public class Aeropuerto {
     public void areaEstacionamiento(Avion avion) {
         if (hangar.contains(avion)) {
             //Sale el avión del hangar y entra en el estacionamiento
-            Central.actualizarAviones(avion, false, "textoHangar", hangar, nombre);
+            Servidor.actualizarAviones(avion, false, "textoHangar", hangar, nombre);
 
         } else if (taller.contains(avion)) {
             //Sale el avión del taller y entra en el estacionamiento
-            Central.actualizarAviones(avion, false, "textoTaller", taller, nombre);
+            Servidor.actualizarAviones(avion, false, "textoTaller", taller, nombre);
         }
 
-        Central.actualizarAviones(avion, true, "textoEstacionamiento", estacionamiento, nombre);
+        Servidor.actualizarAviones(avion, true, "textoEstacionamiento", estacionamiento, nombre);
     }
 
     /**
@@ -146,8 +146,8 @@ public class Aeropuerto {
                 avion.setPosPuerta(indice);
             }
 
-            Central.actualizarAviones(avion, false, "textoEstacionamiento", estacionamiento, nombre);
-            Central.actualizarAvionesSolitario("textoPuerta" + (indice + 1), avion.getIdAvion(), nombre);
+            Servidor.actualizarAviones(avion, false, "textoEstacionamiento", estacionamiento, nombre);
+            Servidor.actualizarAvionesSolitario("textoPuerta" + (indice + 1), avion.getIdAvion(), nombre);
 
         } catch (InterruptedException ex) {
         } finally {
@@ -187,8 +187,8 @@ public class Aeropuerto {
             //  Agrega los pasajeros del avión al sistema
             pasajerosAeropuerto.addAndGet(avion.getNumPasajeros());
 
-            Central.actualizarAviones(avion, false, "textoRodaje", rodaje, nombre);
-            Central.actualizarAvionesSolitario("textoPuerta" + (indice + 1), avion.getIdAvion(), nombre);
+            Servidor.actualizarAviones(avion, false, "textoRodaje", rodaje, nombre);
+            Servidor.actualizarAvionesSolitario("textoPuerta" + (indice + 1), avion.getIdAvion(), nombre);
 
         } catch (InterruptedException ex) {
         } finally {
@@ -223,7 +223,7 @@ public class Aeropuerto {
                 }
             }
 
-            Central.actualizarAvionesSolitario("textoPuerta" + (avion.getPosPuerta() + 1), "", nombre);
+            Servidor.actualizarAvionesSolitario("textoPuerta" + (avion.getPosPuerta() + 1), "", nombre);
 
         } catch (InterruptedException ex) {
         } finally {
@@ -236,7 +236,7 @@ public class Aeropuerto {
      * @param avion
      */
     public void areaRodaje(Avion avion) {
-        Central.actualizarAviones(avion, true, "textoRodaje", rodaje, nombre);
+        Servidor.actualizarAviones(avion, true, "textoRodaje", rodaje, nombre);
     }
 
     /**
@@ -259,9 +259,9 @@ public class Aeropuerto {
 
             avion.setPosicionPista(posPista);
 
-            Central.actualizarAviones(avion, false, "textoRodaje", rodaje, nombre);
+            Servidor.actualizarAviones(avion, false, "textoRodaje", rodaje, nombre);
 
-            Central.actualizarAvionesSolitario("textoPista" + (posPista + 1), avion.getIdAvion(), nombre);
+            Servidor.actualizarAvionesSolitario("textoPista" + (posPista + 1), avion.getIdAvion(), nombre);
 
         } catch (InterruptedException ex) {
         } finally {
@@ -276,13 +276,13 @@ public class Aeropuerto {
      */
     public void solicitarPista(Aeropuerto aeropuertoAntiguo, Avion avion) {
         try {
-            semDisponibilidadPista.acquire(); //NO SE SI DEBERIA ESTAR ESTO XD
+            semDisponibilidadPista.acquire();
 
             while (!lockPista.tryLock()) {
-                Central.dormir(1000, 5000);
+                Servidor.dormir(1000, 5000);
             }
 
-            Central.actualizarAviones(avion, false, "textoAeroM", aeropuertoAntiguo.getAerovia(), aeropuertoAntiguo.getNombre());
+            Servidor.actualizarAviones(avion, false, "textoAeroM", aeropuertoAntiguo.getAerovia(), aeropuertoAntiguo.getNombre());
 
             int posPista = 0;
             for (int i = 0; i < 4; i++) {
@@ -295,7 +295,7 @@ public class Aeropuerto {
 
             avion.setPosicionPista(posPista);
 
-            Central.actualizarAvionesSolitario("textoPista" + (posPista + 1), avion.getIdAvion(), nombre);
+            Servidor.actualizarAvionesSolitario("textoPista" + (posPista + 1), avion.getIdAvion(), nombre);
 
         } catch (InterruptedException ex) {
         } finally {
@@ -311,7 +311,7 @@ public class Aeropuerto {
         if (!listaBotonPista[avion.getPosicionPista()]) {
             pistas[avion.getPosicionPista()] = false;
         }
-        Central.actualizarAvionesSolitario("textoPista" + (avion.getPosicionPista() + 1), "", nombre);
+        Servidor.actualizarAvionesSolitario("textoPista" + (avion.getPosicionPista() + 1), "", nombre);
         pistas[avion.getPosicionPista()] = false;
         semDisponibilidadPista.release();
     }
@@ -327,22 +327,22 @@ public class Aeropuerto {
 
             //Por la puerta solo pasa un avion y tarda 1 segundo en hacer la accion
             semPuertaTaller.acquire();
-            Central.dormir(1000, 1000);
+            Servidor.dormir(1000, 1000);
             semPuertaTaller.release();
 
-            Central.actualizarAviones(avion, false, "textoEstacionamiento", estacionamiento, nombre);
+            Servidor.actualizarAviones(avion, false, "textoEstacionamiento", estacionamiento, nombre);
 
-            Central.actualizarAviones(avion, true, "textoTaller", taller, nombre);
+            Servidor.actualizarAviones(avion, true, "textoTaller", taller, nombre);
 
             if (avion.getNumVuelos() == 15) {
-                Central.dormir(5000, 10000);
+                Servidor.dormir(5000, 10000);
                 avion.setNumVuelos(0);//Al llegar a 15 vuelos se reinicia el contador
             } else {
-                Central.dormir(1000, 5000);
+                Servidor.dormir(1000, 5000);
             }
 
             semPuertaTaller.acquire();
-            Central.dormir(1000, 1000);
+            Servidor.dormir(1000, 1000);
             semPuertaTaller.release();
 
             semTaller.release();
@@ -355,10 +355,15 @@ public class Aeropuerto {
      * @param avion
      */
     public void accederAerovia(Avion avion) {
-        Central.actualizarAviones(avion, true, "textoAeroM", aerovia, nombre);
+        Servidor.actualizarAviones(avion, true, "textoAeroM", aerovia, nombre);
     }
 
     /*FIN ZONAS DE ACTIVIDAD*/
+    /**
+     * Obtiene el número máximo de pasajeros que puede coger del aeropuerto dada la variable numPasajerosMax
+     * @param numPasajerosMax 
+     * @return 
+     */
     public int getPasajerosDisponibles(int numPasajerosMax) {
         lockPasajeros.lock();
         int pasajeros = 0;
@@ -370,20 +375,22 @@ public class Aeropuerto {
                 //  Se suben todos los disponibles, que son menos de los que se piden y se iguala a 0
             } else if (pasajerosAeropuerto.get() <= numPasajerosMax) {
                 pasajeros = pasajerosAeropuerto.getAndSet(0);
-                Central.actualizarPasajerosAeropuerto(0, this);
+                Servidor.actualizarPasajerosAeropuerto(0, this);
 
                 //  Coge los pasajeros que se han indicado
             } else {
                 pasajeros = numPasajerosMax;
-                pasajerosAeropuerto.addAndGet(pasajeros);
                 //  Decrementa la cantidad de pasajeros total -(pasajeros)
-                Central.actualizarPasajerosAeropuerto(pasajerosAeropuerto.get(), this);
+                pasajerosAeropuerto.addAndGet(-pasajeros);
+                Servidor.actualizarPasajerosAeropuerto(pasajerosAeropuerto.get(), this);
             }
         } finally {
             lockPasajeros.unlock();
         }
         return pasajeros;
     }
+    
+    //  Get y Set
 
     public AtomicInteger getPasajerosAeropuerto() {
         return pasajerosAeropuerto;

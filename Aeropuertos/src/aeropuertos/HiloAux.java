@@ -55,20 +55,20 @@ public class HiloAux extends Thread {
                 Avion avion = new Avion(id, madrid, madrid, barcelona, capacidadAvion, log);
                 avion.start();
                 log.escribirArchivo("Avion " + avion.getIdAvion() + " es creado.", madrid.getNombre());
-                Central.agregarAvion(avion);
+                Servidor.agregarAvion(avion);
                 
             } else { //impares en la instancia de barcelona
                 Avion avion = new Avion(id, barcelona, madrid, barcelona, capacidadAvion, log);
                 avion.start();
                 log.escribirArchivo("Avion " + avion.getIdAvion() + " es creado.", barcelona.getNombre());
-                Central.agregarAvion(avion);
+                Servidor.agregarAvion(avion);
             }
             
-            Central.dormir(1000, 3000);
+            Servidor.dormir(1000, 3000);
         }
     }
 
-    //Genera 4000 aviones con espera entre cada creación de 0.5-1s    
+    //Genera 4000 buses con espera entre cada creación de 0.5-1s    
     public void generarBuses() {
         for (int i = 0; i < 4000; i++) {
             stringNumId = String.format("%04d", i + 1);   //Añade 0's si es necesario para el formato XXXX
@@ -77,16 +77,16 @@ public class HiloAux extends Thread {
                 Bus bus = new Bus(id, madrid, log);
                 bus.start();
                 log.escribirArchivo("Bus " + bus.getIdBus() + " es creado.", madrid.getNombre());
-                Central.agregarBus(bus);
+                Servidor.agregarBus(bus);
                 
             } else {    //impares en la instancia de barcelona
                 Bus bus = new Bus(id, barcelona, log);
                 bus.start();
                 log.escribirArchivo("Bus " + bus.getIdBus() + " es creado.", barcelona.getNombre());
-                Central.agregarBus(bus);
+                Servidor.agregarBus(bus);
             }
             
-            Central.dormir(500, 1000);
+            Servidor.dormir(500, 1000);
         }
 
     }

@@ -3,7 +3,7 @@ package interfaz;
 import conexionRemoto.MenuRemoto;
 import aeropuertos.Avion;
 import aeropuertos.Bus;
-import aeropuertos.Central;
+import aeropuertos.Servidor;
 import java.awt.Color;
 import java.util.Queue;
 import java.lang.reflect.Field;
@@ -99,7 +99,6 @@ public class Menu extends javax.swing.JFrame {
         textoAeroM = new javax.swing.JTextField();
         botonReanudar = new javax.swing.JToggleButton();
         botonPausar = new javax.swing.JToggleButton();
-        icon = new javax.swing.JLabel();
         bgBarcelona = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
@@ -396,9 +395,6 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         bgAero.add(botonPausar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, -1, -1));
-
-        icon.setText("hay una foto");
-        bgAero.add(icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 80, 80));
 
         bg.add(bgAero, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 830, 200));
 
@@ -759,7 +755,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void botonPausarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPausarActionPerformed
 
-        Central.pausarSistema();
+        Servidor.pausarSistema();
 
     }//GEN-LAST:event_botonPausarActionPerformed
 
@@ -853,11 +849,11 @@ public class Menu extends javax.swing.JFrame {
 
     private void botonReanudarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReanudarActionPerformed
 
-        Central.reanudarSistema();
+        Servidor.reanudarSistema();
     }//GEN-LAST:event_botonReanudarActionPerformed
 
     private void txtexitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtexitMouseClicked
-        Central.salir();
+        Servidor.salir();
     }//GEN-LAST:event_txtexitMouseClicked
 
     private void txtexitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtexitMouseEntered
@@ -958,7 +954,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroupPausado;
     private javax.swing.JPanel exitpanel;
     private javax.swing.JPanel header;
-    private javax.swing.JLabel icon;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
