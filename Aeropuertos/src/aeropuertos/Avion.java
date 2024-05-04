@@ -12,12 +12,10 @@ public class Avion extends Thread {
     private Aeropuerto barcelona;
     private Aeropuerto madrid;
     private int numPasajeros;
-    private int tiempo;
     private Random random;
     private int posicionPista;
     private int posPuerta;
     private int numVuelos;
-    private boolean embarcar;
 
     //Constructor
     public Avion(String id, Aeropuerto aeropuertoActual, Aeropuerto madrid, Aeropuerto barcelona, int capacidad, Log log) {
@@ -29,9 +27,6 @@ public class Avion extends Thread {
         this.log = log;
         this.numVuelos = 0;
         this.numPasajeros = 0;
-
-        //Si está a true es que el avion tiene que embarcar, sino desembarcar. Todos los aviones comienzan teniendo que embarcar
-        this.embarcar = true;
         this.random = new Random();
     }
 
@@ -69,7 +64,7 @@ public class Avion extends Thread {
 
             Servidor.dormir(1000, 5000);  //Tiempo de despegue 1-5seg.
             log.escribirArchivo("El avión con id " + this.id + "(" + numPasajeros + " pasajeros)" + " ha despegado con éxito", aeropuertoActual.getNombre());
-            numVuelos += 1;//Registro del número de vuelos para el taller
+            numVuelos += 1;//Registro del número de vuelos para el taller   
             aeropuertoActual.liberarPista(this);
 
             /* ACCEDER AEROVIA  */
@@ -177,14 +172,6 @@ public class Avion extends Thread {
 
     public void setNumVuelos(int numVuelos) {
         this.numVuelos = numVuelos;
-    }
-
-    public boolean isEmbarcar() {
-        return embarcar;
-    }
-
-    public void setEmbarcar(boolean embarcar) {
-        this.embarcar = embarcar;
     }
 
     public int getPosicionPista() {
