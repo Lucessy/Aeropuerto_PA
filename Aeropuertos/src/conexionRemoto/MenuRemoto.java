@@ -89,7 +89,6 @@ public class MenuRemoto extends javax.swing.JFrame {
         cerrarPista_4 = new javax.swing.JToggleButton();
         abrirPista_4 = new javax.swing.JToggleButton();
         bgAero = new javax.swing.JPanel();
-        icon = new javax.swing.JLabel();
         textoAeroB = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
@@ -165,11 +164,11 @@ public class MenuRemoto extends javax.swing.JFrame {
         bgMadrid.add(textoHangar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 70, -1));
 
         textoTaller.setEditable(false);
-        bgMadrid.add(textoTaller, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 70, -1));
+        bgMadrid.add(textoTaller, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 70, -1));
 
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Taller:");
-        bgMadrid.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
+        bgMadrid.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
 
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Área de estacionamiento:");
@@ -180,10 +179,10 @@ public class MenuRemoto extends javax.swing.JFrame {
 
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("Área rodaje:");
-        bgMadrid.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, -1, -1));
+        bgMadrid.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, -1, -1));
 
         textoRodaje.setEditable(false);
-        bgMadrid.add(textoRodaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 70, -1));
+        bgMadrid.add(textoRodaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, 70, -1));
 
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Pista 1:");
@@ -275,9 +274,6 @@ public class MenuRemoto extends javax.swing.JFrame {
 
         bgAero.setBackground(new java.awt.Color(204, 255, 255));
         bgAero.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/avion.png"))); // NOI18N
-        bgAero.add(icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 80, 80));
 
         textoAeroB.setEditable(false);
         bgAero.add(textoAeroB, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 810, -1));
@@ -751,7 +747,6 @@ public class MenuRemoto extends javax.swing.JFrame {
     private javax.swing.JToggleButton cerrarPista_4B;
     private javax.swing.JPanel exitpanel;
     private javax.swing.JPanel header;
-    private javax.swing.JLabel icon;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
