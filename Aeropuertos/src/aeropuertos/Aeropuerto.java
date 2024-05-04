@@ -39,13 +39,8 @@ public class Aeropuerto {
     private Condition desembarcar = lockEmbarque.newCondition();
     private Queue colaPuertaEmbarque = new ConcurrentLinkedQueue<>();
 
-    private Queue listaGeneralPista = new ConcurrentLinkedQueue();
-//    private Semaphore semDisponibilidadEmb = new Semaphore(0, true);
-//    private Semaphore semDisponibilidadDesemb = new Semaphore(0, true);
-
     // PISTAS
     private boolean[] pistas = new boolean[4];
-    private Semaphore semPista = new Semaphore(1);
     private Semaphore semDisponibilidadPista = new Semaphore(4, true);
     private Lock lockPista = new ReentrantLock(true);
     private boolean[] listaBotonPista = new boolean[4];
@@ -53,11 +48,6 @@ public class Aeropuerto {
     // TALLER
     private Semaphore semTaller = new Semaphore(20, true);
     private Semaphore semPuertaTaller = new Semaphore(1, true);
-
-    private Semaphore semPuertasCompartidas = new Semaphore(1);
-    private String[] avionesPuertasEmbarque = new String[6];
-    private Random random = new Random();
-    private Lock lockLista = new ReentrantLock();
 
     // Constructor
     public Aeropuerto(String nombre, Log log) {
@@ -76,7 +66,6 @@ public class Aeropuerto {
         }
 
         for (int i = 0; i < 6; i++) {
-            avionesPuertasEmbarque[i] = "";
             puertasEmbarque[i] = false;
         }
     }
