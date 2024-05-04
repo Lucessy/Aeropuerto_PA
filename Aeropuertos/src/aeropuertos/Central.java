@@ -1,7 +1,7 @@
 package aeropuertos;
 
 import interfaz.Menu;
-import interfaz.MenuRemoto;
+import conexionRemoto.MenuRemoto;
 import java.lang.reflect.Constructor;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -30,13 +30,9 @@ public abstract class Central {
 
     private static Queue<Avion> aviones = new ConcurrentLinkedQueue();
     private static Queue<Bus> buses = new ConcurrentLinkedQueue();
-    
-    private static Semaphore semPausado = new Semaphore(1, true);
-    
-    private static HiloAux hiloAviones;
-    private static HiloAux hiloAutobuses;
-    
+
     private static boolean estaPausado;
+    private static Lock lockPausa = new ReentrantLock();
 
     /**
      * @param args the command line arguments
@@ -49,10 +45,6 @@ public abstract class Central {
 
         menu = new Menu();
         menu.setVisible(true);
-        
-        hiloAviones = new HiloAux(true, madrid, barcelona, log);
-        hiloAutobuses = new HiloAux(false, madrid, barcelona, log);
-        
         estaPausado = false;
 
         iniciarCentral();
@@ -72,26 +64,29 @@ public abstract class Central {
      * @param
      */
     public static void iniciarCentral() {
+        HiloAux hiloAviones = new HiloAux(true, madrid, barcelona, log);
+        HiloAux hiloAutobuses = new HiloAux(false, madrid, barcelona, log);
+
         hiloAviones.start();
         hiloAutobuses.start();
     }
-    
+
     /**
-     * 
-     * @param avion 
+     *
+     * @param avion
      */
-    public static void agregarAvion(Avion avion){
+    public static void agregarAvion(Avion avion) {
         aviones.offer(avion);
     }
-    
+
     /**
-     * 
-     * @param bus 
+     *
+     * @param bus
      */
-    public static void agregarBus(Bus bus){
+    public static void agregarBus(Bus bus) {
         buses.offer(bus);
     }
-    
+
     /**
      * Da los pasajeros del aeropuerto determinado
      *
@@ -124,10 +119,10 @@ public abstract class Central {
     public static synchronized void actualizarPasajerosAeropuerto(int pasajeros, Aeropuerto aeropuerto) {
         menu.actualizarPasajeros(pasajeros, aeropuerto.getNombre());
     }
-    
+
     /**
-     * 
-     * @param bus 
+     *
+     * @param bus
      */
     public static synchronized void mostrarBusCiudad(Bus bus) {
         try {
@@ -139,10 +134,10 @@ public abstract class Central {
         } catch (InterruptedException ex) {
         }
     }
-    
+
     /**
-     * 
-     * @param bus 
+     *
+     * @param bus
      */
     public static synchronized void mostrarBusAeropuerto(Bus bus) {
         try {
@@ -154,50 +149,37 @@ public abstract class Central {
         } catch (InterruptedException ex) {
         }
     }
-    
+
     /**
-     * 
-     * @param inicioMiliseg
-     * @param finalMiliseg 
-     */
-    public static void dormir(int inicioMiliseg, int finalMiliseg) {
-        int tiempo = inicioMiliseg + (int) ((finalMiliseg - inicioMiliseg) * Math.random());
-        try {
-            Thread.sleep(tiempo);
-        } catch (InterruptedException ex) {
-        }
-    }
-    
-    /**
-     * 
+     *
      * @param avion
      * @param agregar
      * @param textField
      * @param listaAviones
-     * @param aeropuerto 
+     * @param aeropuerto
      */
     public static void actualizarAviones(Avion avion, boolean agregar, String textField, Queue<Avion> listaAviones, String aeropuerto) {
         try {
             semActCampo.acquire();
-            
-            if(agregar){
+
+            if (agregar) {
                 listaAviones.offer(avion);
-            }else{
+            } else {
                 listaAviones.remove(avion);
             }
-                
+
             menu.actualizarCampoAvion(textField, listaAviones, aeropuerto);
 
             semActCampo.release();
         } catch (InterruptedException ex) {
         }
     }
-    
+
     /**
-     * 
+     *
      * @param textField
      * @param texto
-     * @param aeropuerto 
+     * @param aeropuerto
      */
     public static void actualizarAvionesSolitario(String textField, String texto, String aeropuerto) {
         try {
@@ -209,47 +191,47 @@ public abstract class Central {
         } catch (InterruptedException ex) {
         }
     }
-    
+
     /**
-     * 
+     *
      * @param boton
-     * @param flagBoton 
+     * @param flagBoton
      */
     public static void botonPista(String boton, boolean flagBoton) {
         // implementar luego
     }
-    
+
+    /**
+     *  Consideramos que estará pausado cuando los hilos duermen, por lo que se pone el flag estaPausado
+     *  en true y se hace un lock para dejar a los hilos bloqueados.
+     */
+    public static void pausarSistema() {
+        estaPausado = true;
+        lockPausa.lock();
+    }
+
     /**
      * 
      */
-    public static void pausarSistema(){
+    public static void reanudarSistema() {
+        estaPausado = false;
+        lockPausa.unlock();
+    }
+
+    /**
+     *
+     * @param inicioMiliseg
+     * @param finalMiliseg
+     */
+    public static void dormir(int inicioMiliseg, int finalMiliseg) {
+        int tiempo = inicioMiliseg + (int) ((finalMiliseg - inicioMiliseg) * Math.random());
         try {
-            if(estaPausado){
-                return;
+            if (estaPausado) {
+                lockPausa.lock();
+                lockPausa.unlock();
             }
-            
-            semPausado.acquire();
-            
-            for(Avion avion : aviones){
-                avion.interrupt();
-            }
-            for(Bus bus : buses){
-                bus.interrupt();
-            }
-            
-            hiloAviones.interrupt();
-            hiloAutobuses.interrupt();
-            
+            Thread.sleep(tiempo);
         } catch (InterruptedException ex) {
         }
-    }
-    
-    public void reanudarSistema(){
-        if(!estaPausado){
-            return;
-        }
-        
-        estaPausado = false;
-        semPausado.release();
     }
 }

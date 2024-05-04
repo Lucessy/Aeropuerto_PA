@@ -34,11 +34,10 @@ public class Aeropuerto {
     // PUERTAS DE EMBARQUE
     private ArrayBlockingQueue<Integer> indicesPuertas = new ArrayBlockingQueue<>(4);
     private boolean[] puertasEmbarque = new boolean[6]; //Puerta 1 -> Desembarque, 2,3,4,5 -> Otros, 6 -> Embarque
-    private Semaphore semDisponibilidadPuertas = new Semaphore(6, true);
-    private Lock lockEmbarque = new ReentrantLock(true);//Exclusivo para la puerta de embarque
-    private Lock lockDesembarque = new ReentrantLock(true);//Exclusivo para la puerta de desembarque
+    private Lock lockEmbarque = new ReentrantLock(true);//Exclusivo para la puertas de embarques
     private Condition embarcar = lockEmbarque.newCondition();
-    private Condition desembarcar = lockDesembarque.newCondition();
+    private Condition desembarcar = lockEmbarque.newCondition();
+    private Queue colaPuertaEmbarque = new ConcurrentLinkedQueue<>();
 
     private Queue listaGeneralPista = new ConcurrentLinkedQueue();
 //    private Semaphore semDisponibilidadEmb = new Semaphore(0, true);
@@ -105,7 +104,6 @@ public class Aeropuerto {
      * @param avion
      */
     public void areaEstacionamiento(Avion avion) {
-
         if (hangar.contains(avion)) {
             //Sale el avión del hangar y entra en el estacionamiento
             Central.actualizarAviones(avion, false, "textoHangar", hangar, nombre);
@@ -126,129 +124,110 @@ public class Aeropuerto {
      */
     public void puertasEmbarque(Avion avion) {
         try {
-            int indice=0;
+            int indice = 0;
             lockEmbarque.lock();
             while (puertasEmbarque[0] == true && indicesPuertas.isEmpty()) {
+                colaPuertaEmbarque.offer("Embarcar");
                 embarcar.await();
             }
-            
+
             //Primero busca ocupar la puerta exclusiva de embarque
             if (puertasEmbarque[0] == false) {
                 puertasEmbarque[0] = true;
-                
-                lockEmbarque.unlock();
-                
+
                 indice = 0;
                 avion.setPosPuerta(indice);
 
-                Central.actualizarAviones(avion, false, "textoEstacionamiento", estacionamiento, nombre);
-                Central.actualizarAvionesSolitario("textoPuerta" + (indice + 1), avion.getIdAvion(), nombre);
-
             } else if (!indicesPuertas.isEmpty()) {
-                semPuertasCompartidas.acquire();
-                
-                indice = indicesPuertas.poll();//Indices entre 1-4
-                puertasEmbarque[indice] = true;
-                
-                lockEmbarque.unlock();
-                semPuertasCompartidas.release();
-                
-                avion.setPosPuerta(indice);
-
-                Central.actualizarAviones(avion, false, "textoEstacionamiento", estacionamiento, nombre);
-                Central.actualizarAvionesSolitario("textoPuerta" + (indice + 1), avion.getIdAvion(), nombre);
-            }
-        } catch (InterruptedException ex) {
-        }
-    }
-    
-    /**
-     * 
-     * @param avion 
-     */
-    public void puertasDesembarque(Avion avion) {
-        try {
-            int indice=0;
-            lockDesembarque.lock();
-            while (puertasEmbarque[5] == true && indicesPuertas.isEmpty()) {
-                desembarcar.await();
-            }
-            
-            //Primero busca ocupar la puerta exclusiva de desembarque
-            if (puertasEmbarque[5] == false) {
-                puertasEmbarque[5] = true;
-
-                lockDesembarque.unlock();
-
-                indice = 5;
-                avion.setPosPuerta(indice);
-
-                Central.actualizarAviones(avion, false, "textoRodaje", rodaje, nombre);
-                Central.actualizarAvionesSolitario("textoPuerta" + (indice + 1), avion.getIdAvion(), nombre);
-
-            } else if (!indicesPuertas.isEmpty()) {
-                semPuertasCompartidas.acquire();
 
                 indice = indicesPuertas.poll();//Indices entre 1-4
                 puertasEmbarque[indice] = true;
 
-                lockDesembarque.unlock();
-                semPuertasCompartidas.release();
-
                 avion.setPosPuerta(indice);
-
-                Central.actualizarAviones(avion, false, "textoRodaje", rodaje, nombre);
-                Central.actualizarAvionesSolitario("textoPuerta" + (indice + 1), avion.getIdAvion(), nombre);
             }
 
-        } catch (InterruptedException ex) {
-        }
-    }
-    
-    /**
-     * 
-     * @param avion 
-     */
-    public void salirPuertasEmbarque(Avion avion) {
-        Central.actualizarAvionesSolitario("textoPuerta" + (avion.getPosPuerta() + 1), "", nombre);
-        lockEmbarque.lock();
-        try {
-            if (avion.getPosPuerta() == 0) {
-                puertasEmbarque[avion.getPosPuerta()] = false;
-                embarcar.signal();  //Despierta en orden FIFO al hilo que esta durmiendo
-                
-            } else {
-                //No debería haber riesgo de que algun avión modifique el elemento de ese índice pq el índice no está metido en la lista de piertas disponibles
-                puertasEmbarque[avion.getPosPuerta()] = false;
-                indicesPuertas.put(avion.getPosPuerta());
-                embarcar.signal();  //Despierta en orden FIFO al hilo que esta durmiendo
-            }
+            Central.actualizarAviones(avion, false, "textoEstacionamiento", estacionamiento, nombre);
+            Central.actualizarAvionesSolitario("textoPuerta" + (indice + 1), avion.getIdAvion(), nombre);
+
         } catch (InterruptedException ex) {
         } finally {
             lockEmbarque.unlock();
         }
-
     }
-    
+
     /**
-     * 
-     * @param avion 
+     *
+     * @param avion
      */
-    public void salirPuertasDesembarque(Avion avion) {
-        Central.actualizarAvionesSolitario("textoPuerta" + (avion.getPosPuerta() + 1), "", nombre);
-        lockDesembarque.lock();
+    public void puertasDesembarque(Avion avion) {
         try {
-            if (avion.getPosPuerta() == 5) {
-                puertasEmbarque[avion.getPosPuerta()] = false;
-                desembarcar.signal(); //Despierta en orden FIFO al hilo que esta durmiendo
-            } else {
-                puertasEmbarque[avion.getPosPuerta()] = false;
-                indicesPuertas.put(avion.getPosPuerta());
-                desembarcar.signal();   //Despierta en orden FIFO al hilo que esta durmiendo
+            int indice = 0;
+
+            lockEmbarque.lock();
+
+            while (puertasEmbarque[5] == true && indicesPuertas.isEmpty()) {
+                colaPuertaEmbarque.offer("Desembarcar");
+                desembarcar.await();
             }
+
+            //Primero busca ocupar la puerta exclusiva de desembarque
+            if (puertasEmbarque[5] == false) {
+                puertasEmbarque[5] = true;
+
+                indice = 5;
+                avion.setPosPuerta(indice);
+
+            } else if (!indicesPuertas.isEmpty()) {
+
+                indice = indicesPuertas.poll();//Indices entre 1-4
+                puertasEmbarque[indice] = true;
+
+                avion.setPosPuerta(indice);
+            }
+            //  Agrega los pasajeros del avión al sistema
+            pasajerosAeropuerto.addAndGet(avion.getNumPasajeros());
+
+            Central.actualizarAviones(avion, false, "textoRodaje", rodaje, nombre);
+            Central.actualizarAvionesSolitario("textoPuerta" + (indice + 1), avion.getIdAvion(), nombre);
+
         } catch (InterruptedException ex) {
         } finally {
-            lockDesembarque.unlock();
+            lockEmbarque.unlock();
+        }
+    }
+
+    /**
+     *
+     * @param avion
+     */
+    public void salirPuertasEmbarque(Avion avion) {
+        lockEmbarque.lock();
+        try {
+            switch (avion.getPosPuerta()) {
+                case 0 -> {
+                    puertasEmbarque[avion.getPosPuerta()] = false;
+                    embarcar.signalAll();
+                }
+                case 5 -> {
+                    puertasEmbarque[avion.getPosPuerta()] = false;
+                    desembarcar.signalAll();
+                }
+                default -> {
+                    puertasEmbarque[avion.getPosPuerta()] = false;
+                    indicesPuertas.put(avion.getPosPuerta());
+                    if (colaPuertaEmbarque.poll() == "Embarcar") {
+                        embarcar.signalAll();
+                    } else {
+                        desembarcar.signalAll();
+                    }
+                }
+            }
+
+            Central.actualizarAvionesSolitario("textoPuerta" + (avion.getPosPuerta() + 1), "", nombre);
+
+        } catch (InterruptedException ex) {
+        } finally {
+            lockEmbarque.unlock();
         }
     }
 
@@ -346,12 +325,12 @@ public class Aeropuerto {
         try {
             semTaller.acquire();
 
-            Central.actualizarAviones(avion, false, "textoEstacionamiento", estacionamiento, nombre);
-
             //Por la puerta solo pasa un avion y tarda 1 segundo en hacer la accion
             semPuertaTaller.acquire();
             Central.dormir(1000, 1000);
             semPuertaTaller.release();
+
+            Central.actualizarAviones(avion, false, "textoEstacionamiento", estacionamiento, nombre);
 
             Central.actualizarAviones(avion, true, "textoTaller", taller, nombre);
 

@@ -95,7 +95,7 @@ public class Avion extends Thread {
 
             /* ACCEDER ÁREA RODAJE */
             aeropuertoActual.areaRodaje(this);
-            log.escribirArchivo("El avión con id " + this.id + " entra en el ÁREA DE RODAJE", aeropuertoActual.getNombre());
+            log.escribirArchivo("El avión con id " + this.id + "(" + numPasajeros + " pasajeros)" + " entra en el ÁREA DE RODAJE", aeropuertoActual.getNombre());
             // dura entre 3-5 seg entre la pista y las puertas de embarque
             Central.dormir(3000, 5000);
 
@@ -105,7 +105,7 @@ public class Avion extends Thread {
             Central.dormir(1000, 5000); //Descarga de los pasajeros
             numPasajeros = 0;
             aeropuertoActual.salirPuertasEmbarque(this);
-
+            
             /* ACCEDER ÁREA DE ESTACIONAMIENTO */
             aeropuertoActual.areaEstacionamiento(this);
             log.escribirArchivo("El avión con id " + this.id + " entra en el ÁREA DE ESTACIONAMIENTO", aeropuertoActual.getNombre());
@@ -123,7 +123,11 @@ public class Avion extends Thread {
 
         }
     }
-
+    
+    /**
+     * Calcula el máximo de pasajeros que puede embarcar el avión
+     * en un plazo de 3 intentos.
+     */
     public void embarcarPasajeros() {
         boolean maxPasajeros = false;
         int intentos = 0;

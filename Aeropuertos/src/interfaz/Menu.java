@@ -1,5 +1,6 @@
 package interfaz;
 
+import conexionRemoto.MenuRemoto;
 import aeropuertos.Avion;
 import aeropuertos.Bus;
 import aeropuertos.Central;
@@ -53,6 +54,7 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupPausado = new javax.swing.ButtonGroup();
         bg = new javax.swing.JPanel();
         bgMadrid = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -366,7 +368,13 @@ public class Menu extends javax.swing.JFrame {
         textoAeroM.setEditable(false);
         bgAero.add(textoAeroM, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 810, -1));
 
+        buttonGroupPausado.add(botonReanudar);
         botonReanudar.setText("Reanudar");
+        botonReanudar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonReanudarMouseClicked(evt);
+            }
+        });
         botonReanudar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonReanudarActionPerformed(evt);
@@ -374,8 +382,14 @@ public class Menu extends javax.swing.JFrame {
         });
         bgAero.add(botonReanudar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, -1));
 
+        buttonGroupPausado.add(botonPausar);
         botonPausar.setText("Pausar");
         botonPausar.setPreferredSize(new java.awt.Dimension(80, 23));
+        botonPausar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonPausarMouseClicked(evt);
+            }
+        });
         botonPausar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonPausarActionPerformed(evt);
@@ -670,9 +684,9 @@ public class Menu extends javax.swing.JFrame {
         } else {
             textoNumPasajeros1.setText(String.valueOf(pasajeros));
         }
-        
+
         menuR.actualizarPasajeros(pasajeros, nombreAeropuerto); // Es peor si dejo que se actualice al mismo tiempo?
-        
+
     }
 
     public void actualizarBusCiudad(Bus bus, String nombreAeropuerto) {
@@ -693,7 +707,7 @@ public class Menu extends javax.swing.JFrame {
 
     public void actualizarCampoAvion(String textField, Queue<Avion> listaAviones, String nombreAeropuerto) {
         menuR.actualizarCampoAvion(textField, listaAviones, nombreAeropuerto);
-        
+
         String texto = "";
         for (Avion avion : listaAviones) {
             texto += avion.getIdAvion() + ", ";
@@ -701,7 +715,7 @@ public class Menu extends javax.swing.JFrame {
         if (nombreAeropuerto.equals("Barcelona")) {
             if ("textoAeroM".equals(textField)) {
                 textField = "textoAeroB";
-            }else{
+            } else {
                 textField += "1";
             }
         }
@@ -744,12 +758,9 @@ public class Menu extends javax.swing.JFrame {
     }
 
     private void botonPausarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPausarActionPerformed
-        if(botonReanudar.isSelected()){
-            botonReanudar.setSelected(false);
-            Central.pausarSistema();
-        }else{
-            botonPausar.setSelected(true);
-        }
+
+        Central.pausarSistema();
+
     }//GEN-LAST:event_botonPausarActionPerformed
 
     private void textoBusAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoBusAActionPerformed
@@ -841,7 +852,8 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_textoPista4BActionPerformed
 
     private void botonReanudarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReanudarActionPerformed
-        // TODO add your handling code here:
+
+        Central.reanudarSistema();
     }//GEN-LAST:event_botonReanudarActionPerformed
 
     private void txtexitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtexitMouseClicked
@@ -883,6 +895,14 @@ public class Menu extends javax.swing.JFrame {
     private void textoBusC1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoBusC1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textoBusC1ActionPerformed
+
+    private void botonPausarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonPausarMouseClicked
+
+    }//GEN-LAST:event_botonPausarMouseClicked
+
+    private void botonReanudarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonReanudarMouseClicked
+
+    }//GEN-LAST:event_botonReanudarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -935,6 +955,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JToggleButton botonPausar;
     private javax.swing.JToggleButton botonReanudar;
     private javax.swing.JButton botonRemoto;
+    private javax.swing.ButtonGroup buttonGroupPausado;
     private javax.swing.JPanel exitpanel;
     private javax.swing.JPanel header;
     private javax.swing.JLabel icon;

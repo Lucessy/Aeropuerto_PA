@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package interfaz;
+package conexionRemoto;
 
 import aeropuertos.Avion;
 import aeropuertos.Central;
-import aeropuertos.Central;
+import interfaz.Menu;
 import java.awt.Color;
 import java.lang.reflect.Field;
 import java.util.Queue;
@@ -52,15 +52,6 @@ public class MenuRemoto extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.menu = menu;
         
-        abrirPista_1.setSelected(true);
-        abrirPista_2.setSelected(true);
-        abrirPista_3.setSelected(true);
-        abrirPista_4.setSelected(true);
-        
-        abrirPista_1B.setSelected(true);
-        abrirPista_2B.setSelected(true);
-        abrirPista_3B.setSelected(true);
-        abrirPista_4B.setSelected(true);
     }
 
     /**
