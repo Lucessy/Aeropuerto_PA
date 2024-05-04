@@ -23,7 +23,7 @@ public class Aeropuerto {
     private Log log;
 
     //  LISTA DE AVIONES EN AEROVIAS
-    private Queue aerovia = new ConcurrentLinkedQueue();
+    private Queue<Avion> aerovia = new ConcurrentLinkedQueue();
 
     //  LISTA DE AVIONES EN ZONAS COMPARTIDAS PARA ACTUALIZAR MENU
     private Queue<Avion> hangar = new ConcurrentLinkedQueue<>();
