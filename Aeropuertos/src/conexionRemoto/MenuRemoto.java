@@ -134,7 +134,6 @@ public class MenuRemoto extends javax.swing.JFrame {
         exitpanel = new javax.swing.JPanel();
         txtexit = new javax.swing.JLabel();
         javaeatlogo1 = new javax.swing.JLabel();
-        botonVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -494,21 +493,12 @@ public class MenuRemoto extends javax.swing.JFrame {
         javaeatlogo1.setFont(new java.awt.Font("Roboto Condensed", 1, 36)); // NOI18N
         javaeatlogo1.setForeground(new java.awt.Color(255, 102, 0));
 
-        botonVolver.setText("Volver");
-        botonVolver.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonVolverActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(botonVolver)
-                .addGap(71, 71, 71)
+                .addGap(157, 157, 157)
                 .addComponent(javaeatlogo1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 615, Short.MAX_VALUE)
                 .addComponent(exitpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -517,11 +507,7 @@ public class MenuRemoto extends javax.swing.JFrame {
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(javaeatlogo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(headerLayout.createSequentialGroup()
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(exitpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(headerLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(botonVolver)))
+                .addComponent(exitpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -668,11 +654,6 @@ public class MenuRemoto extends javax.swing.JFrame {
         listaPuertasBar[3] = true;
     }//GEN-LAST:event_abrirPista_4BActionPerformed
 
-    private void botonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverActionPerformed
-//        this.setVisible(false);
-//        menu.setVisible(true);
-    }//GEN-LAST:event_botonVolverActionPerformed
-
     private void textoHangarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoHangarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textoHangarActionPerformed
@@ -734,7 +715,6 @@ public class MenuRemoto extends javax.swing.JFrame {
     private javax.swing.JPanel bgAero;
     private javax.swing.JPanel bgBarcelona;
     private javax.swing.JPanel bgMadrid;
-    private javax.swing.JButton botonVolver;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup1B;
     private javax.swing.ButtonGroup buttonGroup2;

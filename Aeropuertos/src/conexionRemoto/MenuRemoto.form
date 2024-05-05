@@ -827,9 +827,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                      <Component id="botonVolver" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="157" max="-2" attributes="0"/>
                       <Component id="javaeatlogo1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="615" max="32767" attributes="0"/>
                       <Component id="exitpanel" min="-2" max="-2" attributes="0"/>
@@ -840,13 +838,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="javaeatlogo1" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="exitpanel" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="botonVolver" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="exitpanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -910,14 +902,6 @@
                   <Color blue="0" green="66" red="ff" type="rgb"/>
                 </Property>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="botonVolver">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Volver"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonVolverActionPerformed"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>

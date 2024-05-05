@@ -141,11 +141,9 @@ public class Menu extends javax.swing.JFrame {
         exitpanel = new javax.swing.JPanel();
         txtexit = new javax.swing.JLabel();
         javaeatlogo1 = new javax.swing.JLabel();
-        botonRemoto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
-        setMaximumSize(new java.awt.Dimension(830, 580));
         setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -638,21 +636,12 @@ public class Menu extends javax.swing.JFrame {
         javaeatlogo1.setFont(new java.awt.Font("Roboto Condensed", 1, 36)); // NOI18N
         javaeatlogo1.setForeground(new java.awt.Color(255, 102, 0));
 
-        botonRemoto.setText("Remoto");
-        botonRemoto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonRemotoActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(botonRemoto)
-                .addGap(74, 74, 74)
+                .addGap(160, 160, 160)
                 .addComponent(javaeatlogo1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 612, Short.MAX_VALUE)
                 .addComponent(exitpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -661,11 +650,7 @@ public class Menu extends javax.swing.JFrame {
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(javaeatlogo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(headerLayout.createSequentialGroup()
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(exitpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(headerLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(botonRemoto)))
+                .addComponent(exitpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -887,11 +872,6 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_textoNumPasajerosActionPerformed
 
-    private void botonRemotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRemotoActionPerformed
-//        this.setVisible(false);
-//        menuR.setVisible(true);
-    }//GEN-LAST:event_botonRemotoActionPerformed
-
     private void textoBusCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoBusCActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textoBusCActionPerformed
@@ -958,7 +938,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JPanel bgMadrid;
     private javax.swing.JToggleButton botonPausar;
     private javax.swing.JToggleButton botonReanudar;
-    private javax.swing.JButton botonRemoto;
     private javax.swing.ButtonGroup buttonGroupPausado;
     private javax.swing.JPanel exitpanel;
     private javax.swing.JPanel header;

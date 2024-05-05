@@ -1111,9 +1111,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                      <Component id="botonRemoto" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="160" max="-2" attributes="0"/>
                       <Component id="javaeatlogo1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="612" max="32767" attributes="0"/>
                       <Component id="exitpanel" min="-2" max="-2" attributes="0"/>
@@ -1124,13 +1122,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="javaeatlogo1" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="exitpanel" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="botonRemoto" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="exitpanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -1194,14 +1186,6 @@
                   <Color blue="0" green="66" red="ff" type="rgb"/>
                 </Property>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="botonRemoto">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Remoto"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonRemotoActionPerformed"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>
