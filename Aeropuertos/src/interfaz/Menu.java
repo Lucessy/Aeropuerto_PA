@@ -4,6 +4,7 @@ import conexionRemoto.MenuRemoto;
 import aeropuertos.Avion;
 import aeropuertos.Bus;
 import aeropuertos.Servidor;
+import aeropuertos.Log;
 import java.awt.Color;
 import java.util.Queue;
 import java.lang.reflect.Field;
@@ -12,6 +13,7 @@ import javax.swing.JTextField;
 public class Menu extends javax.swing.JFrame {
 
     int xMouse, yMouse;
+    private Log log;
 //    private MenuRemoto menuR;
 
     /**
@@ -859,6 +861,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void txtexitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtexitMouseClicked
         Servidor.salir();
+        log.cerrar();
     }//GEN-LAST:event_txtexitMouseClicked
 
     private void txtexitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtexitMouseEntered

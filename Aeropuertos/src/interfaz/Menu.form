@@ -8,9 +8,6 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="locationByPlatform" type="boolean" value="true"/>
-    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[830, 580]"/>
-    </Property>
     <Property name="undecorated" type="boolean" value="true"/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
