@@ -1,5 +1,6 @@
 package aeropuertos;
 
+import java.util.Arrays;
 import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -9,8 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class Aeropuerto {
 
@@ -40,15 +40,14 @@ public class Aeropuerto {
     private Queue colaPuertaEmbarque = new ConcurrentLinkedQueue<>();
 
     private Queue listaGeneralPista = new ConcurrentLinkedQueue();
-//    private Semaphore semDisponibilidadEmb = new Semaphore(0, true);
-//    private Semaphore semDisponibilidadDesemb = new Semaphore(0, true);
 
     // PISTAS
     private boolean[] pistas = new boolean[4];
     private Semaphore semPista = new Semaphore(1);
     private Semaphore semDisponibilidadPista = new Semaphore(4, true);
     private Lock lockPista = new ReentrantLock(true);
-    private boolean[] listaBotonPista = new boolean[4];
+    private Boolean[] listaBotonPista = new Boolean[4];
+    private Boolean[] listaBotonPistaAnterior = new Boolean[4];
 
     // TALLER
     private Semaphore semTaller = new Semaphore(20, true);
@@ -67,17 +66,13 @@ public class Aeropuerto {
 
         for (int i = 0; i < 4; i++) {
             pistas[i] = false;
-            listaBotonPista[i] = false;
+            listaBotonPista[i] = true;
+            listaBotonPistaAnterior[i] = true;
         }
 
         for (int i = 1; i < 5; i++) {
             // Se inicia con un valor por defecto
             indicesPuertas.add(i);
-        }
-
-        for (int i = 0; i < 6; i++) {
-            avionesPuertasEmbarque[i] = "";
-            puertasEmbarque[i] = false;
         }
     }
 
@@ -207,10 +202,12 @@ public class Aeropuerto {
                 case 0 -> {
                     puertasEmbarque[avion.getPosPuerta()] = false;
                     embarcar.signalAll();
+                    colaPuertaEmbarque.remove("Embarcar");
                 }
                 case 5 -> {
                     puertasEmbarque[avion.getPosPuerta()] = false;
                     desembarcar.signalAll();
+                    colaPuertaEmbarque.remove("Desembarcar");
                 }
                 default -> {
                     puertasEmbarque[avion.getPosPuerta()] = false;
@@ -298,7 +295,8 @@ public class Aeropuerto {
             Servidor.actualizarAvionesSolitario("textoPista" + (posPista + 1), avion.getIdAvion(), nombre);
 
         } catch (InterruptedException ex) {
-        } finally {
+        }
+        finally{
             lockPista.unlock();
         }
     }
@@ -308,12 +306,16 @@ public class Aeropuerto {
      * @param avion
      */
     public void liberarPista(Avion avion) {
-        if (!listaBotonPista[avion.getPosicionPista()]) {
-            pistas[avion.getPosicionPista()] = false;
+        lockPista.lock();
+        try {
+            if (listaBotonPista[avion.getPosicionPista()]) {
+                pistas[avion.getPosicionPista()] = false;
+                semDisponibilidadPista.release();
+            }
+            Servidor.actualizarAvionesSolitario("textoPista" + (avion.getPosicionPista() + 1), "", nombre);
+        } finally {
+            lockPista.unlock();
         }
-        Servidor.actualizarAvionesSolitario("textoPista" + (avion.getPosicionPista() + 1), "", nombre);
-        pistas[avion.getPosicionPista()] = false;
-        semDisponibilidadPista.release();
     }
 
     /**
@@ -360,9 +362,11 @@ public class Aeropuerto {
 
     /*FIN ZONAS DE ACTIVIDAD*/
     /**
-     * Obtiene el número máximo de pasajeros que puede coger del aeropuerto dada la variable numPasajerosMax
-     * @param numPasajerosMax 
-     * @return 
+     * Obtiene el número máximo de pasajeros que puede coger del aeropuerto dada
+     * la variable numPasajerosMax
+     *
+     * @param numPasajerosMax
+     * @return
      */
     public int getPasajerosDisponibles(int numPasajerosMax) {
         lockPasajeros.lock();
@@ -390,8 +394,31 @@ public class Aeropuerto {
         return pasajeros;
     }
     
-    //  Get y Set
+    /**
+     * 
+     */
+    public void cerrarAbrirPistas() {
+        lockPista.lock();
+        try {
+            for (int i = 0; i < 4; i++) {
+                // Primer caso, se quiere bloquear la pista y no se está usando la pista
+                if (listaBotonPistaAnterior[i] == true && listaBotonPista[i] == false && pistas[i] == false) {
+                    semDisponibilidadPista.acquire();
+                    pistas[i] = true;
+                }
+                // Segundo caso, se quiere abrir la pista bloqueada que antes estaba bloqueada
+                else if (listaBotonPistaAnterior[i] == false && listaBotonPista[i] == true){
+                    pistas[i] = false;
+                    semDisponibilidadPista.release();
+                }
+            }
+        } catch (InterruptedException ex) {
+        } finally {
+            lockPista.unlock();
+        }
+    }
 
+    //  Get y Set
     public AtomicInteger getPasajerosAeropuerto() {
         return pasajerosAeropuerto;
     }
@@ -406,6 +433,48 @@ public class Aeropuerto {
 
     public void setAerovia(Queue aerovia) {
         this.aerovia = aerovia;
+    }
+
+    public Queue<Avion> getHangar() {
+        return hangar;
+    }
+
+    public void setHangar(Queue<Avion> hangar) {
+        this.hangar = hangar;
+    }
+
+    public Queue<Avion> getEstacionamiento() {
+        return estacionamiento;
+    }
+
+    public void setEstacionamiento(Queue<Avion> estacionamiento) {
+        this.estacionamiento = estacionamiento;
+    }
+
+    public Queue<Avion> getTaller() {
+        return taller;
+    }
+
+    public void setTaller(Queue<Avion> taller) {
+        this.taller = taller;
+    }
+
+    public Queue<Avion> getRodaje() {
+        return rodaje;
+    }
+
+    public void setRodaje(Queue<Avion> rodaje) {
+        this.rodaje = rodaje;
+    }
+
+    public Boolean[] getListaBotonPista() {
+        return listaBotonPista;
+    }
+
+    public void setListaBotonPista(Boolean[] listaBotonPista) {
+        listaBotonPistaAnterior = this.listaBotonPista;
+        this.listaBotonPista = listaBotonPista;
+        cerrarAbrirPistas();
     }
 
 }

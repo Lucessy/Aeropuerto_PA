@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 public class Menu extends javax.swing.JFrame {
 
     int xMouse, yMouse;
-    private MenuRemoto menuR;
+//    private MenuRemoto menuR;
 
     /**
      * Creates new form Menu
@@ -42,7 +42,7 @@ public class Menu extends javax.swing.JFrame {
 
         initComponents();
         this.setLocationRelativeTo(null);
-        this.menuR = new MenuRemoto(this);
+//        this.menuR = new MenuRemoto(this);
     }
 
     /**
@@ -681,7 +681,7 @@ public class Menu extends javax.swing.JFrame {
             textoNumPasajeros1.setText(String.valueOf(pasajeros));
         }
 
-        menuR.actualizarPasajeros(pasajeros, nombreAeropuerto); // Es peor si dejo que se actualice al mismo tiempo?
+//        menuR.actualizarPasajeros(pasajeros, nombreAeropuerto); // Es peor si dejo que se actualice al mismo tiempo?
 
     }
 
@@ -702,11 +702,16 @@ public class Menu extends javax.swing.JFrame {
     }
 
     public void actualizarCampoAvion(String textField, Queue<Avion> listaAviones, String nombreAeropuerto) {
-        menuR.actualizarCampoAvion(textField, listaAviones, nombreAeropuerto);
+//        menuR.actualizarCampoAvion(textField, listaAviones, nombreAeropuerto);
 
         String texto = "";
+        int i = 0;
         for (Avion avion : listaAviones) {
-            texto += avion.getIdAvion() + ", ";
+            texto += avion.getIdAvion();
+            if (i < listaAviones.size() - 1) {
+                texto += ",";
+            }
+            i++;
         }
         if (nombreAeropuerto.equals("Barcelona")) {
             if ("textoAeroM".equals(textField)) {
@@ -880,8 +885,8 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_textoNumPasajerosActionPerformed
 
     private void botonRemotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRemotoActionPerformed
-        this.setVisible(false);
-        menuR.setVisible(true);
+//        this.setVisible(false);
+//        menuR.setVisible(true);
     }//GEN-LAST:event_botonRemotoActionPerformed
 
     private void textoBusCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoBusCActionPerformed

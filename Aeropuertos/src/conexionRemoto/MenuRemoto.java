@@ -1,30 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package conexionRemoto;
 
-import aeropuertos.Avion;
 import aeropuertos.Servidor;
 import interfaz.Menu;
 import java.awt.Color;
-import java.lang.reflect.Field;
-import java.util.Queue;
-import javax.swing.JTextField;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- *
- * @author lucia
- */
 public class MenuRemoto extends javax.swing.JFrame {
 
     int xMouse, yMouse;
     private Menu menu;
+    private Boolean[] listaPuertas = new Boolean[4];
+    private Boolean[] listaPuertasBar = new Boolean[4];
 
     /**
      * Creates new form Menu
      */
-    public MenuRemoto(Menu menu) {
+    public MenuRemoto() {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -50,8 +42,21 @@ public class MenuRemoto extends javax.swing.JFrame {
 
         initComponents();
         this.setLocationRelativeTo(null);
-        this.menu = menu;
+//        this.menu = menu;
+        for (int i = 0; i < 4; i++) {
+            listaPuertas[i] = true;
+            listaPuertasBar[i] = true;
+        }
         
+        abrirPista_1.setSelected(true);
+        abrirPista_2.setSelected(true);
+        abrirPista_3.setSelected(true);
+        abrirPista_4.setSelected(true);
+        
+        abrirPista_1B.setSelected(true);
+        abrirPista_2B.setSelected(true);
+        abrirPista_3B.setSelected(true);
+        abrirPista_4B.setSelected(true);
     }
 
     /**
@@ -63,6 +68,14 @@ public class MenuRemoto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
+        buttonGroup4 = new javax.swing.ButtonGroup();
+        buttonGroup1B = new javax.swing.ButtonGroup();
+        buttonGroup2B = new javax.swing.ButtonGroup();
+        buttonGroup3B = new javax.swing.ButtonGroup();
+        buttonGroup4B = new javax.swing.ButtonGroup();
         bg = new javax.swing.JPanel();
         bgMadrid = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -149,11 +162,11 @@ public class MenuRemoto extends javax.swing.JFrame {
                 textoNumPasajerosActionPerformed(evt);
             }
         });
-        bgMadrid.add(textoNumPasajeros, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 70, -1));
+        bgMadrid.add(textoNumPasajeros, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 210, -1));
 
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Hangar:");
-        bgMadrid.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+        bgMadrid.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
 
         textoHangar.setEditable(false);
         textoHangar.addActionListener(new java.awt.event.ActionListener() {
@@ -161,28 +174,28 @@ public class MenuRemoto extends javax.swing.JFrame {
                 textoHangarActionPerformed(evt);
             }
         });
-        bgMadrid.add(textoHangar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 70, -1));
+        bgMadrid.add(textoHangar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 320, -1));
 
         textoTaller.setEditable(false);
-        bgMadrid.add(textoTaller, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 70, -1));
+        bgMadrid.add(textoTaller, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 330, -1));
 
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Taller:");
-        bgMadrid.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
+        bgMadrid.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
 
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Área de estacionamiento:");
-        bgMadrid.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, -1, -1));
+        bgMadrid.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
 
         textoEstacionamiento.setEditable(false);
-        bgMadrid.add(textoEstacionamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 70, -1));
+        bgMadrid.add(textoEstacionamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 230, -1));
 
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("Área rodaje:");
-        bgMadrid.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, -1, -1));
+        bgMadrid.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
 
         textoRodaje.setEditable(false);
-        bgMadrid.add(textoRodaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, 70, -1));
+        bgMadrid.add(textoRodaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 300, -1));
 
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Pista 1:");
@@ -206,6 +219,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         jLabel2.setText("Aeropuerto de Madrid");
         bgMadrid.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, -1));
 
+        buttonGroup1.add(abrirPista_1);
         abrirPista_1.setText("Abrir");
         abrirPista_1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -214,6 +228,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         });
         bgMadrid.add(abrirPista_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, 70, -1));
 
+        buttonGroup1.add(cerrarPista_1);
         cerrarPista_1.setText("Cerrar");
         cerrarPista_1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,6 +237,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         });
         bgMadrid.add(cerrarPista_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 70, -1));
 
+        buttonGroup2.add(cerrarPista_2);
         cerrarPista_2.setText("Cerrar");
         cerrarPista_2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,6 +246,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         });
         bgMadrid.add(cerrarPista_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 70, -1));
 
+        buttonGroup2.add(abrirPista_2);
         abrirPista_2.setText("Abrir");
         abrirPista_2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -238,6 +255,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         });
         bgMadrid.add(abrirPista_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, 70, -1));
 
+        buttonGroup3.add(cerrarPista_3);
         cerrarPista_3.setText("Cerrar");
         cerrarPista_3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -246,6 +264,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         });
         bgMadrid.add(cerrarPista_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, 70, -1));
 
+        buttonGroup3.add(abrirPista_3);
         abrirPista_3.setText("Abrir");
         abrirPista_3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -254,6 +273,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         });
         bgMadrid.add(abrirPista_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 270, 70, -1));
 
+        buttonGroup4.add(cerrarPista_4);
         cerrarPista_4.setText("Cerrar");
         cerrarPista_4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -262,6 +282,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         });
         bgMadrid.add(cerrarPista_4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 330, 70, -1));
 
+        buttonGroup4.add(abrirPista_4);
         abrirPista_4.setText("Abrir");
         abrirPista_4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -300,31 +321,31 @@ public class MenuRemoto extends javax.swing.JFrame {
 
         jLabel24.setForeground(new java.awt.Color(0, 0, 0));
         jLabel24.setText("Hangar:");
-        bgBarcelona.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+        bgBarcelona.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
 
         textoHangar1.setEditable(false);
-        bgBarcelona.add(textoHangar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 80, -1));
+        bgBarcelona.add(textoHangar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 320, -1));
 
         textoTaller1.setEditable(false);
-        bgBarcelona.add(textoTaller1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 80, -1));
+        bgBarcelona.add(textoTaller1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 330, -1));
 
         jLabel25.setForeground(new java.awt.Color(0, 0, 0));
         jLabel25.setText("Taller:");
-        bgBarcelona.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
+        bgBarcelona.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
 
         jLabel27.setForeground(new java.awt.Color(0, 0, 0));
         jLabel27.setText("Área de estacionamiento:");
-        bgBarcelona.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, -1, -1));
+        bgBarcelona.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
 
         textoEstacionamiento1.setEditable(false);
-        bgBarcelona.add(textoEstacionamiento1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, 80, -1));
+        bgBarcelona.add(textoEstacionamiento1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 230, -1));
 
         jLabel35.setForeground(new java.awt.Color(0, 0, 0));
         jLabel35.setText("Área rodaje:");
-        bgBarcelona.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, -1, -1));
+        bgBarcelona.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
 
         textoRodaje1.setEditable(false);
-        bgBarcelona.add(textoRodaje1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 80, -1));
+        bgBarcelona.add(textoRodaje1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 300, -1));
 
         jLabel36.setForeground(new java.awt.Color(0, 0, 0));
         jLabel36.setText("Pista 1:");
@@ -343,7 +364,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         bgBarcelona.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 310, 150, -1));
 
         textoNumPasajeros1.setEditable(false);
-        bgBarcelona.add(textoNumPasajeros1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 70, -1));
+        bgBarcelona.add(textoNumPasajeros1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 210, -1));
 
         jLabel34.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
         jLabel34.setForeground(new java.awt.Color(0, 0, 0));
@@ -351,6 +372,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         jLabel34.setText("Aeropuerto de Barcelona");
         bgBarcelona.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, -1));
 
+        buttonGroup1B.add(abrirPista_1B);
         abrirPista_1B.setText("Abrir");
         abrirPista_1B.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -359,6 +381,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         });
         bgBarcelona.add(abrirPista_1B, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, 70, -1));
 
+        buttonGroup1B.add(cerrarPista_1B);
         cerrarPista_1B.setText("Cerrar");
         cerrarPista_1B.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -367,6 +390,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         });
         bgBarcelona.add(cerrarPista_1B, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 70, -1));
 
+        buttonGroup2B.add(abrirPista_2B);
         abrirPista_2B.setText("Abrir");
         abrirPista_2B.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -375,6 +399,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         });
         bgBarcelona.add(abrirPista_2B, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, 70, -1));
 
+        buttonGroup2B.add(cerrarPista_2B);
         cerrarPista_2B.setText("Cerrar");
         cerrarPista_2B.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -383,6 +408,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         });
         bgBarcelona.add(cerrarPista_2B, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 70, -1));
 
+        buttonGroup3B.add(cerrarPista_3B);
         cerrarPista_3B.setText("Cerrar");
         cerrarPista_3B.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -391,6 +417,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         });
         bgBarcelona.add(cerrarPista_3B, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, 70, -1));
 
+        buttonGroup3B.add(abrirPista_3B);
         abrirPista_3B.setText("Abrir");
         abrirPista_3B.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -399,6 +426,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         });
         bgBarcelona.add(abrirPista_3B, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 270, 70, -1));
 
+        buttonGroup4B.add(cerrarPista_4B);
         cerrarPista_4B.setText("Cerrar");
         cerrarPista_4B.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -407,6 +435,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         });
         bgBarcelona.add(cerrarPista_4B, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 330, 70, -1));
 
+        buttonGroup4B.add(abrirPista_4B);
         abrirPista_4B.setText("Abrir");
         abrirPista_4B.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -503,50 +532,51 @@ public class MenuRemoto extends javax.swing.JFrame {
         setBounds(0, 0, 830, 619);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void actualizarPasajeros(int pasajeros, String nombreAeropuerto) {
-        if ("Madrid".equals(nombreAeropuerto)) {
-            textoNumPasajeros.setText(String.valueOf(pasajeros));
+    public void actualizarCampoNumerico(String listaNum, String listaAerovia, String aeropuerto) {
+        String[] listaNumerica = listaNum.split(",");
+        if (aeropuerto.equals("Barcelona")) {
+            textoNumPasajeros1.setText(listaNumerica[0]);
+            textoHangar1.setText(listaNumerica[1]);
+            textoEstacionamiento1.setText(listaNumerica[2]);
+            textoRodaje1.setText(listaNumerica[3]);
+            textoTaller1.setText(listaNumerica[4]);
+            
+            textoAeroB.setText(listaAerovia);
         } else {
-            textoNumPasajeros1.setText(String.valueOf(pasajeros));
+            textoNumPasajeros.setText(listaNumerica[0]);
+            textoHangar.setText(listaNumerica[1]);
+            textoEstacionamiento.setText(listaNumerica[2]);
+            textoRodaje.setText(listaNumerica[3]);
+            textoTaller.setText(listaNumerica[4]);
+            
+            textoAeroM.setText(listaAerovia);
         }
     }
 
-    public void actualizarCampoAvion(String textField, Queue<Avion> listaAviones, String nombreAeropuerto) {
-        String texto = "";
-        
-        if ("textoAeroM".equals(textField)) {
-            for (Avion avion : listaAviones) {
-                texto += avion.getIdAvion() + ", ";
-            }
-
-            if (nombreAeropuerto.equals("Barcelona")) {
-                textField = "textoAeroB";
-            }
-            
-        }else{
-            texto = String.valueOf(listaAviones.size());
-            
-            if (nombreAeropuerto.equals("Barcelona")) {
-                textField += "1";
-            }
+    public String obtenerDisPistas(String aeropuerto) {
+        if (aeropuerto.equals("Barcelona")) {
+            return arrayToString(listaPuertasBar);
+        } else {
+            return arrayToString(listaPuertas);
         }
-
-        try {
-            // Obtén el campo de texto mediante reflexión
-            Field field = this.getClass().getDeclaredField(textField);
-            if (field.getType() == JTextField.class) {
-                JTextField campoTexto = (JTextField) field.get(this);
-                campoTexto.setText(texto);
-
-            } else {
-                System.err.println("El campo especificado no es de tipo JTextField.");
-            }
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
     }
-    
+
+    private static String arrayToString(Boolean[] array) {
+        String listaString = "";
+
+        // Iterar sobre los elementos del array
+        for (int i = 0; i < array.length; i++) {
+            listaString += array[i];
+
+            // Agregar una coma si no es el último elemento
+            if (i < array.length - 1) {
+                listaString += ",";
+            }
+        }
+
+        return listaString;
+    }
+
     private void txtexitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtexitMouseClicked
         Servidor.salir();
     }//GEN-LAST:event_txtexitMouseClicked
@@ -575,104 +605,72 @@ public class MenuRemoto extends javax.swing.JFrame {
     }//GEN-LAST:event_textoNumPasajerosActionPerformed
 
     private void abrirPista_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirPista_1ActionPerformed
-        if(cerrarPista_1.isSelected()){
-            cerrarPista_1.setSelected(false);
-        }
+        listaPuertas[0] = true;
     }//GEN-LAST:event_abrirPista_1ActionPerformed
 
     private void cerrarPista_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarPista_1ActionPerformed
-        if(abrirPista_1.isSelected()){
-            abrirPista_1.setSelected(false);
-        }
+        listaPuertas[0] = false;
     }//GEN-LAST:event_cerrarPista_1ActionPerformed
 
     private void cerrarPista_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarPista_2ActionPerformed
-        if(abrirPista_2.isSelected()){
-            abrirPista_2.setSelected(false);
-        }// TODO add your handling code here:
+        listaPuertas[1] = false;
     }//GEN-LAST:event_cerrarPista_2ActionPerformed
 
     private void abrirPista_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirPista_2ActionPerformed
-        if(cerrarPista_2.isSelected()){
-            cerrarPista_2.setSelected(false);
-        }// TODO add your handling code here:
+        listaPuertas[1] = true;
     }//GEN-LAST:event_abrirPista_2ActionPerformed
 
     private void cerrarPista_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarPista_3ActionPerformed
-        if(abrirPista_3.isSelected()){
-            abrirPista_3.setSelected(false);
-        }// TODO add your handling code here:
+        listaPuertas[2] = false;
     }//GEN-LAST:event_cerrarPista_3ActionPerformed
 
     private void abrirPista_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirPista_3ActionPerformed
-        if(cerrarPista_3.isSelected()){
-            cerrarPista_3.setSelected(false);
-        }// TODO add your handling code here:
+        listaPuertas[2] = true;
     }//GEN-LAST:event_abrirPista_3ActionPerformed
 
     private void cerrarPista_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarPista_4ActionPerformed
-        if(abrirPista_4.isSelected()){
-            abrirPista_4.setSelected(false);
-        }// TODO add your handling code here:
+        listaPuertas[3] = false;
     }//GEN-LAST:event_cerrarPista_4ActionPerformed
 
     private void abrirPista_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirPista_4ActionPerformed
-        if(cerrarPista_4.isSelected()){
-            cerrarPista_4.setSelected(false);
-        }// TODO add your handling code here:
+        listaPuertas[3] = true;
     }//GEN-LAST:event_abrirPista_4ActionPerformed
 
     private void abrirPista_1BActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirPista_1BActionPerformed
-        if(cerrarPista_1B.isSelected()){
-            cerrarPista_1B.setSelected(false);
-        }// TODO add your handling code here:
+        listaPuertasBar[0] = true;
     }//GEN-LAST:event_abrirPista_1BActionPerformed
 
     private void cerrarPista_1BActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarPista_1BActionPerformed
-        if(abrirPista_1B.isSelected()){
-            abrirPista_1B.setSelected(false);
-        }// TODO add your handling code here:
+        listaPuertasBar[0] = false;
     }//GEN-LAST:event_cerrarPista_1BActionPerformed
 
     private void abrirPista_2BActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirPista_2BActionPerformed
-        if(cerrarPista_2B.isSelected()){
-            cerrarPista_2B.setSelected(false);
-        }// TODO add your handling code here:
+        listaPuertasBar[1] = true;
     }//GEN-LAST:event_abrirPista_2BActionPerformed
 
     private void cerrarPista_2BActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarPista_2BActionPerformed
-        if(abrirPista_2B.isSelected()){
-            abrirPista_2B.setSelected(false);
-        }// TODO add your handling code here:
+        listaPuertasBar[1] = false;
     }//GEN-LAST:event_cerrarPista_2BActionPerformed
 
     private void cerrarPista_3BActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarPista_3BActionPerformed
-        if(abrirPista_3B.isSelected()){
-            abrirPista_3B.setSelected(false);
-        }// TODO add your handling code here:
+        listaPuertasBar[2] = false;
     }//GEN-LAST:event_cerrarPista_3BActionPerformed
 
     private void abrirPista_3BActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirPista_3BActionPerformed
-        if(cerrarPista_3B.isSelected()){
-            cerrarPista_3B.setSelected(false);
-        }// TODO add your handling code here:
+        listaPuertasBar[2] = true;
     }//GEN-LAST:event_abrirPista_3BActionPerformed
 
     private void cerrarPista_4BActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarPista_4BActionPerformed
-        if(abrirPista_4B.isSelected()){
-            abrirPista_4B.setSelected(false);
-        }// TODO add your handling code here:
+        listaPuertasBar[3] = false;
     }//GEN-LAST:event_cerrarPista_4BActionPerformed
 
     private void abrirPista_4BActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirPista_4BActionPerformed
-        if(cerrarPista_4B.isSelected()){
-            cerrarPista_4B.setSelected(false);
-        }// TODO add your handling code here:
+        listaPuertasBar[3] = true;
     }//GEN-LAST:event_abrirPista_4BActionPerformed
 
     private void botonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverActionPerformed
-        this.setVisible(false);
-        menu.setVisible(true);
+//        this.setVisible(false);
+//        menu.setVisible(true);
     }//GEN-LAST:event_botonVolverActionPerformed
 
     private void textoHangarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoHangarActionPerformed
@@ -737,6 +735,14 @@ public class MenuRemoto extends javax.swing.JFrame {
     private javax.swing.JPanel bgBarcelona;
     private javax.swing.JPanel bgMadrid;
     private javax.swing.JButton botonVolver;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup1B;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup2B;
+    private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.ButtonGroup buttonGroup3B;
+    private javax.swing.ButtonGroup buttonGroup4;
+    private javax.swing.ButtonGroup buttonGroup4B;
     private javax.swing.JToggleButton cerrarPista_1;
     private javax.swing.JToggleButton cerrarPista_1B;
     private javax.swing.JToggleButton cerrarPista_2;

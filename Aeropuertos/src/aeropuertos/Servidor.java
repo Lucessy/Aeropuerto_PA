@@ -1,22 +1,19 @@
 package aeropuertos;
 
 import interfaz.Menu;
-import conexionRemoto.MenuRemoto;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
 
 public abstract class Servidor {
 
@@ -44,7 +41,13 @@ public abstract class Servidor {
     private static Socket conexion;
     private static DataOutputStream salida;
     private static DataInputStream entrada;
-    private static int num = 0;
+    private static String mensajeMadrid;
+    private static String mensajeBarcelona;
+    private static List<String> listaMadrid = new ArrayList<>();
+    private static List<String> listaBarce = new ArrayList<>();
+    private static String botonesPuertas;
+    private static Boolean[] listaPuertasMadrid = new Boolean[4];
+    private static Boolean[] listaPuertasBarcelona = new Boolean[4];
 
     /**
      * @param args the command line arguments
@@ -60,32 +63,57 @@ public abstract class Servidor {
         estaPausado = false;
 
         iniciarCentral();
-        
-        try{
+
+        try {
             servidor = new ServerSocket(5000);
             System.out.println("Servidor arrancando. . .");
-            while(true){
-                conexion = servidor.accept();
+            conexion = servidor.accept();
+            salida = new DataOutputStream(conexion.getOutputStream());
+            entrada = new DataInputStream(conexion.getInputStream());
+
+            while (true) {
+                // Recibimos si alguna puerta esta cerrada
+                botonesPuertas = entrada.readUTF();
+                listaPuertasMadrid = stringToArray(botonesPuertas);
+                madrid.setListaBotonPista(listaPuertasMadrid);
                 
-                num++;
-                
-                System.out.println("Conexión n."+num+" desde: "+conexion.getInetAddress().getHostName());
-                
-                entrada = new DataInputStream(conexion.getInputStream());
-                salida = new DataOutputStream(conexion.getOutputStream());
-                
-                String mensaje = entrada.readUTF();
-                
-                System.out.println("Conexión n."+num+" mensaje: "+mensaje);
-                
-                //Cerramos los flujos de entrada y salida
-                salida.writeUTF(mensaje);
-                entrada.close();
-                salida.close();
-                conexion.close();
+                botonesPuertas = entrada.readUTF();
+                listaPuertasBarcelona = stringToArray(botonesPuertas);
+                barcelona.setListaBotonPista(listaPuertasBarcelona);
+
+                // Enviamos la información del aeropuerto Madrid
+                listaMadrid.clear();
+                listaMadrid.add(String.valueOf(madrid.getPasajerosAeropuerto().get()));
+                listaMadrid.add(String.valueOf(madrid.getHangar().size()));
+                listaMadrid.add(String.valueOf(madrid.getEstacionamiento().size()));
+                listaMadrid.add(String.valueOf(madrid.getRodaje().size()));
+                listaMadrid.add(String.valueOf(madrid.getTaller().size()));
+                mensajeMadrid = String.join(",", listaMadrid);
+
+                salida.writeUTF("Madrid");
+                salida.writeUTF(mensajeMadrid);
+                salida.writeUTF(queueToString(madrid.getAerovia()));
+
+                // Enviamos la información del aeropuerto Barcelona
+                listaBarce.clear();
+                listaBarce.add(String.valueOf(barcelona.getPasajerosAeropuerto().get()));
+                listaBarce.add(String.valueOf(barcelona.getHangar().size()));
+                listaBarce.add(String.valueOf(barcelona.getEstacionamiento().size()));
+                listaBarce.add(String.valueOf(barcelona.getRodaje().size()));
+                listaBarce.add(String.valueOf(barcelona.getTaller().size()));
+                mensajeBarcelona = String.join(",", listaBarce);
+
+                salida.writeUTF("Barcelona");
+                salida.writeUTF(mensajeBarcelona);
+                salida.writeUTF(queueToString(barcelona.getAerovia()));
+
             }
-            //servidor.close();
-        }catch(IOException e){}
+//            servidor.close();
+//            entrada.close();
+//            salida.close();
+//            conexion.close();
+        } catch (IOException e) {
+        }
     }
 
     // Métodos
@@ -272,5 +300,45 @@ public abstract class Servidor {
             Thread.sleep(tiempo);
         } catch (InterruptedException ex) {
         }
+    }
+    
+    /**
+     * 
+     * @param cadena
+     * @return 
+     */
+    private static Boolean[] stringToArray(String cadena) {
+        // Dividir la cadena en subcadenas utilizando la coma como delimitador
+        String[] subcadenas = cadena.split(",");
+
+        // Crear un nuevo array de Boolean con la misma longitud que las subcadenas
+        Boolean[] array = new Boolean[subcadenas.length];
+
+        // Convertir cada subcadena en un valor Boolean y almacenarlo en el array
+        for (int i = 0; i < subcadenas.length; i++) {
+            array[i] = Boolean.valueOf(subcadenas[i]);
+        }
+
+        return array;
+    }
+    
+    /**
+     * 
+     * @param cola
+     * @return 
+     */
+    private static String queueToString(Queue<Avion> cola) {
+        // Iterar sobre cada elemento de la cola
+        String texto = "";
+        int i = 0;
+        for (Avion avion : cola) {
+            texto += avion.getIdAvion();
+            if (i < cola.size() - 1) {
+                texto += ",";
+            }
+            i++;
+        }
+        
+        return texto;
     }
 }
