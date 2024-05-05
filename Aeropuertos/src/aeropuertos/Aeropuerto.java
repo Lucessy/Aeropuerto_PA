@@ -23,7 +23,7 @@ public class Aeropuerto {
     private Log log;
 
     //  LISTA DE AVIONES EN AEROVIAS
-    private Queue aerovia = new ConcurrentLinkedQueue();
+    private Queue<Avion> aerovia = new ConcurrentLinkedQueue();
 
     //  LISTA DE AVIONES EN ZONAS COMPARTIDAS PARA ACTUALIZAR MENU
     private Queue<Avion> hangar = new ConcurrentLinkedQueue<>();
@@ -43,7 +43,6 @@ public class Aeropuerto {
 
     // PISTAS
     private boolean[] pistas = new boolean[4];
-    private Semaphore semPista = new Semaphore(1);
     private Semaphore semDisponibilidadPista = new Semaphore(4, true);
     private Lock lockPista = new ReentrantLock(true);
     private Boolean[] listaBotonPista = new Boolean[4];
@@ -52,11 +51,6 @@ public class Aeropuerto {
     // TALLER
     private Semaphore semTaller = new Semaphore(20, true);
     private Semaphore semPuertaTaller = new Semaphore(1, true);
-
-    private Semaphore semPuertasCompartidas = new Semaphore(1);
-    private String[] avionesPuertasEmbarque = new String[6];
-    private Random random = new Random();
-    private Lock lockLista = new ReentrantLock();
 
     // Constructor
     public Aeropuerto(String nombre, Log log) {
@@ -73,6 +67,10 @@ public class Aeropuerto {
         for (int i = 1; i < 5; i++) {
             // Se inicia con un valor por defecto
             indicesPuertas.add(i);
+        }
+
+        for (int i = 0; i < 6; i++) {
+            puertasEmbarque[i] = false;
         }
     }
 
