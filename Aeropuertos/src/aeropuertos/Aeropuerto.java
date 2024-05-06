@@ -196,12 +196,12 @@ public class Aeropuerto {
             switch (avion.getPosPuerta()) {
                 case 0 -> {
                     puertasEmbarque[avion.getPosPuerta()] = false;
-                    embarcar.signalAll();
+                    embarcar.signal();
                     colaPuertaEmbarque.remove("Embarcar");
                 }
                 case 5 -> {
                     puertasEmbarque[avion.getPosPuerta()] = false;
-                    desembarcar.signalAll();
+                    desembarcar.signal();
                     colaPuertaEmbarque.remove("Desembarcar");
                 }
                 default -> {
@@ -210,7 +210,7 @@ public class Aeropuerto {
                     if (colaPuertaEmbarque.poll() == "Embarcar") {
                         embarcar.signalAll();
                     } else {
-                        desembarcar.signalAll();
+                        desembarcar.signal();
                     }
                 }
             }
