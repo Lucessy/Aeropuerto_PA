@@ -270,7 +270,7 @@ public class Aeropuerto {
      * @param avion
      */
     public void solicitarPista(Aeropuerto aeropuertoAntiguo, Avion avion) {
-        while(semDisponibilidadPista.tryAcquire()){
+        while(!semDisponibilidadPista.tryAcquire()){
             Servidor.dormir(1000, 5000);
         }
         

@@ -156,6 +156,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         bgMadrid.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
         textoNumPasajeros.setEditable(false);
+        textoNumPasajeros.setBackground(new java.awt.Color(255, 255, 255));
         textoNumPasajeros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoNumPasajerosActionPerformed(evt);
@@ -168,6 +169,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         bgMadrid.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
 
         textoHangar.setEditable(false);
+        textoHangar.setBackground(new java.awt.Color(255, 255, 255));
         textoHangar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoHangarActionPerformed(evt);
@@ -176,6 +178,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         bgMadrid.add(textoHangar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 320, -1));
 
         textoTaller.setEditable(false);
+        textoTaller.setBackground(new java.awt.Color(255, 255, 255));
         bgMadrid.add(textoTaller, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 330, -1));
 
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
@@ -187,6 +190,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         bgMadrid.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
 
         textoEstacionamiento.setEditable(false);
+        textoEstacionamiento.setBackground(new java.awt.Color(255, 255, 255));
         bgMadrid.add(textoEstacionamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 230, -1));
 
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
@@ -194,6 +198,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         bgMadrid.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
 
         textoRodaje.setEditable(false);
+        textoRodaje.setBackground(new java.awt.Color(255, 255, 255));
         bgMadrid.add(textoRodaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 300, -1));
 
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
@@ -296,6 +301,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         bgAero.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         textoAeroB.setEditable(false);
+        textoAeroB.setBackground(new java.awt.Color(255, 255, 255));
         bgAero.add(textoAeroB, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 810, -1));
 
         jLabel20.setForeground(new java.awt.Color(0, 0, 0));
@@ -307,6 +313,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         bgAero.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         textoAeroM.setEditable(false);
+        textoAeroM.setBackground(new java.awt.Color(255, 255, 255));
         bgAero.add(textoAeroM, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 810, -1));
 
         bg.add(bgAero, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 830, 200));
@@ -323,9 +330,11 @@ public class MenuRemoto extends javax.swing.JFrame {
         bgBarcelona.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
 
         textoHangar1.setEditable(false);
+        textoHangar1.setBackground(new java.awt.Color(255, 255, 255));
         bgBarcelona.add(textoHangar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 320, -1));
 
         textoTaller1.setEditable(false);
+        textoTaller1.setBackground(new java.awt.Color(255, 255, 255));
         bgBarcelona.add(textoTaller1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 330, -1));
 
         jLabel25.setForeground(new java.awt.Color(0, 0, 0));
@@ -337,6 +346,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         bgBarcelona.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
 
         textoEstacionamiento1.setEditable(false);
+        textoEstacionamiento1.setBackground(new java.awt.Color(255, 255, 255));
         bgBarcelona.add(textoEstacionamiento1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 230, -1));
 
         jLabel35.setForeground(new java.awt.Color(0, 0, 0));
@@ -344,6 +354,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         bgBarcelona.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
 
         textoRodaje1.setEditable(false);
+        textoRodaje1.setBackground(new java.awt.Color(255, 255, 255));
         bgBarcelona.add(textoRodaje1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 300, -1));
 
         jLabel36.setForeground(new java.awt.Color(0, 0, 0));
@@ -363,6 +374,7 @@ public class MenuRemoto extends javax.swing.JFrame {
         bgBarcelona.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 310, 150, -1));
 
         textoNumPasajeros1.setEditable(false);
+        textoNumPasajeros1.setBackground(new java.awt.Color(255, 255, 255));
         bgBarcelona.add(textoNumPasajeros1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 210, -1));
 
         jLabel34.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
