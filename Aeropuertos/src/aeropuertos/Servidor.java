@@ -110,10 +110,6 @@ public abstract class Servidor {
                 salida.writeUTF(queueToString(barcelona.getAerovia()));
 
             }
-//            servidor.close();
-//            entrada.close();
-//            salida.close();
-//            conexion.close();
         } catch (IOException e) {
         }
     }

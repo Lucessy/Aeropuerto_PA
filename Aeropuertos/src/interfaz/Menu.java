@@ -15,9 +15,6 @@ public class Menu extends javax.swing.JFrame {
     private Log log;
     private JTextField[] textoPistas;
     private JTextField[] textoPistasB;
-    //ImageIcon imageIcon = new ImageIcon("avion.png");
-    //jLabelAvion.setIcon(imageIcon);
-//    private MenuRemoto menuR;
 
     /**
      * Creates new form Menu

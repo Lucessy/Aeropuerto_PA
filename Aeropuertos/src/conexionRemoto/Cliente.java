@@ -53,7 +53,7 @@ public class Cliente {
                 menuR.actualizarCampoNumerico(datosNum, datosAerovia, mensaje);
             }
 
-//            //Cerramos los flujos de entrada y salida
+              /*Cerramos los flujos de entrada y salida. Teóricamente debería implementarse pero por el while true es inalcanzable*/
 //            entrada.close();
 //            cliente.close(); //Cerramos la conexión
         } catch (IOException e) {
