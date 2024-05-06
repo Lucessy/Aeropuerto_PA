@@ -15,6 +15,9 @@ public class Menu extends javax.swing.JFrame {
     private Log log;
     private JTextField[] textoPistas;
     private JTextField[] textoPistasB;
+    //ImageIcon imageIcon = new ImageIcon("avion.png");
+    //jLabelAvion.setIcon(imageIcon);
+//    private MenuRemoto menuR;
 
     /**
      * Creates new form Menu
@@ -104,6 +107,7 @@ public class Menu extends javax.swing.JFrame {
         textoAeroM = new javax.swing.JTextField();
         botonReanudar = new javax.swing.JToggleButton();
         botonPausar = new javax.swing.JToggleButton();
+        jLabelAvion = new javax.swing.JLabel();
         bgBarcelona = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
@@ -166,6 +170,7 @@ public class Menu extends javax.swing.JFrame {
         bgMadrid.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
         textoNumPasajeros.setEditable(false);
+        textoNumPasajeros.setBackground(new java.awt.Color(255, 255, 255));
         textoNumPasajeros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoNumPasajerosActionPerformed(evt);
@@ -178,6 +183,7 @@ public class Menu extends javax.swing.JFrame {
         bgMadrid.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 110, -1));
 
         textoBusA.setEditable(false);
+        textoBusA.setBackground(new java.awt.Color(255, 255, 255));
         textoBusA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoBusAActionPerformed(evt);
@@ -190,20 +196,23 @@ public class Menu extends javax.swing.JFrame {
         bgMadrid.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
 
         textoHangar.setEditable(false);
+        textoHangar.setBackground(new java.awt.Color(255, 255, 255));
         bgMadrid.add(textoHangar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 340, -1));
 
         textoTaller.setEditable(false);
-        bgMadrid.add(textoTaller, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 340, -1));
+        textoTaller.setBackground(new java.awt.Color(255, 255, 255));
+        bgMadrid.add(textoTaller, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 350, -1));
 
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Taller:");
-        bgMadrid.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+        bgMadrid.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
 
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Hacía Ciudad:");
         bgMadrid.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, -1, -1));
 
         textoBusC.setEditable(false);
+        textoBusC.setBackground(new java.awt.Color(255, 255, 255));
         textoBusC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoBusCActionPerformed(evt);
@@ -216,6 +225,7 @@ public class Menu extends javax.swing.JFrame {
         bgMadrid.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 140, -1));
 
         textoEstacionamiento.setEditable(false);
+        textoEstacionamiento.setBackground(new java.awt.Color(255, 255, 255));
         bgMadrid.add(textoEstacionamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 250, -1));
 
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
@@ -223,6 +233,7 @@ public class Menu extends javax.swing.JFrame {
         bgMadrid.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 90, -1));
 
         textoPuerta1.setEditable(false);
+        textoPuerta1.setBackground(new java.awt.Color(255, 255, 255));
         textoPuerta1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoPuerta1ActionPerformed(evt);
@@ -231,6 +242,7 @@ public class Menu extends javax.swing.JFrame {
         bgMadrid.add(textoPuerta1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, 120, -1));
 
         textoPuerta2.setEditable(false);
+        textoPuerta2.setBackground(new java.awt.Color(255, 255, 255));
         textoPuerta2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoPuerta2ActionPerformed(evt);
@@ -243,6 +255,7 @@ public class Menu extends javax.swing.JFrame {
         bgMadrid.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 90, -1));
 
         textoPuerta3.setEditable(false);
+        textoPuerta3.setBackground(new java.awt.Color(255, 255, 255));
         textoPuerta3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoPuerta3ActionPerformed(evt);
@@ -255,6 +268,7 @@ public class Menu extends javax.swing.JFrame {
         bgMadrid.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 90, -1));
 
         textoPuerta4.setEditable(false);
+        textoPuerta4.setBackground(new java.awt.Color(255, 255, 255));
         textoPuerta4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoPuerta4ActionPerformed(evt);
@@ -271,6 +285,7 @@ public class Menu extends javax.swing.JFrame {
         bgMadrid.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 90, -1));
 
         textoPuerta5.setEditable(false);
+        textoPuerta5.setBackground(new java.awt.Color(255, 255, 255));
         textoPuerta5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoPuerta5ActionPerformed(evt);
@@ -283,6 +298,7 @@ public class Menu extends javax.swing.JFrame {
         bgMadrid.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 80, -1));
 
         textoPuerta6.setEditable(false);
+        textoPuerta6.setBackground(new java.awt.Color(255, 255, 255));
         textoPuerta6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoPuerta6ActionPerformed(evt);
@@ -295,6 +311,7 @@ public class Menu extends javax.swing.JFrame {
         bgMadrid.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
 
         textoRodaje.setEditable(false);
+        textoRodaje.setBackground(new java.awt.Color(255, 255, 255));
         bgMadrid.add(textoRodaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 320, -1));
 
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
@@ -302,6 +319,7 @@ public class Menu extends javax.swing.JFrame {
         bgMadrid.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 90, -1));
 
         textoPista1.setEditable(false);
+        textoPista1.setBackground(new java.awt.Color(255, 255, 255));
         textoPista1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoPista1ActionPerformed(evt);
@@ -310,6 +328,7 @@ public class Menu extends javax.swing.JFrame {
         bgMadrid.add(textoPista1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, 130, -1));
 
         textoPista2.setEditable(false);
+        textoPista2.setBackground(new java.awt.Color(255, 255, 255));
         textoPista2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoPista2ActionPerformed(evt);
@@ -322,6 +341,7 @@ public class Menu extends javax.swing.JFrame {
         bgMadrid.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 90, -1));
 
         textoPista3.setEditable(false);
+        textoPista3.setBackground(new java.awt.Color(255, 255, 255));
         textoPista3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoPista3ActionPerformed(evt);
@@ -338,6 +358,7 @@ public class Menu extends javax.swing.JFrame {
         bgMadrid.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, 60, -1));
 
         textoPista4.setEditable(false);
+        textoPista4.setBackground(new java.awt.Color(255, 255, 255));
         textoPista4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoPista4ActionPerformed(evt);
@@ -357,6 +378,7 @@ public class Menu extends javax.swing.JFrame {
         bgAero.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         textoAeroB.setEditable(false);
+        textoAeroB.setBackground(new java.awt.Color(255, 255, 255));
         bgAero.add(textoAeroB, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 810, -1));
 
         jLabel20.setForeground(new java.awt.Color(0, 0, 0));
@@ -368,6 +390,7 @@ public class Menu extends javax.swing.JFrame {
         bgAero.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         textoAeroM.setEditable(false);
+        textoAeroM.setBackground(new java.awt.Color(255, 255, 255));
         bgAero.add(textoAeroM, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 810, -1));
 
         buttonGroupPausado.add(botonReanudar);
@@ -399,6 +422,9 @@ public class Menu extends javax.swing.JFrame {
         });
         bgAero.add(botonPausar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, -1, -1));
 
+        jLabelAvion.setText("jLabel1");
+        bgAero.add(jLabelAvion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 80, 60));
+
         bg.add(bgAero, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 830, 200));
 
         bgBarcelona.setBackground(new java.awt.Color(204, 255, 255));
@@ -417,20 +443,23 @@ public class Menu extends javax.swing.JFrame {
         bgBarcelona.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
 
         textoHangar1.setEditable(false);
+        textoHangar1.setBackground(new java.awt.Color(255, 255, 255));
         bgBarcelona.add(textoHangar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 340, -1));
 
         textoTaller1.setEditable(false);
-        bgBarcelona.add(textoTaller1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 340, -1));
+        textoTaller1.setBackground(new java.awt.Color(255, 255, 255));
+        bgBarcelona.add(textoTaller1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 350, -1));
 
         jLabel25.setForeground(new java.awt.Color(0, 0, 0));
         jLabel25.setText("Taller:");
-        bgBarcelona.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+        bgBarcelona.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
 
         jLabel26.setForeground(new java.awt.Color(0, 0, 0));
         jLabel26.setText("Hacía Ciudad :");
         bgBarcelona.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, -1, -1));
 
         textoBusC1.setEditable(false);
+        textoBusC1.setBackground(new java.awt.Color(255, 255, 255));
         textoBusC1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoBusC1ActionPerformed(evt);
@@ -443,6 +472,7 @@ public class Menu extends javax.swing.JFrame {
         bgBarcelona.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
 
         textoEstacionamiento1.setEditable(false);
+        textoEstacionamiento1.setBackground(new java.awt.Color(255, 255, 255));
         bgBarcelona.add(textoEstacionamiento1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 250, -1));
 
         jLabel28.setForeground(new java.awt.Color(0, 0, 0));
@@ -450,6 +480,7 @@ public class Menu extends javax.swing.JFrame {
         bgBarcelona.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 90, -1));
 
         textoPuerta1B.setEditable(false);
+        textoPuerta1B.setBackground(new java.awt.Color(255, 255, 255));
         textoPuerta1B.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoPuerta1BActionPerformed(evt);
@@ -458,6 +489,7 @@ public class Menu extends javax.swing.JFrame {
         bgBarcelona.add(textoPuerta1B, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, 120, -1));
 
         textoPuerta2B.setEditable(false);
+        textoPuerta2B.setBackground(new java.awt.Color(255, 255, 255));
         textoPuerta2B.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoPuerta2BActionPerformed(evt);
@@ -470,6 +502,7 @@ public class Menu extends javax.swing.JFrame {
         bgBarcelona.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 90, -1));
 
         textoPuerta3B.setEditable(false);
+        textoPuerta3B.setBackground(new java.awt.Color(255, 255, 255));
         textoPuerta3B.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoPuerta3BActionPerformed(evt);
@@ -482,6 +515,7 @@ public class Menu extends javax.swing.JFrame {
         bgBarcelona.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 90, -1));
 
         textoPuerta4B.setEditable(false);
+        textoPuerta4B.setBackground(new java.awt.Color(255, 255, 255));
         textoPuerta4B.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoPuerta4BActionPerformed(evt);
@@ -498,6 +532,7 @@ public class Menu extends javax.swing.JFrame {
         bgBarcelona.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 90, -1));
 
         textoPuerta5B.setEditable(false);
+        textoPuerta5B.setBackground(new java.awt.Color(255, 255, 255));
         textoPuerta5B.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoPuerta5BActionPerformed(evt);
@@ -510,6 +545,7 @@ public class Menu extends javax.swing.JFrame {
         bgBarcelona.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 80, -1));
 
         textoPuerta6B.setEditable(false);
+        textoPuerta6B.setBackground(new java.awt.Color(255, 255, 255));
         textoPuerta6B.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoPuerta6BActionPerformed(evt);
@@ -522,6 +558,7 @@ public class Menu extends javax.swing.JFrame {
         bgBarcelona.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
 
         textoRodaje1.setEditable(false);
+        textoRodaje1.setBackground(new java.awt.Color(255, 255, 255));
         bgBarcelona.add(textoRodaje1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 320, -1));
 
         jLabel36.setForeground(new java.awt.Color(0, 0, 0));
@@ -529,6 +566,7 @@ public class Menu extends javax.swing.JFrame {
         bgBarcelona.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 90, -1));
 
         textoPista1B.setEditable(false);
+        textoPista1B.setBackground(new java.awt.Color(255, 255, 255));
         textoPista1B.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoPista1BActionPerformed(evt);
@@ -537,6 +575,7 @@ public class Menu extends javax.swing.JFrame {
         bgBarcelona.add(textoPista1B, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 310, 120, -1));
 
         textoPista2B.setEditable(false);
+        textoPista2B.setBackground(new java.awt.Color(255, 255, 255));
         textoPista2B.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoPista2BActionPerformed(evt);
@@ -549,6 +588,7 @@ public class Menu extends javax.swing.JFrame {
         bgBarcelona.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 90, -1));
 
         textoPista3B.setEditable(false);
+        textoPista3B.setBackground(new java.awt.Color(255, 255, 255));
         textoPista3B.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoPista3BActionPerformed(evt);
@@ -565,6 +605,7 @@ public class Menu extends javax.swing.JFrame {
         bgBarcelona.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, 90, -1));
 
         textoPista4B.setEditable(false);
+        textoPista4B.setBackground(new java.awt.Color(255, 255, 255));
         textoPista4B.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoPista4BActionPerformed(evt);
@@ -573,9 +614,11 @@ public class Menu extends javax.swing.JFrame {
         bgBarcelona.add(textoPista4B, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 130, -1));
 
         textoNumPasajeros1.setEditable(false);
+        textoNumPasajeros1.setBackground(new java.awt.Color(255, 255, 255));
         bgBarcelona.add(textoNumPasajeros1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 70, -1));
 
         textoBusA1.setEditable(false);
+        textoBusA1.setBackground(new java.awt.Color(255, 255, 255));
         textoBusA1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoBusA1ActionPerformed(evt);
@@ -783,9 +826,9 @@ public class Menu extends javax.swing.JFrame {
                 }
             } else {
                 if (esMadrid) {
-                    textoPistas[i].setBackground(new Color(255, 255, 255));
+                    textoPistas[i].setBackground(Color.WHITE);
                 } else {
-                    textoPistasB[i].setBackground(new Color(255, 255, 255));
+                    textoPistasB[i].setBackground(Color.WHITE);
                 }
             }
         }
@@ -1022,6 +1065,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelAvion;
     private javax.swing.JLabel javaeatlogo1;
     private javax.swing.JTextField textoAeroB;
     private javax.swing.JTextField textoAeroM;
