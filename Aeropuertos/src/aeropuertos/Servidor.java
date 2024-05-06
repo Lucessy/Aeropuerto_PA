@@ -45,9 +45,9 @@ public abstract class Servidor {
     private static String mensajeBarcelona;
     private static List<String> listaMadrid = new ArrayList<>();
     private static List<String> listaBarce = new ArrayList<>();
-    private static String botonesPuertas;
-    private static Boolean[] listaPuertasMadrid = new Boolean[4];
-    private static Boolean[] listaPuertasBarcelona = new Boolean[4];
+    private static String botonesPistas;
+    private static Boolean[] listaPistasMadrid = new Boolean[4];
+    private static Boolean[] listaPistasBarcelona = new Boolean[4];
 
     /**
      * @param args the command line arguments
@@ -73,15 +73,15 @@ public abstract class Servidor {
 
             while (true) {
                 // Recibimos si alguna puerta esta cerrada
-                botonesPuertas = entrada.readUTF();
-                listaPuertasMadrid = stringToArray(botonesPuertas);
-                madrid.setListaBotonPista(listaPuertasMadrid);
-                menu.actualizarColor(true, listaPuertasMadrid);
+                botonesPistas = entrada.readUTF();
+                listaPistasMadrid = stringToArray(botonesPistas);
+                madrid.setListaBotonPista(listaPistasMadrid);
+                menu.actualizarColor(true, listaPistasMadrid);
 
-                botonesPuertas = entrada.readUTF();
-                listaPuertasBarcelona = stringToArray(botonesPuertas);
-                barcelona.setListaBotonPista(listaPuertasBarcelona);
-                menu.actualizarColor(false, listaPuertasBarcelona);
+                botonesPistas = entrada.readUTF();
+                listaPistasBarcelona = stringToArray(botonesPistas);
+                barcelona.setListaBotonPista(listaPistasBarcelona);
+                menu.actualizarColor(false, listaPistasBarcelona);
 
                 // Enviamos la información del aeropuerto Madrid
                 listaMadrid.clear();
