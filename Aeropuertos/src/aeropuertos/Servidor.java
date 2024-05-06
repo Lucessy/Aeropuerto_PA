@@ -76,10 +76,12 @@ public abstract class Servidor {
                 botonesPuertas = entrada.readUTF();
                 listaPuertasMadrid = stringToArray(botonesPuertas);
                 madrid.setListaBotonPista(listaPuertasMadrid);
-                
+                menu.actualizarColor(true, listaPuertasMadrid);
+
                 botonesPuertas = entrada.readUTF();
                 listaPuertasBarcelona = stringToArray(botonesPuertas);
                 barcelona.setListaBotonPista(listaPuertasBarcelona);
+                menu.actualizarColor(false, listaPuertasBarcelona);
 
                 // Enviamos la información del aeropuerto Madrid
                 listaMadrid.clear();
@@ -293,19 +295,19 @@ public abstract class Servidor {
     public static void dormir(int inicioMiliseg, int finalMiliseg) {
         int tiempo = inicioMiliseg + (int) ((finalMiliseg - inicioMiliseg) * Math.random());
         try {
+            Thread.sleep(tiempo);
             if (estaPausado) {
                 lockPausa.lock();
                 lockPausa.unlock();
             }
-            Thread.sleep(tiempo);
         } catch (InterruptedException ex) {
         }
     }
-    
+
     /**
-     * 
+     *
      * @param cadena
-     * @return 
+     * @return
      */
     private static Boolean[] stringToArray(String cadena) {
         // Dividir la cadena en subcadenas utilizando la coma como delimitador
@@ -321,11 +323,11 @@ public abstract class Servidor {
 
         return array;
     }
-    
+
     /**
-     * 
+     *
      * @param cola
-     * @return 
+     * @return
      */
     private static String queueToString(Queue<Avion> cola) {
         // Iterar sobre cada elemento de la cola
@@ -338,7 +340,7 @@ public abstract class Servidor {
             }
             i++;
         }
-        
+
         return texto;
     }
 }

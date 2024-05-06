@@ -14,6 +14,8 @@ public class Menu extends javax.swing.JFrame {
 
     int xMouse, yMouse;
     private Log log;
+    private JTextField[] textoPistas;
+    private JTextField[] textoPistasB;
 //    private MenuRemoto menuR;
 
     /**
@@ -45,6 +47,8 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
 //        this.menuR = new MenuRemoto(this);
+        textoPistas = new JTextField[]{textoPista1, textoPista2, textoPista3, textoPista4};
+        textoPistasB = new JTextField[]{textoPista1B, textoPista2B, textoPista3B, textoPista4B};
     }
 
     /**
@@ -669,7 +673,6 @@ public class Menu extends javax.swing.JFrame {
         }
 
 //        menuR.actualizarPasajeros(pasajeros, nombreAeropuerto); // Es peor si dejo que se actualice al mismo tiempo?
-
     }
 
     public void actualizarBusCiudad(Bus bus, String nombreAeropuerto) {
@@ -742,6 +745,24 @@ public class Menu extends javax.swing.JFrame {
             }
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void actualizarColor(boolean esMadrid, Boolean[] listaPuertas) {
+        for (int i = 0; i < listaPuertas.length; i++) {
+            if (!listaPuertas[i]) {
+                if (esMadrid) {
+                    textoPistas[i].setBackground(Color.RED);
+                } else {
+                    textoPistasB[i].setBackground(Color.RED);
+                }
+            } else {
+                if (esMadrid) {
+                    textoPistas[i].setBackground(new Color(255,255,255));
+                } else {
+                    textoPistasB[i].setBackground(new Color(255,255,255));
+                }
+            }
         }
     }
 

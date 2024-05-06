@@ -243,7 +243,7 @@ public class Aeropuerto {
             semDisponibilidadPista.acquire();
             lockPista.lock();
 
-            int posPista = 0;
+            int posPista = -1;
             for (int i = 0; i < 4; i++) {
                 if (pistas[i] == false) {
                     pistas[i] = true;
@@ -251,7 +251,7 @@ public class Aeropuerto {
                     break;
                 }
             }
-
+            
             avion.setPosicionPista(posPista);
 
             Servidor.actualizarAviones(avion, false, "textoRodaje", rodaje, nombre);
@@ -270,15 +270,14 @@ public class Aeropuerto {
      * @param avion
      */
     public void solicitarPista(Aeropuerto aeropuertoAntiguo, Avion avion) {
+        while(semDisponibilidadPista.tryAcquire()){
+            Servidor.dormir(1000, 5000);
+        }
+        
+        lockPista.lock();
+        
         try {
-            semDisponibilidadPista.acquire();
-
-            while (!lockPista.tryLock()) {
-                Servidor.dormir(1000, 5000);
-            }
-
             Servidor.actualizarAviones(avion, false, "textoAeroM", aeropuertoAntiguo.getAerovia(), aeropuertoAntiguo.getNombre());
-
             int posPista = 0;
             for (int i = 0; i < 4; i++) {
                 if (pistas[i] == false) {
@@ -287,14 +286,9 @@ public class Aeropuerto {
                     break;
                 }
             }
-
             avion.setPosicionPista(posPista);
-
             Servidor.actualizarAvionesSolitario("textoPista" + (posPista + 1), avion.getIdAvion(), nombre);
-
-        } catch (InterruptedException ex) {
-        }
-        finally{
+        } finally {
             lockPista.unlock();
         }
     }
