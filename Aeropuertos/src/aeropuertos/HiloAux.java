@@ -40,8 +40,8 @@ public class HiloAux extends Thread {
         }
     }
 
-    //Genera 8000 aviones con espera entre cada creación de 1-3s
     /**
+     * Genera 8000 aviones con espera entre cada creación de 1-3s
      * 
      */
     public void generarAviones() {
@@ -70,9 +70,9 @@ public class HiloAux extends Thread {
             Servidor.dormir(1000, 3000);
         }
     }
-
-    //Genera 4000 buses con espera entre cada creación de 0.5-1s    
+   
     /**
+     * Genera 4000 buses con espera entre cada creación de 0.5-1s 
      * 
      */
     public void generarBuses() {
