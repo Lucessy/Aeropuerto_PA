@@ -58,7 +58,7 @@ public abstract class Servidor {
         madrid = new Aeropuerto("Madrid", log);
         barcelona = new Aeropuerto("Barcelona", log);
 
-        menu = new Menu();
+        menu = new Menu(log);
         menu.setVisible(true);
         estaPausado = false;
 
@@ -119,6 +119,7 @@ public abstract class Servidor {
     }
 
     // Métodos
+    
     /**
      * Guarda los datos y finaliza la aplicación.
      */

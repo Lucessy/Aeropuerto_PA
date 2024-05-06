@@ -13,19 +13,32 @@ public class Log {
     private PrintWriter writer;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private Lock lockLog = new ReentrantLock(true);
-
+    
+    /**
+     * 
+     * @param nombre
+     * @param encoding 
+     */
     public Log(String nombre, String encoding) {
         this.nombreArchivo = nombre;
         this.encoding = encoding;
         try {
+            File archivo = new File(nombreArchivo);
+            if (archivo.exists()) {
+                archivo.delete(); // Eliminar archivo existente
+            }
             this.writer = new PrintWriter(new OutputStreamWriter(
                     new FileOutputStream(nombreArchivo, true),
                     encoding));
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
-
+    
+    /**
+     * 
+     * @param evento
+     * @param aeropuerto 
+     */
     public void escribirArchivo(String evento, String aeropuerto) {
         lockLog.lock();
         try {
@@ -37,7 +50,11 @@ public class Log {
             lockLog.unlock();
         }
     }
-
+    
+    /**
+     * 
+     * @param evento 
+     */
     public synchronized void escribirArchivo(String evento) {
         lockLog.lock();
         try {
@@ -50,7 +67,10 @@ public class Log {
             lockLog.unlock();
         }
     }
-
+    
+    /**
+     * 
+     */
     public void cerrar() {
         if (writer != null) {
             writer.close();

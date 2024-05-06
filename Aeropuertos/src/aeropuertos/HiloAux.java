@@ -41,6 +41,9 @@ public class HiloAux extends Thread {
     }
 
     //Genera 8000 aviones con espera entre cada creación de 1-3s
+    /**
+     * 
+     */
     public void generarAviones() {
         for (int i = 0; i < 8000; i++) {
             num1 = random.nextInt(26);
@@ -69,6 +72,9 @@ public class HiloAux extends Thread {
     }
 
     //Genera 4000 buses con espera entre cada creación de 0.5-1s    
+    /**
+     * 
+     */
     public void generarBuses() {
         for (int i = 0; i < 4000; i++) {
             stringNumId = String.format("%04d", i + 1);   //Añade 0's si es necesario para el formato XXXX

@@ -1,8 +1,6 @@
 package aeropuertos;
 
-import java.util.Arrays;
 import java.util.Queue;
-import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Semaphore;
@@ -39,8 +37,6 @@ public class Aeropuerto {
     private Condition desembarcar = lockEmbarque.newCondition();
     private Queue colaPuertaEmbarque = new ConcurrentLinkedQueue<>();
 
-    private Queue listaGeneralPista = new ConcurrentLinkedQueue();
-
     // PISTAS
     private boolean[] pistas = new boolean[4];
     private Semaphore semDisponibilidadPista = new Semaphore(4, true);
@@ -75,6 +71,7 @@ public class Aeropuerto {
     }
 
     /*ZONAS DE ACTIVIDAD*/
+    
     /**
      * Entra en la zona compartida HANGAR y se añade a la lista concurrente.
      *

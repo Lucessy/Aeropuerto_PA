@@ -1,6 +1,5 @@
 package interfaz;
 
-import conexionRemoto.MenuRemoto;
 import aeropuertos.Avion;
 import aeropuertos.Bus;
 import aeropuertos.Servidor;
@@ -12,16 +11,16 @@ import javax.swing.JTextField;
 
 public class Menu extends javax.swing.JFrame {
 
-    int xMouse, yMouse;
+    private int xMouse, yMouse;
     private Log log;
     private JTextField[] textoPistas;
     private JTextField[] textoPistasB;
-//    private MenuRemoto menuR;
 
     /**
      * Creates new form Menu
+     * @param log
      */
-    public Menu() {
+    public Menu(Log log) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -43,7 +42,7 @@ public class Menu extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        this.log = log;
         initComponents();
         this.setLocationRelativeTo(null);
 //        this.menuR = new MenuRemoto(this);
@@ -664,17 +663,25 @@ public class Menu extends javax.swing.JFrame {
 
         setBounds(0, 0, 830, 619);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /**
+     * 
+     * @param pasajeros
+     * @param nombreAeropuerto 
+     */
     public void actualizarPasajeros(int pasajeros, String nombreAeropuerto) {
         if ("Madrid".equals(nombreAeropuerto)) {
             textoNumPasajeros.setText(String.valueOf(pasajeros));
         } else {
             textoNumPasajeros1.setText(String.valueOf(pasajeros));
         }
-
-//        menuR.actualizarPasajeros(pasajeros, nombreAeropuerto); // Es peor si dejo que se actualice al mismo tiempo?
     }
-
+    
+    /**
+     * 
+     * @param bus
+     * @param nombreAeropuerto 
+     */
     public void actualizarBusCiudad(Bus bus, String nombreAeropuerto) {
         if ("Madrid".equals(nombreAeropuerto)) {
             textoBusC.setText(bus.getIdBus() + " (" + bus.getNumPasajeros() + ")");
@@ -682,7 +689,12 @@ public class Menu extends javax.swing.JFrame {
             textoBusC1.setText(bus.getIdBus() + " (" + bus.getNumPasajeros() + ")");
         }
     }
-
+    
+    /**
+     * 
+     * @param bus
+     * @param nombreAeropuerto 
+     */
     public void actualizarBusAeropuerto(Bus bus, String nombreAeropuerto) {
         if ("Madrid".equals(nombreAeropuerto)) {
             textoBusA.setText(bus.getIdBus() + " (" + bus.getNumPasajeros() + ")");
@@ -690,10 +702,14 @@ public class Menu extends javax.swing.JFrame {
             textoBusA1.setText(bus.getIdBus() + " (" + bus.getNumPasajeros() + ")");
         }
     }
-
+    
+    /**
+     * 
+     * @param textField
+     * @param listaAviones
+     * @param nombreAeropuerto 
+     */
     public void actualizarCampoAvion(String textField, Queue<Avion> listaAviones, String nombreAeropuerto) {
-//        menuR.actualizarCampoAvion(textField, listaAviones, nombreAeropuerto);
-
         String texto = "";
         int i = 0;
         for (Avion avion : listaAviones) {
@@ -722,12 +738,17 @@ public class Menu extends javax.swing.JFrame {
                 System.err.println("El campo especificado no es de tipo JTextField.");
             }
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
         }
 
     }
-
-    public void actualizarCampoAvionSolitario(String textField, String texto, String nombreAeropuerto) {
+    
+    /**
+     * 
+     * @param textField
+     * @param idAvion
+     * @param nombreAeropuerto 
+     */
+    public void actualizarCampoAvionSolitario(String textField, String idAvion, String nombreAeropuerto) {
 
         if (nombreAeropuerto.equals("Barcelona")) {
             textField += "B";
@@ -738,16 +759,20 @@ public class Menu extends javax.swing.JFrame {
             Field field = this.getClass().getDeclaredField(textField);
             if (field.getType() == JTextField.class) {
                 JTextField campoTexto = (JTextField) field.get(this);
-                campoTexto.setText(texto);
+                campoTexto.setText(idAvion);
 
             } else {
                 System.err.println("El campo especificado no es de tipo JTextField.");
             }
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
         }
     }
-
+    
+    /**
+     * 
+     * @param esMadrid
+     * @param listaPuertas 
+     */
     public void actualizarColor(boolean esMadrid, Boolean[] listaPuertas) {
         for (int i = 0; i < listaPuertas.length; i++) {
             if (!listaPuertas[i]) {
@@ -758,18 +783,16 @@ public class Menu extends javax.swing.JFrame {
                 }
             } else {
                 if (esMadrid) {
-                    textoPistas[i].setBackground(new Color(255,255,255));
+                    textoPistas[i].setBackground(new Color(255, 255, 255));
                 } else {
-                    textoPistasB[i].setBackground(new Color(255,255,255));
+                    textoPistasB[i].setBackground(new Color(255, 255, 255));
                 }
             }
         }
     }
 
     private void botonPausarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPausarActionPerformed
-
         Servidor.pausarSistema();
-
     }//GEN-LAST:event_botonPausarActionPerformed
 
     private void textoBusAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoBusAActionPerformed
@@ -861,13 +884,12 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_textoPista4BActionPerformed
 
     private void botonReanudarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReanudarActionPerformed
-
         Servidor.reanudarSistema();
     }//GEN-LAST:event_botonReanudarActionPerformed
 
     private void txtexitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtexitMouseClicked
-        Servidor.salir();
         log.cerrar();
+        Servidor.salir();
     }//GEN-LAST:event_txtexitMouseClicked
 
     private void txtexitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtexitMouseEntered
@@ -947,7 +969,7 @@ public class Menu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu().setVisible(true);
+                //new Menu().setVisible(true);
             }
         });
     }

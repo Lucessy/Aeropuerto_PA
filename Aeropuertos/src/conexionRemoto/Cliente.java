@@ -1,5 +1,6 @@
 package conexionRemoto;
 
+import interfaz.MenuRemoto;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -37,13 +38,14 @@ public class Cliente {
                 salida.writeUTF(menuR.obtenerDisPistas("Madrid"));
                 salida.writeUTF(menuR.obtenerDisPistas("Barcelona"));
 
-                // Recibimos los datos actualizados
+                // Recibimos los datos actualizados de Madrid
                 mensaje = entrada.readUTF();
                 datosNum = entrada.readUTF();
                 datosAerovia = entrada.readUTF();
 
                 menuR.actualizarCampoNumerico(datosNum, datosAerovia, mensaje);
 
+                // Recibimos los datos actualizados de Barcelona
                 mensaje = entrada.readUTF();
                 datosNum = entrada.readUTF();
                 datosAerovia = entrada.readUTF();

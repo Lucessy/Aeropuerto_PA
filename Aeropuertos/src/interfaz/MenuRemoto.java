@@ -1,15 +1,12 @@
-package conexionRemoto;
+package interfaz;
 
 import aeropuertos.Servidor;
-import interfaz.Menu;
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class MenuRemoto extends javax.swing.JFrame {
 
-    int xMouse, yMouse;
-    private Menu menu;
+    private int xMouse, yMouse;
     private Boolean[] listaPuertas = new Boolean[4];
     private Boolean[] listaPuertasBar = new Boolean[4];
 
@@ -517,7 +514,13 @@ public class MenuRemoto extends javax.swing.JFrame {
 
         setBounds(0, 0, 830, 619);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /**
+     * 
+     * @param listaNum
+     * @param listaAerovia
+     * @param aeropuerto 
+     */
     public void actualizarCampoNumerico(String listaNum, String listaAerovia, String aeropuerto) {
         String[] listaNumerica = listaNum.split(",");
         if (aeropuerto.equals("Barcelona")) {
@@ -538,7 +541,12 @@ public class MenuRemoto extends javax.swing.JFrame {
             textoAeroM.setText(listaAerovia);
         }
     }
-
+    
+    /**
+     * 
+     * @param aeropuerto
+     * @return 
+     */
     public String obtenerDisPistas(String aeropuerto) {
         if (aeropuerto.equals("Barcelona")) {
             return arrayToString(listaPuertasBar);
@@ -546,8 +554,13 @@ public class MenuRemoto extends javax.swing.JFrame {
             return arrayToString(listaPuertas);
         }
     }
-
-    private static String arrayToString(Boolean[] array) {
+    
+    /**
+     * 
+     * @param array
+     * @return 
+     */
+    private String arrayToString(Boolean[] array) {
         String listaString = "";
 
         // Iterar sobre los elementos del array
