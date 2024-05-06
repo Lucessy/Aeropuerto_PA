@@ -64,14 +64,16 @@ public abstract class Servidor {
         iniciarCentral();
 
         try {
+            // Crea la conexión con el puerto dado
             servidor = new ServerSocket(5000);
             System.out.println("Servidor arrancando. . .");
             conexion = servidor.accept();
+            // Crea los canales de entrada y salida
             salida = new DataOutputStream(conexion.getOutputStream());
             entrada = new DataInputStream(conexion.getInputStream());
 
             while (true) {
-                // Recibimos si alguna puerta esta cerrada
+                // Recibimos si alguna puerta esta cerrada o abierta
                 botonesPistas = entrada.readUTF();
                 listaPistasMadrid = stringToArray(botonesPistas);
                 madrid.setListaBotonPista(listaPistasMadrid);
@@ -136,7 +138,7 @@ public abstract class Servidor {
     }
 
     /**
-     *
+     *  Agrega el avión a la lista
      * @param avion
      */
     public static void agregarAvion(Avion avion) {
@@ -144,7 +146,7 @@ public abstract class Servidor {
     }
 
     /**
-     *
+     *  Agrega el bus a la lista
      * @param bus
      */
     public static void agregarBus(Bus bus) {
@@ -175,7 +177,7 @@ public abstract class Servidor {
     }
 
     /**
-     *
+     *  Muestra el bus dado en la interfaz hacía la Ciudad
      * @param bus
      */
     public static synchronized void mostrarBusCiudad(Bus bus) {
@@ -190,7 +192,7 @@ public abstract class Servidor {
     }
 
     /**
-     *
+     *  Muestra el bus dado en la interfaz hacía el Aeropuerto
      * @param bus
      */
     public static synchronized void mostrarBusAeropuerto(Bus bus) {
@@ -205,12 +207,12 @@ public abstract class Servidor {
     }
 
     /**
-     *
-     * @param avion
-     * @param agregar
-     * @param textField
-     * @param listaAviones
-     * @param aeropuerto
+     *  Actualiza los aviones dado un:
+     * @param avion 
+     * @param agregar si se añade o se quita de la lista, en la interfaz
+     * @param textField el nombre del campo donde se va a modificar
+     * @param listaAviones que se escribirán en la función
+     * @param aeropuerto donde se actualizará los valores nuevos
      */
     public static void actualizarAviones(Avion avion, boolean agregar, String textField, Queue<Avion> listaAviones, String aeropuerto) {
         try {
@@ -230,30 +232,22 @@ public abstract class Servidor {
     }
 
     /**
-     *
-     * @param textField
-     * @param texto
-     * @param aeropuerto
+     *  Actualiza el avión dado un
+     * @param textField el nombre del campo donde se va a modificar
+     * @param idAvion el id del avión
+     * @param aeropuerto donde se actualizará los valores nuevos
      */
-    public static void actualizarAvionesSolitario(String textField, String texto, String aeropuerto) {
+    public static void actualizarAvionesSolitario(String textField, String idAvion, String aeropuerto) {
         try {
             semActCampoSol.acquire();
 
-            menu.actualizarCampoAvionSolitario(textField, texto, aeropuerto);
+            menu.actualizarCampoAvionSolitario(textField, idAvion, aeropuerto);
 
             semActCampoSol.release();
         } catch (InterruptedException ex) {
         }
     }
 
-    /**
-     *
-     * @param boton
-     * @param flagBoton
-     */
-    public static void botonPista(String boton, boolean flagBoton) {
-        // implementar luego
-    }
 
     /**
      * Consideramos que estará pausado cuando los hilos duermen, por lo que se
@@ -266,7 +260,7 @@ public abstract class Servidor {
     }
 
     /**
-     *
+     *  Reanuda el sistema desbloqueando el lock adquirido.
      */
     public static void reanudarSistema() {
         estaPausado = false;
@@ -274,7 +268,8 @@ public abstract class Servidor {
     }
 
     /**
-     *
+     *  Duerme los hilos dado un valor de inicio y de final en milisegundos,
+     * si el sistema está pausado, el hilo se quedará en un Lock
      * @param inicioMiliseg
      * @param finalMiliseg
      */
@@ -291,7 +286,7 @@ public abstract class Servidor {
     }
 
     /**
-     *
+     *  Método para pasar una String a un Array
      * @param cadena
      * @return
      */
@@ -311,7 +306,7 @@ public abstract class Servidor {
     }
 
     /**
-     *
+     *  Método para pasar una Queue a una String
      * @param cola
      * @return
      */

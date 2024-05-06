@@ -15,7 +15,8 @@ public class Log {
     private Lock lockLog = new ReentrantLock(true);
     
     /**
-     * 
+     * Constructor dónde se crea al archivo, si este ya existía se borra
+     * y se vuelve a crear
      * @param nombre
      * @param encoding 
      */
@@ -35,7 +36,8 @@ public class Log {
     }
     
     /**
-     * 
+     * Método para escribir el evento, con la fecha, hora y segundo, y el aeropuerto
+     * en donde ocurrió
      * @param evento
      * @param aeropuerto 
      */
@@ -52,7 +54,7 @@ public class Log {
     }
     
     /**
-     * 
+     * Método para escribir comentario del sistema
      * @param evento 
      */
     public synchronized void escribirArchivo(String evento) {
@@ -69,7 +71,7 @@ public class Log {
     }
     
     /**
-     * 
+     * Método para cerrar el archivo de texto.
      */
     public void cerrar() {
         if (writer != null) {

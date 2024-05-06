@@ -146,7 +146,7 @@ public class Aeropuerto {
     }
 
     /**
-     *
+     *  Entra en la puerta de Desembarque
      * @param avion
      */
     public void puertasDesembarque(Avion avion) {
@@ -187,7 +187,7 @@ public class Aeropuerto {
     }
 
     /**
-     *
+     *  Sale de la puerta de Embarque/Desembarque correspondiente
      * @param avion
      */
     public void salirPuertasEmbarque(Avion avion) {
@@ -224,7 +224,7 @@ public class Aeropuerto {
     }
 
     /**
-     *
+     *  Entra en el área de rodaje
      * @param avion
      */
     public void areaRodaje(Avion avion) {
@@ -232,7 +232,7 @@ public class Aeropuerto {
     }
 
     /**
-     *
+     *  Accede a la pista disponible
      * @param avion
      */
     public void pista(Avion avion) {
@@ -262,7 +262,7 @@ public class Aeropuerto {
     }
 
     /**
-     *
+     *  Solicita la pista en vuelo hasta obtenerla
      * @param aeropuertoAntiguo
      * @param avion
      */
@@ -291,7 +291,7 @@ public class Aeropuerto {
     }
 
     /**
-     *
+     *  Libera la pista, en caso de estar cerrada no lo hace
      * @param avion
      */
     public void liberarPista(Avion avion) {
@@ -342,7 +342,7 @@ public class Aeropuerto {
     }
 
     /**
-     *
+     *  Accede a la aerovía de su aeropuerto
      * @param avion
      */
     public void accederAerovia(Avion avion) {
@@ -350,6 +350,7 @@ public class Aeropuerto {
     }
 
     /*FIN ZONAS DE ACTIVIDAD*/
+    
     /**
      * Obtiene el número máximo de pasajeros que puede coger del aeropuerto dada
      * la variable numPasajerosMax
@@ -384,7 +385,8 @@ public class Aeropuerto {
     }
     
     /**
-     * 
+     *  Verifica los valores de abierto/cerrado de las pistas en cada entrada de la
+     * conexión socket y si hay cambios, libera la pista o la adquiere.
      */
     public void cerrarAbrirPistas() {
         lockPista.lock();
