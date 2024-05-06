@@ -17,6 +17,8 @@ public class Menu extends javax.swing.JFrame {
     private Log log;
     private JTextField[] textoPistas;
     private JTextField[] textoPistasB;
+    //ImageIcon imageIcon = new ImageIcon("avion.png");
+    //jLabelAvion.setIcon(imageIcon);
 //    private MenuRemoto menuR;
 
     /**
@@ -106,6 +108,7 @@ public class Menu extends javax.swing.JFrame {
         textoAeroM = new javax.swing.JTextField();
         botonReanudar = new javax.swing.JToggleButton();
         botonPausar = new javax.swing.JToggleButton();
+        jLabelAvion = new javax.swing.JLabel();
         bgBarcelona = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
@@ -419,6 +422,9 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         bgAero.add(botonPausar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, -1, -1));
+
+        jLabelAvion.setText("jLabel1");
+        bgAero.add(jLabelAvion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 80, 60));
 
         bg.add(bgAero, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 830, 200));
 
@@ -1037,6 +1043,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelAvion;
     private javax.swing.JLabel javaeatlogo1;
     private javax.swing.JTextField textoAeroB;
     private javax.swing.JTextField textoAeroM;
