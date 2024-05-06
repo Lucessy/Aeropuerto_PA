@@ -153,16 +153,6 @@ public abstract class Servidor {
     }
 
     /**
-     * Da los pasajeros del aeropuerto determinado
-     *
-     * @param aeropuerto
-     * @return AtomicInteger, el contador de los pasajeros
-     */
-    public static AtomicInteger getPasajeros(Aeropuerto aeropuerto) {
-        return aeropuerto.getPasajerosAeropuerto();
-    }
-
-    /**
      * Suma la cantidad dada a los pasajeros del aeropuerto (Puede ser un número
      * negativo) y lo actualiza en el Menu del aeropuerto
      *
