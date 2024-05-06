@@ -555,7 +555,7 @@ public class MenuRemoto extends javax.swing.JFrame {
     }
     
     /**
-     * 
+     * Devuelve una cadena con los valores de false/true de las pistas del aeropuerto
      * @param aeropuerto
      * @return 
      */
@@ -568,7 +568,7 @@ public class MenuRemoto extends javax.swing.JFrame {
     }
     
     /**
-     * 
+     * Método que convierte un Array al String
      * @param array
      * @return 
      */

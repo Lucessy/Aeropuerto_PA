@@ -705,7 +705,7 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     /**
-     * 
+     * Actualiza el número de pasajeros del aeropuerto
      * @param pasajeros
      * @param nombreAeropuerto 
      */
@@ -718,7 +718,7 @@ public class Menu extends javax.swing.JFrame {
     }
     
     /**
-     * 
+     * Actualiza el bus dirección Ciudad del aeropuerto
      * @param bus
      * @param nombreAeropuerto 
      */
@@ -731,7 +731,7 @@ public class Menu extends javax.swing.JFrame {
     }
     
     /**
-     * 
+     * Actualiza el bus dirección Aeropuerto del aeropuerto
      * @param bus
      * @param nombreAeropuerto 
      */
@@ -744,7 +744,7 @@ public class Menu extends javax.swing.JFrame {
     }
     
     /**
-     * 
+     * Actualiza el campo de aviones, dada una lista y el nombre del campo que se va a modificar
      * @param textField
      * @param listaAviones
      * @param nombreAeropuerto 
@@ -783,7 +783,7 @@ public class Menu extends javax.swing.JFrame {
     }
     
     /**
-     * 
+     * Actualiza el campo del avión, dada una idAvion y el nombre del campo que se va a modificar
      * @param textField
      * @param idAvion
      * @param nombreAeropuerto 
@@ -809,7 +809,7 @@ public class Menu extends javax.swing.JFrame {
     }
     
     /**
-     * 
+     * Actualiza el color de las pistas dependiendo si está cerrada o abierta.
      * @param esMadrid
      * @param listaPuertas 
      */
