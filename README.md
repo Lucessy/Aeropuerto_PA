@@ -78,6 +78,7 @@ java -cp bin Servidor
 
 ## 👩‍💻 Autora
 
-- **Luciana Paola Díaz**  
+- **Luciana Paola Díaz**
+- **Sandra Hernandez**
   Universidad de Alcalá – Escuela Politécnica Superior  
   Paradigmas Avanzados de Programación – 2025  
